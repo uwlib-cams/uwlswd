@@ -63,6 +63,8 @@
                     href="{concat($hrefBase,'.ttl')}"/>
                 <link rel="alternate" type="application/turtle"
                     href="{concat($hrefBase,'.json')}"/>
+                <link rel="alternate" type="application/marcxml+xml"
+                    href="{concat($hrefBase,'.xml')}"/>
                 
                 
             </head>
@@ -71,7 +73,7 @@
                 <p>The following table represents a list standardizing terms used to designate genres of newspapers. The perspective and scope of the list reflects types of papers cataloged by members of the <a href="https://www.neh.gov/us-newspaper-program">United States Newspaper Program</a>.</p>
                 <p>The page source (the underlying HTML markup) of the table is an RDF dataset (using RDFa) comprising an RDF vocabulary for the Newspaper Genre List. The <a href="https://www.lib.washington.edu/gmm/collections/mcnews/ngl">original HTML page</a> is still available.</p>
                 <p>The intent is for these terms to provide additional access in conjunction with authorized LC subject headings or other vocabularies.</p>  
-                <p>The RDF Newspaper Genre List is available in this format, HTML with embedded RDFa, as well as <a href="{concat($hrefBase,'.nt')}">N-Triples</a>, <a href="{concat($hrefBase,'.rdf')}">RDF/XML,</a> <a href="{concat($hrefBase,'.json')}">JSON-LD,</a> and <a href="{concat($hrefBase,'.ttl')}">Turtle</a>. All data is in the public domain and may be used without restiction.</p>
+                <p>The RDF Newspaper Genre List is available in this format, HTML with embedded RDFa, as well as <a href="{concat($hrefBase,'.nt')}">N-Triples, </a><a href="{concat($hrefBase,'.rdf')}">RDF/XML, </a> <a href="{concat($hrefBase,'.json')}"> JSON-LD, </a><a href="{concat($hrefBase,'.ttl')}">Turtle</a>, and <a href="{concat($hrefBase,'.xml')}">MARC-XML</a>. All data is in the public domain and may be used without restiction.</p>
                 
                 
                 <h2>Triples for "<xsl:value-of select="$name"/>"</h2>
