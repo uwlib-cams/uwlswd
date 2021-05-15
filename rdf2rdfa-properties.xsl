@@ -62,7 +62,7 @@
             <body about="https://doi.org/10.6069/uwlib.55.d.3">
                 <h1><xsl:value-of select="$name"/></h1>
                 <p>RDF dataset describing properties used in University of Washington Libraries RDF data.</p>
-                <p>The RDF dataset below is a description of supplemental local properties needed to describe University of Washington Libraries resources. It is available in this format, HTML with embedded RDFa, as well as <a href="{concat($hrefBase,'.nt')}">N-Triples</a>, <a href="{concat($hrefBase,'.rdf')}">RDF/XML</a> and <a href="{concat($hrefBase,'.ttl')}">Turtle</a>. All data is in th public domain and may be used without restiction.</p>
+                <p>The RDF dataset below is a description of supplemental local properties needed to describe University of Washington Libraries resources. It is available in this format, HTML with embedded RDFa, as well as <a href="{concat($hrefBase,'.nt')}">N-Triples</a>, <a href="{concat($hrefBase,'.rdf')}">RDF/XML</a> and <a href="{concat($hrefBase,'.ttl')}">Turtle</a>. All data is in th public domain and may be used without restriction.</p>
                 
                 
                 <h2>Triples for "<xsl:value-of select="$name"/>"</h2>
