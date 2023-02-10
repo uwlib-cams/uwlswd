@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource xmlns="http://datacite.org/schema/kernel-4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-4 https://schema.datacite.org/meta/kernel-4.3/metadata.xsd">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
   <identifier identifierType="DOI">10.6069/UWLIB.55.D.5</identifier>
   <creators>
     <creator>
@@ -15,9 +15,11 @@
   <dates>
     <date dateType="Issued">2021</date>
   </dates>
+  <sizes/>
+  <formats/>
   <version>1-0-0</version>
   <rightsList>
-    <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
+    <rights rightsURI="https://creativecommons.org/publicdomain/zero/1.0/legalcode">Creative Commons Zero v1.0 Universal</rights>
   </rightsList>
   <descriptions>
     <description xml:lang="EN-us" descriptionType="Abstract">Thesaurus for designating genres of newspapers. A SKOS vocabulary serialized as HTML/RDFa, RDF/XML, nTriples, JSON-LD, and Turtle.</description>
