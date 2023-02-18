@@ -1,2 +1,2 @@
-# uwlswd_scripts
-Scripting to publish, transform, and otherwise manage University of Washington Libraries' semantic web data (UWLSWD)
+# UWLSWD
+[Documentation](https://github.com/uwlib-cams/uwlswd/wiki) and management tools for University of Washington Libraries Semantic Web Data
