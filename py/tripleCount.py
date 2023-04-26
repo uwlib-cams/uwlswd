@@ -1,10 +1,10 @@
 import rdflib
 
 
-g1 = rdflib.Graph().parse("../uwlswd_vocabs/newspaperGenreList.ttl", format="turtle")
-g2 = rdflib.Graph().parse("../uwlswd_vocabs/newspaperGenreList.nt", format="nt")
-g3 = rdflib.Graph().parse("../uwlswd_vocabs/newspaperGenreList.json", format="json-ld")
-g4 = rdflib.Graph().parse("../uwlswd_vocabs/newspaperGenreList.rdf", format="xml")
+g1 = rdflib.Graph().parse("./uwlswd_vocabs/newspaper_genre_list.ttl", format="turtle")
+g2 = rdflib.Graph().parse("./uwlswd_vocabs/newspaper_genre_list.nt", format="nt")
+g3 = rdflib.Graph().parse("./uwlswd_vocabs/newspaper_genre_list.json", format="json-ld")
+g4 = rdflib.Graph().parse("./uwlswd_vocabs/newspaper_genre_list.rdf", format="xml")
 
 
 #result = g1.parse("../uwlswd_vocabs/newspaperGenreList.ttl", format="turtle")
