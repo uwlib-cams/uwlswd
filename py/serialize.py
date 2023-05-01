@@ -68,10 +68,10 @@ def serialize(format, directory, file_name):
 
     
     if format != "ttl":
-        turtle = g.serialize(format='ttl')
+        turtle = g.serialize(format='turtle')
         path = directory + file_name + "." + "ttl"
         file = open(path, 'w')
-        file.write(nt)
+        file.write(turtle)
         file.close()
         print(file_name + "." + "ttl" + " generated")
 
