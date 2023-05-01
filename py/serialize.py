@@ -12,7 +12,7 @@ import re
 def prompt_user(): 
     # get file path
     file_prompt = dedent("""Enter the path of the file relative to the working directory. 
-    The file must have the extenstion ".rdf", ".ttl", ".json", or ".nt"
+    The file must have the extenstion ".rdf", ".ttl", ".jsonld", or ".nt"
     For example: '../uwlswd_vocabs/newspaper_genre_list.ttl'
     > """)
     file_path = input(file_prompt)
@@ -43,7 +43,7 @@ split = split[0].split(".")
 format = split.pop()
 file_name = split.pop()
 
-if format not in ["json","rdf","ttl","nt"]:
+if format not in ["jsonld","rdf","ttl","nt"]:
     print("Error: file is not one of the accepted formats")
     exit(0)
 
@@ -78,10 +78,10 @@ def serialize(format, directory, file_name):
 
     if format != "json":
         nt = g.serialize(format='json-ld')
-        path = directory + file_name + "." + "json"
+        path = directory + file_name + "." + "jsonld"
         file = open(path, 'w')
         file.write(nt)
         file.close()
-        print(file_name + "." + "json" + " generated")
+        print(file_name + "." + "jsonld" + " generated")
 
 serialize(format, directory, file_name)
