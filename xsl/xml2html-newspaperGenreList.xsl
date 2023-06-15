@@ -46,7 +46,7 @@
                 </div>
                 
                 <div name="#genreList">                      
-                    <xsl:for-each-group select="//marc:record/marc:datafield[@tag='155' or @tag='455']" group-by="substring(marc:subfield, 1, 5)">
+                    <xsl:for-each-group select="//marc:record/marc:datafield[@tag='155' or @tag='455']" group-by="substring(marc:subfield, 1, 9)">
                         <xsl:sort select="current-grouping-key()" data-type="text" order="ascending"/>
                         <div id="{substring(current-grouping-key(), 1, 1)}">
                             <xsl:apply-templates select="current-group()"/>
