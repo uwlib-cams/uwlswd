@@ -5,7 +5,6 @@
 
 from textwrap import dedent
 import rdflib
-from rdflib import *
 import os
 import re 
 
