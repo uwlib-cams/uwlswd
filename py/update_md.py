@@ -1,3 +1,5 @@
+# this is a test of what generation of json metadata for html+rdfa serialization could look like
+
 from textwrap import dedent
 import rdflib
 import json
@@ -9,7 +11,7 @@ import re
 def save_to_file(json_data, xmlfile):
     
     root = ET.Element("data")
-    root.text = json.dumps(json_data)
+    root.text = json.dumps(json_data, indent=4)
     tree = ET.ElementTree(root)
     tree.write(xmlfile, xml_declaration=True, encoding="UTF-8", pretty_print = True)
 
@@ -44,6 +46,10 @@ def edit_md(dict, key):
     value = input(value_prompt)
     dict[key] = value
     print(f'\n    \033[34m{key}\033[00m set to \033[34m{value}\033[00m')
+    answer = input("    is this correct (y/n)> ")
+    if answer.lower() == 'n':
+        edit_md(dict, key)
+        
 
 def prompt_md(directory, file_name):
     if os.path.exists(f'{directory}{file_name}_metadata.xml'):

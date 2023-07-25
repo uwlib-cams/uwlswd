@@ -1,10 +1,10 @@
-# TO DO: Write a proper tool for serializing and re-serializing files
-    # get file name from user input
-    # determine source serialization from user input
-    # parse source file, output remaining serializations
+# Function for serializing dataset/vocabulary
+# Produces rdf/xml, nt, ttl, and json-ld formats
 
 import rdflib
 
+# this function processes data as rdflib graph and parses to missing formats
+# serializations are saved in the same location as the inputted file
 def serialize(format, file_path, directory, file_name):
     g = rdflib.Graph().parse(file_path)
 
