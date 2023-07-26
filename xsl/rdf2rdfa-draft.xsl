@@ -21,12 +21,9 @@
     
     <!-- rdfa xsl -->
     <xsl:include href="rdf2rdfa-table.xsl"/>
+
     
-    <xsl:strip-space elements="*"/>
-    
-    <!-- get from metadata file -->
-    <!-- metadata thought - one big file or minis? -->
-    
+    <!-- get from metadata file -->   
     <xsl:variable name="file_path" select="base-uri()"/>
     
     <!-- parse metadata file -->
@@ -36,18 +33,18 @@
     </xsl:variable>
     
     <!-- name of dataset in plain text -->
-    <xsl:variable name="datasetName" select="$metadata_file/j:array/j:map/j:string[@key='datasetName']"/>  
+    <xsl:variable name="datasetName" select="$metadata_file/j:map/j:string[@key='datasetName']"/>  
     
     <!-- description for html -->    
-    <xsl:variable name="description" select="$metadata_file/j:array/j:map/j:string[@key = 'description']"/>
+    <xsl:variable name="description" select="$metadata_file/j:map/j:string[@key = 'description']"/>
     
     <!-- Filepath for generating links to serializations -->
-    <xsl:variable name="path" select="$metadata_file/j:array/j:map/j:string[@key = 'path']"/>
+    <xsl:variable name="path" select="$metadata_file/j:map/j:string[@key = 'path']"/>
     
     <!-- file name for generating links to serializations -->
-    <xsl:variable name="fileName" select="$metadata_file/j:array/j:map/j:string[@key = 'fileName']"/>
+    <xsl:variable name="fileName" select="$metadata_file/j:map/j:string[@key = 'fileName']"/>
 
-    <xsl:variable name="doi" select="$metadata_file/j:array/j:map/j:string[@key = 'doi']"/>
+    <xsl:variable name="doi" select="$metadata_file/j:map/j:string[@key = 'doi']"/>
     
     <xsl:template match="/">
         <!-- HTML declaration -->
@@ -59,6 +56,8 @@
                 <title>
                     <xsl:value-of select="$datasetName"/>
                 </title>
+                <!-- schema.org content -->
+                <!-- find out what variables are fixed vs unique -->
                 <script type="application/ld+json">
                     {
                     "@context" : "http://schema.org" ,
@@ -133,8 +132,26 @@
                             <th>Predicate</th>
                             <th>Object</th>
                         </tr>
-                        <xsl:apply-templates select="rdf:RDF" mode="resource"/>
-                        <xsl:apply-templates select="rdf:RDF" mode="bnode"/>
+                        <!-- add missing dct:hasFormat before passing to templates -->
+                        <xsl:variable name="file_plus">
+                            <xsl:copy select=".">
+                                <xsl:copy select="rdf:RDF">
+                                    <xsl:copy-of select="rdf:Description"/>
+                                    <xsl:element name="rdf:Description">
+                                        <xsl:attribute name="rdf:about">
+                                            <xsl:value-of select="$doi"/>
+                                        </xsl:attribute>
+                                        <xsl:element name="dct:hasFormat">
+                                            <xsl:attribute name="rdf:resource">
+                                                <xsl:value-of select="concat($path, $fileName,'.rdf')"/>
+                                            </xsl:attribute>
+                                        </xsl:element>
+                                    </xsl:element>
+                                </xsl:copy>
+                            </xsl:copy>
+                        </xsl:variable>
+                        <xsl:apply-templates select="$file_plus/rdf:RDF" mode="resource"/>
+                        <xsl:apply-templates select="$file_plus/rdf:RDF" mode="bnode"/>
                     </table>
                     <hr/>
                     <hr/>
