@@ -1,8 +1,19 @@
+# this is a test of what generation of json metadata for html+rdfa serialization could look like
+
 from textwrap import dedent
 import rdflib
 import json
+import xmltodict
+import lxml.etree as ET
 import os
 import re 
+
+def save_to_file(json_data, xmlfile):
+    
+    root = ET.Element("data")
+    root.text = json.dumps(json_data, indent=4)
+    tree = ET.ElementTree(root)
+    tree.write(xmlfile, xml_declaration=True, encoding="UTF-8", pretty_print = True)
 
 def create_md(directory, file_name):
     name_prompt = dedent("""\n    Enter dataset name
@@ -35,11 +46,18 @@ def edit_md(dict, key):
     value = input(value_prompt)
     dict[key] = value
     print(f'\n    \033[34m{key}\033[00m set to \033[34m{value}\033[00m')
+    answer = input("    is this correct (y/n)> ")
+    if answer.lower() == 'n':
+        edit_md(dict, key)
+        
 
 def prompt_md(directory, file_name):
-    if os.path.exists(f'{directory}{file_name}_metadata.json'):
-        with open(f'{directory}{file_name}_metadata.json') as file:
-            md = json.load(file)
+    if os.path.exists(f'{directory}{file_name}_metadata.xml'):
+        with open(f'{directory}{file_name}_metadata.xml') as file:
+            file_dict = xmltodict.parse(file.read())
+            file_dict = file_dict["data"].translate({ord(i): None for i in '[]'})
+        print(file_dict)  
+        md = json.loads(file_dict)
         
         for i in md.keys():
               print(f'\n    \033[34m{i}\033[00m is set as \033[34m{md[i]}\033[00m')
@@ -48,8 +66,7 @@ def prompt_md(directory, file_name):
                   edit_md(md, i)
         
         json_dict = json.dumps(md, indent=4)
-        with open(f'{directory}/{file_name}_metadata.json', 'w') as file:
-            file.write(json_dict)
+        save_to_file(md, f'{directory}/{file_name}_metadata.xml')
 
     else: 
         create_md(directory, file_name)
