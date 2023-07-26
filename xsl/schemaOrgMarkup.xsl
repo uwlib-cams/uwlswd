@@ -14,11 +14,15 @@
 
     <!-- Variables -->
     <!-- Tried to leave below var. only in calling template but could not transform -->
-    <xsl:variable name="uwlswdBaseIri" select="document('https://doi.org/10.6069/uwlib.55.a')"/>
+    <!-- line commented out here defining a variable has revised local path in line below this comment 
+        <xsl:variable name="uwlswdBaseIri" select="document('https://doi.org/10.6069/uwlib.55.a')"/>-->
+    <xsl:variable name="uwlswdBaseIri" select="document('../../uwlswd_datasets/void_description_of_the_dataset_university_of_washington_libraries_semantic_web_data.html')"/>
     <xsl:variable name="uwlIri"
         >https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries</xsl:variable>
     <!-- VARIABLE BELOW PULLS DATA FROM FILES IN LOCAL WORKSPACE / CONFIRM PRIOR TO TRANSFORMATION -->
-    <xsl:variable name="agentRdfXml" select="document('../../contentdmToRdfXml/uwlswdWorkspace/agent-1-0-2.rdf')"/>
+    <!--changed the path below to a local path
+    <xsl:variable name="agentRdfXml" select="document('../../contentdmToRdfXml/uwlswdWorkspace/agent-1-0-2.rdf')"/>-->
+    <xsl:variable name="agentRdfXml" select="document('../../uwlswd_datasets/instances_of_the_agent_class.rdf')"/>
 
     <xsl:template name="jsonMarkup1"> 
         { 

@@ -17,18 +17,9 @@
         040 >> not used in RDF.
         075 >> extract $0 and $1 values; remaining subfields not used.
         155 >> only $a exist in NGL MARC records; extract only $a.
-               future possibility: may need to extract other subfields.
         260 >> Output full field as a single note.
-               Problem with 260:
-                   We create a skos:Collection for each 260.
-                   Data consumers would expect an enumeration of skos:members.
-                   We did not output members.
-                   We could have tested for the presence of a $a, if present, tokenize on the comma, lookup token in the MARC data as a string (presence of $0 or $1 not anticipated, and those subfield values are absent in the current MARC XML for the NGL), retrieve the IRI for the concept and output as the value of skos:member with terminal punctuation stripped.
-                   Why this was not done: all members are not listed in the MARC 260$a, only a few exemplary concepts. The note seems sufficient for describing the concept. Why go to the trouble of writng the code just to produce an incomplete member list? In addition, there is a strong possibility that tokenization of the $a value string would fail if there was a comma in the concept label. Finally, it is also likely the text string in the 260$a will not find a perfect match in any 155$a despite there being an actual match not duplicated in the text strings because of small differences in the string at 260$a and at 155$a.
+               We create a skos:Collection for each 260.
         360 >> Output full field as a single note
-               Problem with 360 similar to 260.
-               No attempt to parse and reconcile strings in 360$a.
-               Value just output as a single note.
         455 >> only $a exist in NGL MARC records; extract only $a.
         555 >> Output $1 value as value of one of 3 skos properties (either skos:broader, skos:narrower, or skos:related).
                Problem with $1:
@@ -53,7 +44,7 @@
             1.b. The 360 is truncated. Add the correct full text from the HTML.
         2. Is MARC 750 appropriately used in current MARC NGL? Shouldn't those be 755s?
             2.a. Note: 750s in current NGL always points to an authority.
-        3. NGL IRIs entered in 55$1 should be moved to 555$0
+        3. NGL IRIs entered in 555$1 should be moved to 555$0
     -->
     <xsl:key name="lookup" match="marc:record" use="marc:datafield[@tag = '155']"/>
     <xsl:template match="/">
