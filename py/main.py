@@ -68,15 +68,11 @@ while len(split) > 1:
 split = split[0].split(".")
 format = split.pop()
 file_name = split.pop()
-#output_file = f'{directory}{file_name}.html'
-output_file = "test_html.xsl"
+output_file = f'{directory}{file_name}.html'
 
 if format not in ["jsonld","rdf","ttl","nt"]:
     print("Error: file is not one of the accepted formats")
     exit(0)
-
-# check existence/accuracy of metadata for html+rdfa
-prompt_md(directory, file_name)
 
 # serialize 
 print(dedent(f"""{'=' * 20}
@@ -84,6 +80,9 @@ SERIALIZING DATA
 {'=' * 20}"""))
 
 serialize(format, file_path, directory, file_name)
+
+# check existence/accuracy of metadata for html+rdfa
+# prompt_md(directory, file_name)
 
 # generate html+rdfa
 print(dedent(f"""{'=' * 20}
