@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource xmlns="http://datacite.org/schema/kernel-4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-4 file:/C:/Users/tgis/Documents/XML/schemas/datacite/dataciteSchema.xsd">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
   <identifier identifierType="DOI">10.6069/UWLIB.55.D.2</identifier>
   <creators>
     <creator>
-      <creatorName>University of Washington Libraries</creatorName>
+      <creatorName>University Of Washington Libraries</creatorName>
     </creator>
   </creators>
   <titles>
@@ -12,16 +12,19 @@
   <publisher>University of Washington Libraries</publisher>
   <publicationYear>2018</publicationYear>
   <resourceType resourceTypeGeneral="Dataset">LibraryData</resourceType>
-  <language>en-US</language>
+  <dates>
+    <date dateType="Issued">2018</date>
+  </dates>
+  <language>en</language>
   <sizes>
     <size>17 KB</size>
   </sizes>
   <formats>
     <format>XHTML+RDFa 1.1</format>
   </formats>
-  <version>1-0-0</version>
+  <version/>
   <rightsList>
-    <rights rightsURI="https://creativecommons.org/licenses/zero/1.0/">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
+    <rights rightsURI="https://creativecommons.org/licenses/zero/1.0">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
   </rightsList>
   <descriptions>
     <description descriptionType="Abstract">Platforms (or applications) used to process RDF datasets.</description>
