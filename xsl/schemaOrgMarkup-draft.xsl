@@ -13,6 +13,9 @@
     xmlns:datacite="http://datacite.org/schema/kernel-4" version="3.0">
     <xsl:strip-space elements="*"/>
     
+    <!-- rdfa xsl -->
+    <xsl:include href="creators.xsl"/>
+    
     <!-- may need this, may not -->
     <xsl:variable name="uwlIri">https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries</xsl:variable>
     
@@ -21,61 +24,53 @@
         <xsl:variable name="metadata_file" select="document($metadata_file_name)"/>
         {
         "@context" : "http://schema.org" ,
-        "@type" : "Dataset" ,
-        "@id" : "<xsl:value-of select="concat('https://doi.org/', $metadata_file/datacite:resource/datacite:identifier[@identifierType = 'DOI'])"/>" ,
-        "name" : "<xsl:value-of select="normalize-space($metadata_file/datacite:resource/datacite:titles/datacite:title[1])"/>" ,
-        "description" : "<xsl:value-of select="normalize-space($metadata_file/datacite:resource/datacite:descriptions/datacite:description[1])"/>" ,
-        <!--
-        "creator" : { 
-            "@type" : "Organization" , 
-            "@id" : "<xsl:value-of select="$uwlIri"/>" ,
-            "name" : "<xsl:value-of select="$metadata_file/resource/creators/creator/creatorName[1]"/>" , 
-            "url" : "<xsl:value-of select="$agentRdfXml/rdf:RDF/rdf:Description[@rdf:about = $uwlIri]/schema:url/@rdf:resource"/>" , 
-            "sameAs" : [ <xsl:for-each select="$agentRdfXml/rdf:RDF/rdf:Description[@rdf:about = $uwlIri]/owl:sameAs">
-                <xsl:choose>
-                    <xsl:when test="position() != last()">
-                        <xsl:text>"</xsl:text><xsl:value-of select="@rdf:resource"/><xsl:text>" , </xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>"</xsl:text><xsl:value-of select="@rdf:resource"/><xsl:text>"</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each> ] 
-        } , 
-        "publisher" : {
-            "@type" : "Organization" , 
-            "@id" : "<xsl:value-of select="$uwlIri"/>" ,
-            "name" : "<xsl:value-of select="$agentRdfXml/rdf:RDF/rdf:Description[@rdf:about = $uwlIri]/dpla:providedLabel"/>" , 
-            "url" : "<xsl:value-of select="$agentRdfXml/rdf:RDF/rdf:Description[@rdf:about = $uwlIri]/schema:url/@rdf:resource"/>" , 
-            "sameAs" : [ <xsl:for-each select="$agentRdfXml/rdf:RDF/rdf:Description[@rdf:about = $uwlIri]/owl:sameAs">
-                <xsl:choose>
-                    <xsl:when test="position() != last()">
-                        <xsl:text>"</xsl:text><xsl:value-of select="@rdf:resource"/><xsl:text>" , </xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>"</xsl:text><xsl:value-of select="@rdf:resource"/><xsl:text>"</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each> ] 
-        } , -->
-        "creator" : { 
-            "@type" : "Organization" ,
-            "@id" : "https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries" ,
-            "name" : "University of Washington Libraries" , 
-            "url" : "https://www.lib.washington.edu" , 
-            "sameAs" : [ "http://viaf.org/viaf/139541794" , "http://www.wikidata.org/entity/Q7896575" ] 
-        } , 
-        "publisher" : { 
-            "@type" : "Organization" ,
-            "@id" : "https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries" ,
-            "name" : "University of Washington Libraries" , 
-            "url" : "https://www.lib.washington.edu" , 
-            "sameAs" : [ "http://viaf.org/viaf/139541794" , "http://www.wikidata.org/entity/Q7896575" ] 
-        } , 
-        "datePublished" : "<xsl:value-of select="$metadata_file/datacite:resource/datacite:dates/datacite:date[@dateType='Issued']"/>" , <!-- may need to change -->
-        "inLanguage" : "<xsl:value-of select="$metadata_file/datacite:resource/datacite:language"/>" ,
+        "@type" : "Dataset" , <!-- will type always be dataset? -->
+        "@id" : "<xsl:choose>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']">
+                <xsl:value-of select="lower-case(concat('https://doi.org/', $metadata_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
+            </xsl:when>
+            <xsl:otherwise>
+                VALUE NOT FOUND
+            </xsl:otherwise>
+        </xsl:choose>",
+        "name" : "<xsl:choose>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:titles/datacite:title[not(@titleType)]">
+                <xsl:value-of select="normalize-space($metadata_file/datacite:resource/datacite:titles/datacite:title[not(@titleType)])"/>
+            </xsl:when>
+            <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
+        </xsl:choose>" ,
+        "description" : "<xsl:choose>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:descriptions/datacite:description[@descriptionType = 'Abstract']">
+                <xsl:value-of select="normalize-space($metadata_file/datacite:resource/datacite:descriptions/datacite:description[@descriptionType = 'Abstract'])"/>
+            </xsl:when>
+            <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
+        </xsl:choose>" ,
+        <xsl:choose>
+            <xsl:when test="count($metadata_file/datacite:resource/datacite:creators/datacite:creator) gt 1">"creator" : [
+           <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/>
+        ],</xsl:when>
+            <xsl:otherwise>"creator" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/></xsl:otherwise>
+        </xsl:choose>
+        "publisher" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:publisher"/>
+        "datePublished" : "<xsl:choose>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:dates/datacite:date[@dateType='Issued']">
+                <xsl:value-of select="$metadata_file/datacite:resource/datacite:dates/datacite:date[@dateType='Issued']"/>
+            </xsl:when>
+            <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
+        </xsl:choose>",
+        "inLanguage" : "<xsl:choose>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:language">
+                <xsl:value-of select="$metadata_file/datacite:resource/datacite:language"/>
+            </xsl:when>
+            <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
+        </xsl:choose>",
         "encodingFormat" : "application/xhtml+xml" ,
-        "license" : <xsl:value-of select="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI"/>
+        "license" : "<xsl:choose>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI">
+                <xsl:value-of select="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI"/>
+            </xsl:when>
+            <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
+        </xsl:choose>"
         }
     </xsl:template>
 </xsl:stylesheet>
