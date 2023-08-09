@@ -6,7 +6,6 @@ import json
 import os
 import re 
 
-from update_md import *
 from serialize import serialize
 # get file location
 # fill out metadata if file does not exist
