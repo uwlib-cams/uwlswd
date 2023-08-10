@@ -17,6 +17,7 @@
     xmlns:xml="http://www.w3.org/XML/1998/namespace" 
     xmlns:ldproc="https://doi.org/10.6069/uwlib.55.b.2#"
     xmlns:datacite="http://datacite.org/schema/kernel-4"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:j="http://www.w3.org/2005/xpath-functions"
     version="3.0">
     
@@ -37,12 +38,15 @@
         <xsl:variable name="metadata_file_name">
             <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[./rdf:type[@rdf:resource = 'http://rdfs.org/ns/void#Dataset']]/@rdf:about"/>
             <xsl:value-of select="concat('../../uwlswd_metadata/', substring-after($rdfabout, 'https://doi.org/10.6069/'), '.xml')"/>
+            <!-- at some point change to github?-->
         </xsl:variable>
-        <xsl:variable name="test_md_file" select="document($metadata_file_name)"/>
+        <xsl:variable name="md_file" select="document($metadata_file_name)"/>
         
-        <xsl:variable name="doi" select="lower-case(concat('https://doi.org/', $test_md_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
-        <xsl:variable name="datasetName" select="$test_md_file/datacite:resource/datacite:titles/datacite:title[1]"/>
-       
+        <xsl:variable name="doi" select="lower-case(concat('https://doi.org/', $md_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
+        <xsl:variable name="datasetName" select="$md_file/datacite:resource/datacite:titles/datacite:title[1]"/>
+        
+        <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/owl:versionInfo"/>
+        
         <!-- HTML declaration -->
         <html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa 1.1"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -57,6 +61,7 @@
                 <script type="application/ld+json">
                     <xsl:call-template name="jsonMarkup">
                         <xsl:with-param name="metadata_file_name" select="$metadata_file_name"/>
+                        <xsl:with-param name="version" select="$version"/>
                     </xsl:call-template>
                 </script>
                 <link rel="alternate" type="application/n-triples"
@@ -74,7 +79,7 @@
                     <xsl:value-of select="$datasetName"/>
                 </h1>
                 <p>
-                    <xsl:value-of select="$test_md_file/datacite:resource/datacite:descriptions/datacite:description"/>
+                    <xsl:value-of select="$md_file/datacite:resource/datacite:descriptions/datacite:description"/>
                 </p>
                 <!-- Links to alternate serializations -->
                 <h2>Links to Alternate Serializations for <xsl:value-of select="$datasetName"/></h2>
