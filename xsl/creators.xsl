@@ -7,7 +7,7 @@
     
     <xsl:template match="datacite:creatorName">{<xsl:choose>
             <xsl:when test="lower-case(text()) = 'university of washington libraries'">
-            "@type" : "<xsl:value-of select="./@nameType"/>" , 
+            "@type" : "Organization",
             "@id" : "https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries" ,
             "name" : "University of Washington Libraries" , 
             "url" : "https://www.lib.washington.edu" ,
@@ -15,7 +15,13 @@
            } ,</xsl:when>
             <!-- add more matches when relevant -->
         <xsl:otherwise>
-            "@type" : "<xsl:value-of select="./@nameType"/>" , 
+            "@type" : "<xsl:choose>
+                <xsl:when test="./@nameType">
+                    <xsl:value-of select="./@nameType"/>
+                </xsl:when><xsl:otherwise>
+                VALUE NOT FOUND
+                </xsl:otherwise>
+            </xsl:choose>" , 
             "@id" : "" ,
             "name" : "<xsl:value-of select="."/>" , 
             "url" : "" , 

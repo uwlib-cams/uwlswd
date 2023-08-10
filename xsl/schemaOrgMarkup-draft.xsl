@@ -21,6 +21,7 @@
     
     <xsl:template name="jsonMarkup"> 
         <xsl:param name="metadata_file_name"/>
+        <xsl:param name="version"/>
         <xsl:variable name="metadata_file" select="document($metadata_file_name)"/>
         {
         "@context" : "http://schema.org" ,
@@ -70,7 +71,8 @@
                 <xsl:value-of select="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI"/>
             </xsl:when>
             <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
-        </xsl:choose>"
+        </xsl:choose>",
+        "version" : "<xsl:value-of select="$version"/>" <!-- put version here from rdf/xml -->
         }
     </xsl:template>
 </xsl:stylesheet>
