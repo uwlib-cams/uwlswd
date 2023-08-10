@@ -71,7 +71,7 @@ def serialize(format, file_path, directory, file_name):
         file = open(path, 'w')
         file.write(rdf)
         file.close()
-        print(file_name + "." + "rdf" + " generated")
+        print("    " + file_name + "." + "rdf" + " generated")
 
     if format != "nt":
         fix_hasFormat("nt", g)
@@ -80,7 +80,7 @@ def serialize(format, file_path, directory, file_name):
         file = open(path, 'w')
         file.write(nt)
         file.close()
-        print(file_name + "." + "nt" + " generated")
+        print("    " + file_name + "." + "nt" + " generated")
 
     
     if format != "ttl":
@@ -90,7 +90,7 @@ def serialize(format, file_path, directory, file_name):
         file = open(path, 'w')
         file.write(turtle)
         file.close()
-        print(file_name + "." + "ttl" + " generated")
+        print("    " + file_name + "." + "ttl" + " generated")
 
 
     if format != "jsonld":
@@ -100,7 +100,7 @@ def serialize(format, file_path, directory, file_name):
         file = open(path, 'w')
         file.write(jsonld)
         file.close()
-        print(file_name + "." + "jsonld" + " generated")
+        print("    " + file_name + "." + "jsonld" + " generated")
 
 # onlySerialize can be run from this script to produce all serializations
 # except an html-rdfa serialization

@@ -15,6 +15,54 @@ from serialize import serialize
 # this script should be run from the top-level folder of uwlswd
 # saxon should be installed in top-level directory
 
+# this function begins the process of transforming the rdf file to all other serializations 
+def processFile(file_path):
+    split = file_path.split("/")
+
+    directory = ""
+    while len(split) > 1:
+            directory = directory + split.pop(0) + "/"
+
+    split = split[0].split(".")
+    format = split.pop()
+    file_name = split.pop()
+    output_file = f'{directory}{file_name}.html'
+
+    print(dedent(f"""{'=' * 20}
+PROCESSING {file_name}
+{'=' * 20}"""))
+
+    if format not in ["jsonld","rdf","ttl","nt"]:
+        print("Error: file is not one of the accepted formats")
+        exit(0)
+
+    # serialize 
+
+    serialize(format, file_path, directory, file_name)
+
+    # check existence/accuracy of metadata for html+rdfa
+    # prompt_md(directory, file_name)
+
+    # generate html+rdfa
+
+    if (file_path.endswith('.rdf')):
+        xsl_input_file = file_path
+    else:
+        xsl_input_file = file_path.rsplit(".", 1)[0] + ".rdf"
+
+    rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
+    os_command = f"""java -cp ~/{saxon_dir}/saxon-he-{saxon_version}.jar 
+    net.sf.saxon.Transform 
+    -s:{file_path} 
+    -xsl:{rdf2rdfa_stylesheet} 
+    -o:{output_file}"""
+
+    os_command = os_command.replace('\n', '')
+    os.system(os_command)
+
+    print(f"""    {file_name}.html generated""")
+
+
 # check set-up
 print(dedent("""Please confirm:
 1) Terminal is open in the uwlswd top-level directory
@@ -38,9 +86,10 @@ saxon_version = input(saxon_version_prompt)
 
 # get file path
 def prompt_user(): 
-    file_prompt = dedent("""Enter the path of the file relative to the working directory. 
-    The file must have the extenstion ".rdf", ".ttl", ".jsonld", or ".nt"
-    For example: '../uwlswd_vocabs/newspaper_genre_list.ttl'
+    file_prompt = dedent("""Enter the path of the folder or file relative to the working directory. 
+    The file must have the extenstion ".rdf", 
+    if entering the path of a folder, each '.rdf' file within the directory will be serialized
+    For example: '../uwlswd_vocabs' or '../uwlswd_vocabs/linked_data_platforms.rdf
     > """)
     file_path = input(file_prompt)
 
@@ -58,51 +107,21 @@ def prompt_user():
 
 # process file path for separate variables 
 file_path = prompt_user()
-split = file_path.split("/")
+if file_path.endswith('.rdf'):
+    processFile(file_path)
 
-directory = ""
-while len(split) > 1:
-        directory = directory + split.pop(0) + "/"
-
-split = split[0].split(".")
-format = split.pop()
-file_name = split.pop()
-output_file = f'{directory}{file_name}.html'
-
-if format not in ["jsonld","rdf","ttl","nt"]:
-    print("Error: file is not one of the accepted formats")
-    exit(0)
-
-# serialize 
-print(dedent(f"""{'=' * 20}
-SERIALIZING DATA
-{'=' * 20}"""))
-
-serialize(format, file_path, directory, file_name)
-
-# check existence/accuracy of metadata for html+rdfa
-# prompt_md(directory, file_name)
-
-# generate html+rdfa
-print(dedent(f"""{'=' * 20}
-GENERATING HTML+RDFa
-{'=' * 20}"""))
-
-if (file_path.endswith('.rdf')):
-    xsl_input_file = file_path
 else:
-    xsl_input_file = file_path.rsplit(".", 1)[0] + ".rdf"
-
-rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
-os_command = f"""java -cp ~/{saxon_dir}/saxon-he-{saxon_version}.jar 
-net.sf.saxon.Transform -t 
--s:{file_path} 
--xsl:{rdf2rdfa_stylesheet} 
--o:{output_file}"""
-
-os_command = os_command.replace('\n', '')
-os.system(os_command)
-
-print(dedent(f"""{'=' * 20}
-COMPLETE
+    complete_files = []
+    for root, dir_names, file_names in os.walk(file_path):
+        for f in file_names:
+            if f.endswith('.rdf'):
+            # This os.path.join() is the most crucial line of all.
+            # This line internally implements something DFS style.
+                complete_files.append(os.path.join(root, f))
+    
+    print(dedent(f"""{'=' * 20}
+{len(complete_files)} FILES FOUND
 {'=' * 20}"""))
+
+    for f in complete_files:
+        processFile(f)
