@@ -1,5 +1,7 @@
 # Function for serializing dataset/vocabulary
-# Produces rdf/xml, nt, ttl, and json-ld formats
+# set up to accept input as rdf/xml, nt, ttl, or json-ld and
+# produces rdf/xml, nt, ttl, and json-ld formats
+# however, currently only run for rdf from main.py 
 
 import rdflib
 from textwrap import dedent
