@@ -13,15 +13,16 @@
     xmlns:datacite="http://datacite.org/schema/kernel-4" version="3.0">
     <xsl:strip-space elements="*"/>
     
-    <!-- rdfa xsl -->
+    <!-- match creators and publishers xsl -->
     <xsl:include href="creators.xsl"/>
     
-    <!-- may need this, may not -->
-    <xsl:variable name="uwlIri">https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries</xsl:variable>
-    
+    <!-- template for producing the json schema.org markkup based on DataCite metadata -->
+    <!-- NOTE: indentation is weird within this template and hierarchy of elements is not always clear -->
+    <!-- this is to produce proper indentation within the output file -->
     <xsl:template name="jsonMarkup"> 
         <xsl:param name="metadata_file_name"/>
-        <xsl:param name="version"/>
+        <xsl:param name="version"/> <!-- version from RDF/XML -->
+        
         <xsl:variable name="metadata_file" select="document($metadata_file_name)"/>
         {
         "@context" : "http://schema.org" ,
@@ -72,7 +73,7 @@
             </xsl:when>
             <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
         </xsl:choose>",
-        "version" : "<xsl:value-of select="$version"/>" <!-- put version here from rdf/xml -->
+        "version" : "<xsl:value-of select="$version"/>" <!-- version from rdf/xml -->
         }
     </xsl:template>
 </xsl:stylesheet>

@@ -5,6 +5,10 @@
     exclude-result-prefixes="xs"
     version="2.0">
     
+    <!-- these templates match on creator and publisher names -->
+    <!-- and provide additonal information required by schema.org markup -->
+    <!-- if using a creator or publisher not already listed here -->
+    <!-- create a new xsl:when element within the match template and add the required information -->
     <xsl:template match="datacite:creatorName">{<xsl:choose>
             <xsl:when test="lower-case(text()) = 'university of washington libraries'">
             "@type" : "Organization",
