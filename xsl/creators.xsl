@@ -31,7 +31,7 @@
             "name" : "University of Washington Libraries" , 
             "url" : "https://www.lib.washington.edu" , 
             "sameAs" : [ "http://viaf.org/viaf/139541794" , "http://www.wikidata.org/entity/Q7896575" ] 
-         } ,</xsl:when>
+           } ,</xsl:when>
             <!-- add more matches when relevant -->
         <xsl:otherwise>
              "@type" : "<xsl:value-of select="./@nameType"/>" , 
