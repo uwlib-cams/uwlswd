@@ -7,13 +7,10 @@ import os
 import re 
 
 from serialize import serialize
-# get file location
-# fill out metadata if file does not exist
-# serialize formats
-# call xsl html 
 
 # this script should be run from the top-level folder of uwlswd
-# saxon should be installed in top-level directory
+# saxon should be installed in top-level directory (~)
+# input can be either an rdf/xml file or a directory containing multiple rdf/xml files
 
 # this function begins the process of transforming the rdf file to all other serializations 
 def processFile(file_path):
@@ -32,9 +29,9 @@ def processFile(file_path):
 PROCESSING {file_name}
 {'=' * 20}"""))
 
-    if format not in ["jsonld","rdf","ttl","nt"]:
-        print("Error: file is not one of the accepted formats")
-        exit(0)
+    # if format not in ["jsonld","rdf","ttl","nt"]:
+    #     print("Error: file is not one of the accepted formats")
+    #     exit(0)
 
     # serialize 
 
@@ -62,6 +59,8 @@ PROCESSING {file_name}
 
     print(f"""    {file_name}.html generated""")
 
+
+### SCRIPT STARTS HERE ###
 
 # check set-up
 print(dedent("""Please confirm:
@@ -107,10 +106,14 @@ def prompt_user():
 
 # process file path for separate variables 
 file_path = prompt_user()
-if file_path.endswith('.rdf'):
-    processFile(file_path)
+if os.path.isfile(file_path):
+    if file_path.endswith('.rdf'):
+        processFile(file_path)
+    else: 
+        print("Input must be an rdf file or a directory containing rdf files")
+        exit()
 
-else:
+elif os.path.isdir(file_path):
     complete_files = []
     for root, dir_names, file_names in os.walk(file_path):
         for f in file_names:
@@ -118,7 +121,7 @@ else:
             # This os.path.join() is the most crucial line of all.
             # This line internally implements something DFS style.
                 complete_files.append(os.path.join(root, f))
-    
+
     print(dedent(f"""{'=' * 20}
 {len(complete_files)} FILES FOUND
 {'=' * 20}"""))
