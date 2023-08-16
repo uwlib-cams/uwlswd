@@ -22,7 +22,7 @@
     version="3.0">
     
     <!-- rdfa xsl -->
-    <xsl:include href="rdf2rdfa-table-draft.xsl"/>
+    <xsl:include href="rdf2rdfa-table.xsl"/>
     <xsl:include href="schemaOrgMarkup-draft.xsl"/>
 
     
@@ -126,10 +126,17 @@
                         <xsl:variable name="file_plus">
                             <xsl:copy select=".">
                                 <xsl:copy select="rdf:RDF">
-                                    <xsl:copy select="rdf:Descripton">
-                                        <xsl:copy-of select="@*"/>
-                                        <xsl:copy-of select="node()"/>
-                                    </xsl:copy>
+                                    <xsl:copy-of select="rdf:Description"/>
+                                    <xsl:element name="rdf:Description">
+                                        <xsl:attribute name="rdf:about">
+                                            <xsl:value-of select="$doi"/>
+                                        </xsl:attribute>
+                                        <xsl:element name="dct:hasFormat">
+                                            <xsl:attribute name="rdf:resource">
+                                                <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
+                                            </xsl:attribute>
+                                        </xsl:element>
+                                    </xsl:element>
                                 </xsl:copy>
                             </xsl:copy>
                         </xsl:variable>
