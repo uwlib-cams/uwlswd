@@ -96,7 +96,7 @@ def prompt_user():
         return file_path 
     
     else:
-        print(dedent("Error: file could not be found.\n"))
+        print(dedent("Error: file or folder could not be found.\n"))
         confirm = input("""Re-enter file path? (Yes or No)  
     > """)
         if confirm.lower() == "yes":
