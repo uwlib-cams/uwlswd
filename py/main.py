@@ -12,8 +12,17 @@ from serialize import serialize
 # saxon should be installed in top-level directory (~)
 # input can be either an rdf/xml file or a directory containing multiple rdf/xml files
 
+# uses rdflib graph to format rdf/xml file so each rdf:Description element has a unique rdf:about attribute
+def format_rdflib(file):
+    g = rdflib.Graph().parse(file_path)
+
+    for ns_prefix, namespace in g.namespaces():
+        g.bind(ns_prefix, namespace)
+
+    g.serialize(destination=file, format="xml")
+
 # this function begins the process of transforming the rdf file to all other serializations 
-def processFile(file_path):
+def process_file(file_path):
     split = file_path.split("/")
 
     directory = ""
@@ -34,7 +43,7 @@ PROCESSING {file_name}
     #     exit(0)
 
     # serialize 
-
+    format_rdflib(file_path)
     serialize(format, file_path, directory, file_name)
 
     # check existence/accuracy of metadata for html+rdfa
@@ -108,7 +117,7 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
-        processFile(file_path)
+        process_file(file_path)
     else: 
         print("Input must be an rdf file or a directory containing rdf files")
         exit()
@@ -127,4 +136,4 @@ elif os.path.isdir(file_path):
 {'=' * 20}"""))
 
     for f in complete_files:
-        processFile(f)
+        process_file(f)
