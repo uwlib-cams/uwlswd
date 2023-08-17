@@ -16,40 +16,37 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     xmlns:xml="http://www.w3.org/XML/1998/namespace" 
     xmlns:ldproc="https://doi.org/10.6069/uwlib.55.b.2#"
+    xmlns:datacite="http://datacite.org/schema/kernel-4"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:j="http://www.w3.org/2005/xpath-functions"
     version="3.0">
     
     <!-- rdfa xsl -->
-    <xsl:include href="rdf2rdfa-table.xsl"/>
-    
-    <xsl:strip-space elements="*"/>
-    
-    <!-- get from metadata file -->
-    <!-- metadata thought - one big file or minis? -->
-    
-    <xsl:variable name="file_path" select="base-uri()"/>
-    
-    <!-- parse metadata file -->
-    <xsl:variable name="metadata_file">
-        <xsl:variable name="metadata_file_path" select="replace($file_path, '\.rdf', '_metadata.xml')"/>
-        <xsl:copy-of select="j:json-to-xml(document($metadata_file_path)/data)"/>
-    </xsl:variable>
-    
-    <!-- name of dataset in plain text -->
-    <xsl:variable name="datasetName" select="$metadata_file/j:array/j:map/j:string[@key='datasetName']"/>  
-    
-    <!-- description for html -->    
-    <xsl:variable name="description" select="$metadata_file/j:array/j:map/j:string[@key = 'description']"/>
-    
-    <!-- Filepath for generating links to serializations -->
-    <xsl:variable name="path" select="$metadata_file/j:array/j:map/j:string[@key = 'path']"/>
-    
-    <!-- file name for generating links to serializations -->
-    <xsl:variable name="fileName" select="$metadata_file/j:array/j:map/j:string[@key = 'fileName']"/>
+    <xsl:include href="rdf2rdfa-table-draft.xsl"/>
+    <xsl:include href="schemaOrgMarkup-draft.xsl"/>
 
-    <xsl:variable name="doi" select="$metadata_file/j:array/j:map/j:string[@key = 'doi']"/>
     
+    <!-- get from metadata file -->   
+    <xsl:variable name="file_path">
+        <xsl:variable name="base" select="base-uri()"/>
+        <xsl:value-of select="substring-before($base, '.rdf')"/>
+    </xsl:variable>
+    <xsl:variable name="final_path" select="'https://uwlib-cams.github.io'"/>
+    <xsl:variable name="file_name" select="substring-after($file_path, '..')"/>
     <xsl:template match="/">
+        <!-- currently gotten from rdf:description/rdf:type void#Dataset - is this in every dataset? -->
+        <xsl:variable name="metadata_file_name">
+            <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[./rdf:type[@rdf:resource = 'http://rdfs.org/ns/void#Dataset']]/@rdf:about"/>
+            <xsl:value-of select="concat('../../uwlswd_metadata/', substring-after($rdfabout, 'https://doi.org/10.6069/'), '.xml')"/>
+            <!-- at some point change to github?-->
+        </xsl:variable>
+        <xsl:variable name="md_file" select="document($metadata_file_name)"/>
+        
+        <xsl:variable name="doi" select="lower-case(concat('https://doi.org/', $md_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
+        <xsl:variable name="datasetName" select="$md_file/datacite:resource/datacite:titles/datacite:title[1]"/>
+        
+        <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/owl:versionInfo"/>
+        
         <!-- HTML declaration -->
         <html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa 1.1"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -59,30 +56,22 @@
                 <title>
                     <xsl:value-of select="$datasetName"/>
                 </title>
+                <!-- schema.org content -->
+                <!-- find out what variables are fixed vs unique -->
                 <script type="application/ld+json">
-                    {
-                    "@context" : "http://schema.org" ,
-                    "@type" : "Dataset" ,
-                    "@id" : "<xsl:value-of select="$doi"/>" ,
-                    "creator" : "https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries" ,
-                    "name" : "<xsl:value-of select="$datasetName"/>" ,
-                    "description" : "<xsl:value-of select="$description"/>" ,
-                    "publisher" : "https://doi.org/10.6069/uwlib.55.A.3.6#UniversityofWashingtonLibraries" ,
-                    "datePublished" : "2018" ,
-                    "inLanguage" : "English" ,
-                    "encodingFormat" : "application/xhtml+xml" ,
-                    "version" : "1-0-0" ,
-                    "license" : "http://creativecommons.org/publicdomain/zero/1.0/"
-                        }
+                    <xsl:call-template name="jsonMarkup">
+                        <xsl:with-param name="metadata_file_name" select="$metadata_file_name"/>
+                        <xsl:with-param name="version" select="$version"/>
+                    </xsl:call-template>
                 </script>
                 <link rel="alternate" type="application/n-triples"
-                    href="{concat($path, $fileName,'.nt')}"/>
+                    href="{concat($final_path, $file_name, '.nt')}"/>
                 <link rel="alternate" type="application/rdf+xml"
-                    href="{concat($path, $fileName,'.rdf')}"/>
+                    href="{concat($final_path, $file_name,'.rdf')}"/>
                 <link rel="alternate" type="application/turtle"
-                    href="{concat($path, $fileName,'.ttl')}"/>
+                    href="{concat($final_path, $file_name,'.ttl')}"/>
                 <link rel="alternate" type="application/ld+json"
-                    href="{concat($path, $fileName,'.jsonld')}"/>
+                    href="{concat($final_path, $file_name,'.jsonld')}"/>
             </head>
             <body about="{$doi}">
                 <!-- Title of dataset -->
@@ -90,7 +79,7 @@
                     <xsl:value-of select="$datasetName"/>
                 </h1>
                 <p>
-                    <xsl:value-of select="$description"/>
+                    <xsl:value-of select="$md_file/datacite:resource/datacite:descriptions/datacite:description"/>
                 </p>
                 <!-- Links to alternate serializations -->
                 <h2>Links to Alternate Serializations for <xsl:value-of select="$datasetName"/></h2>
@@ -98,28 +87,28 @@
                         <li>
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select="concat($path, $fileName,'.nt')"/>
+                                    <xsl:value-of select="concat($final_path, $file_name,'.nt')"/>
                                 </xsl:attribute>N-Triples
                             </a>
                         </li>
                         <li>
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select="concat($path, $fileName,'.ttl')"/>
+                                    <xsl:value-of select="concat($final_path, $file_name,'.ttl')"/>
                                 </xsl:attribute>Turtle
                             </a>
                         </li>
                         <li>
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select="concat($path, $fileName,'.jsonld')"/>
+                                    <xsl:value-of select="concat($final_path, $file_name,'.jsonld')"/>
                                 </xsl:attribute>JSON-LD
                             </a>
                         </li>                        
                         <li>
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select="concat($path, $fileName,'.rdf')"/>
+                                    <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
                                 </xsl:attribute>RDF/XML
                             </a>
                         </li>
@@ -133,8 +122,25 @@
                             <th>Predicate</th>
                             <th>Object</th>
                         </tr>
-                        <xsl:apply-templates select="rdf:RDF" mode="resource"/>
-                        <xsl:apply-templates select="rdf:RDF" mode="bnode"/>
+                        <!-- add missing dct:hasFormat before passing to templates -->
+                        <xsl:variable name="file_plus">
+                            <xsl:copy select=".">
+                                <xsl:copy select="rdf:RDF">
+                                    <xsl:copy select="rdf:Description[@rdf:about = $doi]">
+                                        <xsl:copy-of select="@*"/>
+                                        <xsl:copy-of select="node()"/>
+                                        <xsl:element name="dct:hasFormat">
+                                            <xsl:attribute name="rdf:resource">
+                                                <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
+                                            </xsl:attribute>
+                                        </xsl:element>
+                                    </xsl:copy>
+                                    <xsl:copy-of select="rdf:Description[not(@rdf:about = $doi)]"/>
+                                </xsl:copy>
+                            </xsl:copy>
+                        </xsl:variable>
+                        <xsl:apply-templates select="$file_plus/rdf:RDF" mode="resource"/>
+                        <xsl:apply-templates select="$file_plus/rdf:RDF" mode="bnode"/>
                     </table>
                     <hr/>
                     <hr/>

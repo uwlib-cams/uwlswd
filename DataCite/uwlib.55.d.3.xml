@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-4 https://schema.datacite.org/meta/kernel-4.0/metadata.xsd">
+  <identifier identifierType="DOI">10.6069/UWLIB.55.D.3</identifier>
+  <creators>
+    <creator>
+      <creatorName>University of Washington Libraries</creatorName>
+    </creator>
+  </creators>
+  <titles>
+    <title>University of Washington Libraries rdf:Property definitions</title>
+    <title titleType="AlternativeTitle">rdf:Property definitions</title>
+  </titles>
+  <publisher>University of Washington Libraries</publisher>
+  <publicationYear>2018</publicationYear>
+  <resourceType resourceTypeGeneral="Dataset">LibraryData</resourceType>
+  <language>en-US</language>
+  <sizes>
+    <size>17 KB</size>
+  </sizes>
+  <formats>
+    <format>XHTML+RDFa 1.1</format>
+  </formats>
+  <version>1-0-0</version>
+  <rightsList>
+    <rights rightsURI="https://creativecommons.org/licenses/zero/1.0/">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
+  </rightsList>
+  <descriptions>
+    <description descriptionType="Abstract">Describes a digital collection in which an entity is referenced. The digital collection metadata is the source of the data describing the entity. This property is useful for tracking the digital collections that contributed to the local graph.</description>
+  </descriptions>
+</resource>

@@ -14,13 +14,21 @@
       it produces the html table with embedded rdfa-->
  
     <xsl:template match="rdf:RDF" mode="resource">
+        <!-- group by rdf:about and then iterate through each grouping -->
         <xsl:for-each-group select="rdf:Description" group-by="@rdf:about">
+            <!-- currently sorting alphabetically by doi as well - CHECK ON THIS -->
+            <xsl:sort select="substring-after(@rdf:about, '#')"/>
             <xsl:for-each select="current-group()">
+                <!-- currently sorting within group by predicate - CHECK ON THIS -->
+                <xsl:sort select="name(*)"/>
                 <tr>
+                    <!-- <tr about=> -->
                     <xsl:attribute name="about">
                         <xsl:value-of select="@rdf:about"/>
                     </xsl:attribute>
+                    <!-- subject is current-grouping-key (@rdf:about) -->
                     <xsl:choose>
+                        <!-- sets id if not FIRST rdf:Description with doi of dataset (individual data)? -->
                         <xsl:when test="position() = 1 and substring-after(current-grouping-key(),'#')">
                             <td id="{substring-after(current-grouping-key(),'#')}">
                                 <a href="{current-grouping-key()}">
@@ -28,6 +36,7 @@
                                 </a>
                             </td>
                         </xsl:when>
+                        <!-- otherwise no id attrib -->
                         <xsl:when test="position() > 1 or not(substring-after(current-grouping-key(),'#'))">
                             <td>
                                 <a href="{current-grouping-key()}">
@@ -39,14 +48,16 @@
                             <td>POSITION FUNCTION FOR @id NOT WORKING.</td>
                         </xsl:otherwise>
                     </xsl:choose>
-
+                    <!-- predicate is element name -->
                     <td>
                         <a href="{concat(namespace-uri(*),local-name(*))}">
                             <xsl:value-of select="name(*)"/>
                         </a>
                     </td>
-
+                    <!-- object -->
+                    <!-- property is also element name -->
                     <td property="{name(*)}">
+                        <!-- check for attributes -->
                         <xsl:if test="*/@rdf:datatype">
                             <xsl:attribute name="datatype">
                                 <xsl:value-of select="*/@rdf:datatype"/>
@@ -59,6 +70,7 @@
                             </xsl:attribute>
                         </xsl:if>
                         <xsl:choose>
+                            <!-- if object is rdf:resource, this becomes attrib AND value -->
                             <xsl:when test="*/@rdf:resource">
                                 <xsl:attribute name="resource">
                                     <xsl:value-of select="*/@rdf:resource"/>
@@ -67,9 +79,11 @@
                                     <xsl:value-of select="*/@rdf:resource"/>
                                 </a>
                             </xsl:when>
+                            <!-- if it's a literal - no attrib -->
                             <xsl:when test="*/text()">
                                 <xsl:value-of select="*"/>
                             </xsl:when>
+                            <!-- if it's a nodeID - FIND OUT MORE ABOUT THIS ONE -->
                             <xsl:when test="*/@rdf:nodeID">
                                 <xsl:attribute name="resource">
                                     <xsl:text>[_:</xsl:text>
@@ -87,7 +101,9 @@
         </xsl:for-each-group>
     </xsl:template>
 
+    <!-- for blank node? -->
     <xsl:template match="rdf:Description" mode="bnode">
+        <!-- select rdf:Description with @rdf:nodeID attrib -->
         <xsl:for-each select=".[@rdf:nodeID]">
             <tr>
                 <xsl:attribute name="about">
@@ -145,3 +161,7 @@
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
+
+
+
+
