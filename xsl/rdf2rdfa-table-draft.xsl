@@ -110,7 +110,7 @@
     <!-- for blank node? -->
     <xsl:template match="rdf:Description" mode="bnode">
         <!-- select rdf:Description with @rdf:nodeID attrib -->
-        <xsl:for-each select="rdf:Description[@nodeID]">
+        <xsl:if test="./@rdf:nodeID">
             <xsl:variable name="nodeID" select="@rdf:nodeID"/>
             <xsl:for-each select="./*">
                 <tr>
@@ -165,7 +165,7 @@
                     </td>
                 </tr>
             </xsl:for-each>
-        </xsl:for-each>
+        </xsl:if>
     </xsl:template>
 </xsl:stylesheet>
 
