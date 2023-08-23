@@ -57,7 +57,7 @@ PROCESSING {file_name}
         xsl_input_file = file_path.rsplit(".", 1)[0] + ".rdf"
 
     rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
-    os_command = f"""java -cp ~/{saxon_dir}/saxon-he-{saxon_version}.jar 
+    os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
     -xsl:{rdf2rdfa_stylesheet} 
@@ -82,8 +82,8 @@ else:
     exit(0)
 
 # get location and version of saxon folder
-saxon_dir_prompt = dedent("""Enter the name of the directory in your home folder where your Saxon HE .jar file is stored
-For example: 'saxon', 'saxon11', etc.
+saxon_dir_prompt = dedent("""Enter the full directory path to where your Saxon HE .jar file is stored
+For example: '~/saxon', 'c:/Users/cpayn/saxon11', etc.
 > """)
 saxon_dir = input(saxon_dir_prompt)
 
