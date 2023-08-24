@@ -81,7 +81,7 @@
                                 <xsl:attribute name="resource">
                                     <xsl:value-of select="./@rdf:resource"/>
                                 </xsl:attribute>
-                                <a href="{*/@rdf:resource}">
+                                <a href="{./@rdf:resource}">
                                     <xsl:value-of select="./@rdf:resource"/>
                                 </a>
                             </xsl:when>
