@@ -74,7 +74,7 @@ PROCESSING {file_name}
 # check set-up
 print(dedent("""Please confirm:
 1) Terminal is open in the uwlswd top-level directory
-2) Saxon processor .jar file is located in the user's home (~) directory"""))
+2) You have the full directory path to where the Saxon processor .jar file is located ready"""))
 confirm = input("OK to proceed? (Yes or No):\n> ")
 if confirm.lower() == "yes":
     pass
