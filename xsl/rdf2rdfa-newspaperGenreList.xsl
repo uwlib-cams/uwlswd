@@ -61,7 +61,7 @@
                     href="{concat($hrefBase,'.rdf')}"/>
                 <link rel="alternate" type="application/turtle"
                     href="{concat($hrefBase,'.ttl')}"/>
-                <link rel="alternate" type="application/turtle"
+                <link rel="alternate" type="application/ld+json"
                     href="{concat($hrefBase,'.json')}"/>
                 <link rel="alternate" type="application/marcxml+xml"
                     href="{concat($hrefBase,'.xml')}"/>

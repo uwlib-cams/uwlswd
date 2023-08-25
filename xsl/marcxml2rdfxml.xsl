@@ -62,19 +62,19 @@
                 <dcterms:description xml:lang="en">Terms used to designate genres of
                     newspapers.</dcterms:description>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list.html"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.html"/>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list.json"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.json"/>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list.nt"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.nt"/>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list.rdf"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.rdf"/>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list.ttl"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.ttl"/>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list.xml"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.xml"/>
                 <dcterms:hasFormat
-                    rdf:resource="https://github.com/uwlib-cams/uwlswd_ngl/raw/main/newspaper_genre_list_uwl.html"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list_uwl.json"/>
                 <dcterms:hasFormat
                     rdf:resource="https://www.lib.washington.edu/gmm/collections/mcnews/ngl"/>
                 <dcterms:title xml:lang="en">Newspaper Genre List</dcterms:title>

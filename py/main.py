@@ -12,8 +12,17 @@ from serialize import serialize
 # saxon should be installed in top-level directory (~)
 # input can be either an rdf/xml file or a directory containing multiple rdf/xml files
 
+# uses rdflib graph to format rdf/xml file so each rdf:Description element has a unique rdf:about attribute
+def format_rdflib(file):
+    g = rdflib.Graph().parse(file_path)
+
+    for ns_prefix, namespace in g.namespaces():
+        g.bind(ns_prefix, namespace)
+
+    g.serialize(destination=file, format="xml")
+
 # this function begins the process of transforming the rdf file to all other serializations 
-def processFile(file_path):
+def process_file(file_path):
     split = file_path.split("/")
 
     directory = ""
@@ -34,7 +43,7 @@ PROCESSING {file_name}
     #     exit(0)
 
     # serialize 
-
+    format_rdflib(file_path)
     serialize(format, file_path, directory, file_name)
 
     # check existence/accuracy of metadata for html+rdfa
@@ -48,7 +57,7 @@ PROCESSING {file_name}
         xsl_input_file = file_path.rsplit(".", 1)[0] + ".rdf"
 
     rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
-    os_command = f"""java -cp ~/{saxon_dir}/saxon-he-{saxon_version}.jar 
+    os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
     -xsl:{rdf2rdfa_stylesheet} 
@@ -65,7 +74,7 @@ PROCESSING {file_name}
 # check set-up
 print(dedent("""Please confirm:
 1) Terminal is open in the uwlswd top-level directory
-2) Saxon processor .jar file is located in the user's home (~) directory"""))
+2) You have the full directory path to where the Saxon processor .jar file is located ready"""))
 confirm = input("OK to proceed? (Yes or No):\n> ")
 if confirm.lower() == "yes":
     pass
@@ -73,8 +82,8 @@ else:
     exit(0)
 
 # get location and version of saxon folder
-saxon_dir_prompt = dedent("""Enter the name of the directory in your home folder where your Saxon HE .jar file is stored
-For example: 'saxon', 'saxon11', etc.
+saxon_dir_prompt = dedent("""Enter the full directory path to where your Saxon HE .jar file is stored
+For example: '~/saxon', 'c:/Users/cpayn/saxon11', etc.
 > """)
 saxon_dir = input(saxon_dir_prompt)
 
@@ -108,7 +117,7 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
-        processFile(file_path)
+        process_file(file_path)
     else: 
         print("Input must be an rdf file or a directory containing rdf files")
         exit()
@@ -127,4 +136,4 @@ elif os.path.isdir(file_path):
 {'=' * 20}"""))
 
     for f in complete_files:
-        processFile(f)
+        process_file(f)
