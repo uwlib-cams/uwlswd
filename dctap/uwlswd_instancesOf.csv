@@ -1,0 +1,4 @@
+﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType
+instancesOf,UWLSWD Instances Of Dataset,dct:title,Title,xsd:string
+,,dct:issued,Date Issued,xsd:gYear
+,,dct:hasFormat,Has Format,xsd:anyURI
