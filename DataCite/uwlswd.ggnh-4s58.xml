@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://datacite.org/schema/kernel-4"
+    xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+    <!-- ********** -->
+    <identifier identifierType="DOI">10.6069/uwlswd.ggnh-4s58</identifier>
+    <creators>
+        <creator>
+            <creatorName nameType="Organizational" xml:lang="en-US">University Of Washington Libraries</creatorName>
+            <nameIdentifier nameIdentifierScheme="VIAF" schemeURI="http://viaf.org/viaf/">139541794</nameIdentifier>
+        </creator>
+    </creators>
+    <!-- ********** -->
+    <titles>
+        <title xml:lang="en-US">Continuing: frequency</title>
+        <title titleType="AlternativeTitle" xml:lang="en-US">MARC21 008/18 values for continuing resources expressed using RDF</title>
+    </titles>
+    <publisher xml:lang="en-US">University of Washington Libraries</publisher>
+    <publicationYear>2023</publicationYear>
+    <resourceType resourceTypeGeneral="Dataset">skos:ConceptScheme</resourceType>
+    <contributors>
+        <contributor contributorType="Other">
+            <contributorName xml:lang="en-US">Library of Congress</contributorName>
+            <nameIdentifier nameIdentifierScheme="VIAF" schemeURO="http://viaf.org/viaf/">151962300</nameIdentifier>
+        </contributor>
+        <contributor contributorType="Other">
+            <contributorName xml:lang="en-US">Metadata Management Associates</contributorName>
+        </contributor>
+    </contributors>
+    <dates>
+        <date dateType="Issued">2023</date>
+    </dates>
+    <language>en</language>
+    <relatedIdentifiers>
+        <relatedIdentifier relatedIdentifierType="URL" relationType="IsSourceOf">https://www.loc.gov/marc/bibliographic/bd008.html</relatedIdentifier>
+        <relatedIdentifier relatedIdentifierType="URL" relationType="IsSourceOf">http://marc21rdf.info</relatedIdentifier>
+    </relatedIdentifiers>
+    <formats>
+        <format>application/rdf+xml</format>
+        <format>application/ld+json</format>
+        <format>application/n-triples</format>
+        <format>text/turtle</format>
+        <format>application/xhtml+xml</format>
+    </formats>
+    <version>1-0-0</version>
+    <rightsList>
+        <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
+    </rightsList>
+    <!-- ********** -->
+    <descriptions>
+        <description xml:lang="en-US" descriptionType="Abstract">Indicates the frequency of an item. In the case of integrating resources, updates to an item.</description>
+    </descriptions>
+</resource>
