@@ -108,7 +108,7 @@ def prompt_user():
         return file_path 
     
     else:
-        print(dedent("Error: file could not be found. Please re-enter file name or press CTRL+C to cancel.\n"))
+        print(dedent("\nError: file could not be found. Please re-enter file name or press CTRL+C to cancel.\n"))
         return prompt_user()
 
 # process file path for separate variables 
