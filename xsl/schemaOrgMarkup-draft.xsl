@@ -55,8 +55,8 @@
         </xsl:choose>
         "publisher" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:publisher"/>
         "datePublished" : "<xsl:choose>
-            <xsl:when test="$metadata_file/datacite:resource/datacite:dates/datacite:date[@dateType='Issued']">
-                <xsl:value-of select="$metadata_file/datacite:resource/datacite:dates/datacite:date[@dateType='Issued']"/>
+            <xsl:when test="$metadata_file/datacite:resource/datacite:publicationYear">
+                <xsl:value-of select="$metadata_file/datacite:resource/datacite:publicationYear"/>
             </xsl:when>
             <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
         </xsl:choose>",
