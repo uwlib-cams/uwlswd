@@ -31,6 +31,7 @@
         <xsl:value-of select="substring-before($base, '.rdf')"/>
     </xsl:variable>
     <xsl:variable name="final_path" select="'https://uwlib-cams.github.io'"/>
+    <!-- need to do this a better way -->
     <xsl:variable name="file_name" select="substring-after($file_path, '..')"/>
     <xsl:template match="/">
         <!-- currently gotten from rdf:description/rdf:type void#Dataset - is this in every dataset? -->
@@ -107,7 +108,7 @@
                     </a>
                 </div>
                     <!-- Table headline -->
-                    <h2>RDF Triples for <xsl:value-of select="$datasetName"/></h2>
+                <h2 id="triples">RDF Triples for <xsl:value-of select="$datasetName"/></h2>
                     <!-- Table setup below always stays the same -->
                     <table>
                         <thead>

@@ -32,6 +32,7 @@
                         <xsl:value-of select="$doi"/>
                     </xsl:attribute>
                     
+                    
                     <!-- subject is doi (@rdf:about) -->
                     <xsl:choose>
                         <!-- sets id if first child -->
@@ -96,8 +97,10 @@
                                     <xsl:value-of select="./@rdf:nodeID"/>
                                     <xsl:text>]</xsl:text>
                                 </xsl:attribute>
-                                <xsl:text>_:</xsl:text>
-                                <xsl:value-of select="./@rdf:nodeID"/>
+                                <a href="#{./@rdf:nodeID}">
+                                    <xsl:text>_:</xsl:text>
+                                    <xsl:value-of select="./@rdf:nodeID"/>
+                                </a>
                             </xsl:when>
                             <xsl:otherwise>****WONKY OBJECT****</xsl:otherwise>
                         </xsl:choose>
@@ -114,6 +117,12 @@
             <xsl:variable name="nodeID" select="@rdf:nodeID"/>
             <xsl:for-each select="./*">
                 <tr>
+                    <!-- anchor for jump link -->
+                    <xsl:if test="position() = 1">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="$nodeID"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="about">
                         <xsl:text>[_:</xsl:text>
                         <xsl:value-of select="$nodeID"/>
