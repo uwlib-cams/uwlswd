@@ -31,8 +31,10 @@
         <xsl:value-of select="substring-before($base, '.rdf')"/>
     </xsl:variable>
     <xsl:variable name="final_path" select="'https://uwlib-cams.github.io'"/>
-    <!-- need to do this a better way -->
-    <xsl:variable name="file_name" select="substring-after($file_path, '..')"/>
+    <!-- get relative file path (file_name) -->
+    <!-- e.g. file_path is uwlswd/../uwlswd_vocabs/linked_data_platforms -->
+    <!-- file_name would be /uwlswd_vocabs/linked_data_platforms for producing links to other serializations -->
+    <xsl:variable name="file_name" select="replace(substring-after($file_path, 'uwlswd/'), '..', '', 'q')"/>
     <xsl:template match="/">
         <!-- currently gotten from rdf:description/rdf:type void#Dataset - is this in every dataset? -->
         <xsl:variable name="metadata_file_name">
@@ -140,7 +142,7 @@
                             <xsl:apply-templates select="$file_plus/rdf:RDF" mode="bnode"/>
                         </tbody>
                     </table>
-                <hr/>
+                <hr></hr>
                 <!-- Contact information -->
                 <div class="contact">
                     <h3>Contact:</h3>
