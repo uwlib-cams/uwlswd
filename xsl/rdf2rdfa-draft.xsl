@@ -24,32 +24,40 @@
     <!-- rdfa xsl -->
     <xsl:include href="rdf2rdfa-table-draft.xsl"/>
     <xsl:include href="schemaOrgMarkup-draft.xsl"/>
-    
-    <!-- get from metadata file -->   
+     
+    <!-- VARIABLES -->
+    <!-- file path minus .rdf extension -->
     <xsl:variable name="file_path">
         <xsl:variable name="base" select="base-uri()"/>
         <xsl:value-of select="substring-before($base, '.rdf')"/>
     </xsl:variable>
+    
+    <!-- web server for links -->
     <xsl:variable name="final_path" select="'https://uwlib-cams.github.io'"/>
-    <!-- get relative file path (file_name) -->
+    
+    <!-- relative file path (file_name) -->
     <!-- e.g. file_path is uwlswd/../uwlswd_vocabs/linked_data_platforms -->
     <!-- file_name would be /uwlswd_vocabs/linked_data_platforms for producing links to other serializations -->
     <xsl:variable name="file_name" select="replace(substring-after($file_path, 'uwlswd/'), '..', '', 'q')"/>
+    
+    <!-- TEMPLATE -->
     <xsl:template match="/">
         <!-- currently gotten from rdf:description/rdf:type void#Dataset - is this in every dataset? -->
+        <!-- DataCite metadata file name - uses DOI from rdf/xml file -->
         <xsl:variable name="metadata_file_name">
             <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[./rdf:type[@rdf:resource = 'http://rdfs.org/ns/void#Dataset']]/@rdf:about"/>
             <xsl:value-of select="concat('../DataCite/', substring-after($rdfabout, 'https://doi.org/10.6069/'), '.xml')"/>
-            <!-- at some point change to github?-->
         </xsl:variable>
         <xsl:variable name="md_file" select="document($metadata_file_name)"/>
         
+       <!-- use doi from md_file to find title and version -->
         <xsl:variable name="doi" select="lower-case(concat('https://doi.org/', $md_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
         <xsl:variable name="datasetName" select="$md_file/datacite:resource/datacite:titles/datacite:title[1]"/>
         
         <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/owl:versionInfo"/>
         
         <!-- HTML declaration -->
+        <!-- look into xmlns -->
         <html xmlns="http://www.w3.org/1999/xhtml"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/MarkUp/SCHEMA/xhtml-rdfa-2.xsd"
@@ -63,11 +71,12 @@
                 <!-- schema.org content -->
                 <!-- find out what variables are fixed vs unique -->
                 <script type="application/ld+json">
-                    <xsl:call-template name="jsonMarkup">
+                    <xsl:call-template name="schemaorgMarkup">
                         <xsl:with-param name="metadata_file_name" select="$metadata_file_name"/>
                         <xsl:with-param name="version" select="$version"/>
                     </xsl:call-template>
                 </script>
+                <!-- alternate links (not visible on page) -->
                 <link rel="alternate" type="application/n-triples"
                     href="{concat($final_path, $file_name, '.nt')}"/>
                 <link rel="alternate" type="application/rdf+xml"

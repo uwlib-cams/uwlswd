@@ -97,6 +97,7 @@
                                     <xsl:value-of select="./@rdf:nodeID"/>
                                     <xsl:text>]</xsl:text>
                                 </xsl:attribute>
+                                <!-- add jump link -->
                                 <a href="#{./@rdf:nodeID}">
                                     <xsl:text>_:</xsl:text>
                                     <xsl:value-of select="./@rdf:nodeID"/>
@@ -110,7 +111,7 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- for blank node? -->
+    <!-- for blank nodes -->
     <xsl:template match="rdf:Description" mode="bnode">
         <!-- select rdf:Description with @rdf:nodeID attrib -->
         <xsl:if test="./@rdf:nodeID">

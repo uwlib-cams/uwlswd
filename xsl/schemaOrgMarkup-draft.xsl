@@ -16,10 +16,10 @@
     <!-- match creators and publishers xsl -->
     <xsl:include href="creators.xsl"/>
     
-    <!-- template for producing the json schema.org markkup based on DataCite metadata -->
+    <!-- template for producing the json schema.org markup based on DataCite metadata -->
     <!-- NOTE: indentation is weird within this template and hierarchy of elements is not always clear -->
     <!-- this is to produce proper indentation within the output file -->
-    <xsl:template name="jsonMarkup"> 
+    <xsl:template name="schemaorgMarkup"> 
         <xsl:param name="metadata_file_name"/>
         <xsl:param name="version"/> <!-- version from RDF/XML -->
         
