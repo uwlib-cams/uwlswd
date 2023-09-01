@@ -2,11 +2,10 @@
 
 from textwrap import dedent
 import rdflib
-import json
 import os
-import re 
 
 from serialize import serialize
+from fancyhtml import fancifyHTML
 
 # this script should be run from the top-level folder of uwlswd
 # saxon should be installed in top-level directory (~)
@@ -46,16 +45,16 @@ PROCESSING {file_name}
     format_rdflib(file_path)
     serialize(format, file_path, directory, file_name)
 
-    # check existence/accuracy of metadata for html+rdfa
-    # prompt_md(directory, file_name)
-
     # generate html+rdfa
 
+    # this will always end with rdf because of pre-processing
     if (file_path.endswith('.rdf')):
         xsl_input_file = file_path
+    # this is only if we serialize from other formats, currently it is obsolete
     else:
         xsl_input_file = file_path.rsplit(".", 1)[0] + ".rdf"
 
+    # call rdf2rdfa stylesheets
     rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
@@ -68,6 +67,10 @@ PROCESSING {file_name}
 
     print(f"""    {file_name}.html generated""")
 
+    fancy = input("Fancify HTML? (Yes or No):\n> ")
+    if fancy.lower() == "yes":
+        print(f"fancifying {output_file}")
+        fancifyHTML(output_file)
 
 ### SCRIPT STARTS HERE ###
 
@@ -105,13 +108,8 @@ def prompt_user():
         return file_path 
     
     else:
-        print(dedent("Error: file could not be found.\n"))
-        confirm = input("""Re-enter file path? (Yes or No)  
-    > """)
-        if confirm.lower() == "yes":
-            return prompt_user()
-        else:
-            exit(0)
+        print(dedent("Error: file could not be found. Please re-enter file name or press CTRL+C to cancel.\n"))
+        return prompt_user()
 
 # process file path for separate variables 
 file_path = prompt_user()
@@ -127,8 +125,6 @@ elif os.path.isdir(file_path):
     for root, dir_names, file_names in os.walk(file_path):
         for f in file_names:
             if f.endswith('.rdf'):
-            # This os.path.join() is the most crucial line of all.
-            # This line internally implements something DFS style.
                 complete_files.append(os.path.join(root, f))
 
     print(dedent(f"""{'=' * 20}
