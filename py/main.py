@@ -5,7 +5,7 @@ import rdflib
 import os
 
 from serialize import serialize
-from fancyhtml import fancifyHTML
+from fancyhtml import fancify_HTML
 
 # this script should be run from the top-level folder of uwlswd
 # saxon should be installed in top-level directory (~)
@@ -67,10 +67,10 @@ PROCESSING {file_name}
 
     print(f"""    {file_name}.html generated""")
 
-    fancy = input("Fancify HTML? (Yes or No):\n> ")
+    fancy = input("\n\tFancify HTML? (Yes or No):\n\t> ")
     if fancy.lower() == "yes":
-        print(f"fancifying {output_file}")
-        fancifyHTML(output_file)
+        fancify_HTML(output_file)
+        print(f"fancy HTML generated")
 
 ### SCRIPT STARTS HERE ###
 

@@ -1,6 +1,6 @@
 import lxml.etree as ET
 
-def fancifyHTML(filepath):
+def fancify_HTML(filepath):
     basepath = (filepath.rsplit('.', 1)).pop(0)
     rdfpath = basepath + '.rdf'
     ttlpath = basepath + '.ttl'
@@ -16,29 +16,30 @@ def fancifyHTML(filepath):
             child.insert(0, ET.XML(
                          '''<script type="text/javascript" src="https://uwlib-cams.github.io/webviews/js/uwlswd.js"></script>'''))
             # find header 
-            tripleH2 = child.find("{http://www.w3.org/1999/xhtml}h2[@id='triples']")
+            triple_h2 = child.find("{http://www.w3.org/1999/xhtml}h2[@id='triples']")
 
-            # find links
+            # find links in alternatlinks div and copy href
             alternatelinks = child.find("{http://www.w3.org/1999/xhtml}div[@class='alternatelinks']")
-            rdflink = "NOT FOUND"
-            ttllink = "NOT FOUND"
-            ntlink = "NOT FOUND"
-            jsonlink = "NOT FOUND"
+            rdflink_href = "NOT FOUND"
+            ttlink_href = "NOT FOUND"
+            ntlink_href = "NOT FOUND"
+            jsonlink_href = "NOT FOUND"
             for link in alternatelinks:
                 if link.attrib["href"].endswith(".nt"):
-                    ntlink = link.attrib["href"]
+                    ntlink_href = link.attrib["href"]
                 if link.attrib["href"].endswith(".ttl"):
-                    ttllink = link.attrib["href"]
+                    ttlink_href = link.attrib["href"]
                 if link.attrib["href"].endswith(".jsonld"):
-                    jsonlink = link.attrib["href"]
+                    jsonlink_href = link.attrib["href"]
                 if link.attrib["href"].endswith(".rdf"):
-                    rdflink = link.attrib["href"]
+                    rdflink_href = link.attrib["href"]
 
+            # remove alternatelink div and label
             child.remove(alternatelinks)
             child.remove(child.find("{http://www.w3.org/1999/xhtml}h2[@id='links']"))
 
             # add tabs
-            tripleH2.addnext(ET.XML(
+            triple_h2.addnext(ET.XML(
                          '''<div class="tab" xmlns="http://www.w3.org/1999/xhtml">
          <button class="tablinks" onclick="openTab(event, 'table')">Table View</button>
          <button class="tablinks" onclick="openTab(event, 'rdfxml')">RDF/XML</button>
@@ -48,40 +49,42 @@ def fancifyHTML(filepath):
       </div>'''))
             
             # set up table tab
-            tableDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
-            tableDiv.attrib["id"] = "table"
-            tableDiv.attrib["class"] = "tabcontent"
-            tableDiv.attrib["style"] = "display:block"
+            table_div = ET.Element("{http://www.w3.org/1999/xhtml}div")
+            table_div.attrib["id"] = "table"
+            table_div.attrib["class"] = "tabcontent"
+            table_div.attrib["style"] = "display:block"
             table = child.find("{http://www.w3.org/1999/xhtml}table")
-            tableDiv.append(table)
+            table_div.append(table)
             
-            tabDiv = child.find("{http://www.w3.org/1999/xhtml}div[@class='tab']")
-            tabDiv.addnext(tableDiv)
+            # add table under tab buttons
+            tab_div = child.find("{http://www.w3.org/1999/xhtml}div[@class='tab']")
+            tab_div.addnext(table_div)
 
 
-            # add other tabcontent divs after
-            hr = child.find("{http://www.w3.org/1999/xhtml}hr")
+            # set up other tabcontent divs
 
+            # create rdf tab div
             with open(rdfpath) as f:
                 rdftext = f.read()
 
-            rdfDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
-            rdfDiv.attrib["id"] = "rdfxml"
-            rdfDiv.attrib["class"] = "tabcontent"
+            rdf_div = ET.Element("{http://www.w3.org/1999/xhtml}div")
+            rdf_div.attrib["id"] = "rdfxml"
+            rdf_div.attrib["class"] = "tabcontent"
             
             # download link 
-            rdfLink = ET.SubElement(rdfDiv, "{http://www.w3.org/1999/xhtml}a")
-            rdfLink.attrib["class"] = "download"
-            rdfLink.attrib["href"] = rdflink
-            rdfLink.attrib["download"] = ""
-            rdfLink.attrib["target"] = "_blank"
-            rdfLink.attrib["rel"] = "noopener noreferrer"
-            rdfLink.text = "Download RDF/XML"
+            rdflink_a = ET.SubElement(rdf_div, "{http://www.w3.org/1999/xhtml}a")
+            rdflink_a.attrib["class"] = "download"
+            rdflink_a.attrib["href"] = rdflink_href
+            rdflink_a.attrib["download"] = ""
+            rdflink_a.attrib["target"] = "_blank"
+            rdflink_a.attrib["rel"] = "noopener noreferrer"
+            rdflink_a.text = "Download RDF/XML"
             
             # display text
-            rdfPre = ET.SubElement(rdfDiv, "{http://www.w3.org/1999/xhtml}pre")
+            rdfPre = ET.SubElement(rdf_div, "{http://www.w3.org/1999/xhtml}pre")
             rdfPre.text = rdftext
 
+            # create ttl tab div
             with open(ttlpath) as f:
                 ttltext = f.read()
             ttlDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
@@ -89,62 +92,66 @@ def fancifyHTML(filepath):
             ttlDiv.attrib["class"] = "tabcontent"
 
             # download link 
-            ttlLink = ET.SubElement(ttlDiv, "{http://www.w3.org/1999/xhtml}a")
-            ttlLink.attrib["class"] = "download"
-            ttlLink.attrib["href"] = ttllink
-            ttlLink.attrib["download"] = ""
-            ttlLink.attrib["target"] = "_blank"
-            ttlLink.attrib["rel"] = "noopener noreferrer"
-            ttlLink.text = "Download Turtle"
+            ttllink_a = ET.SubElement(ttlDiv, "{http://www.w3.org/1999/xhtml}a")
+            ttllink_a.attrib["class"] = "download"
+            ttllink_a.attrib["href"] = ttlink_href
+            ttllink_a.attrib["download"] = ""
+            ttllink_a.attrib["target"] = "_blank"
+            ttllink_a.attrib["rel"] = "noopener noreferrer"
+            ttllink_a.text = "Download Turtle"
 
             # display text
             ttlPre = ET.SubElement(ttlDiv, "{http://www.w3.org/1999/xhtml}pre")
             ttlPre.text = ttltext
 
-
+            # create nt tab div
             with open(ntpath) as f:
                 nttext = f.read()
-            ntDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
-            ntDiv.attrib["id"] = "nt"
-            ntDiv.attrib["class"] = "tabcontent"
+            nt_Div = ET.Element("{http://www.w3.org/1999/xhtml}div")
+            nt_Div.attrib["id"] = "nt"
+            nt_Div.attrib["class"] = "tabcontent"
 
             # download link 
-            ntLink = ET.SubElement(ntDiv, "{http://www.w3.org/1999/xhtml}a")
-            ntLink.attrib["class"] = "download"
-            ntLink.attrib["href"] = ntlink
-            ntLink.attrib["download"] = ""
-            ntLink.attrib["target"] = "_blank"
-            ntLink.attrib["rel"] = "noopener noreferrer"
-            ntLink.text = "Download N-Triples"
+            ntlink_a = ET.SubElement(nt_Div, "{http://www.w3.org/1999/xhtml}a")
+            ntlink_a.attrib["class"] = "download"
+            ntlink_a.attrib["href"] = ntlink_href
+            ntlink_a.attrib["download"] = ""
+            ntlink_a.attrib["target"] = "_blank"
+            ntlink_a.attrib["rel"] = "noopener noreferrer"
+            ntlink_a.text = "Download N-Triples"
 
             #display text
-            ntPre = ET.SubElement(ntDiv, "{http://www.w3.org/1999/xhtml}pre")
+            ntPre = ET.SubElement(nt_Div, "{http://www.w3.org/1999/xhtml}pre")
             ntPre.text = nttext
 
-            
+            # create json tab div
             with open(jsonpath) as f:
                 jsontext = f.read()
-            jsonDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
-            jsonDiv.attrib["id"] = "json"
-            jsonDiv.attrib["class"] = "tabcontent"
+            json_div = ET.Element("{http://www.w3.org/1999/xhtml}div")
+            json_div.attrib["id"] = "json"
+            json_div.attrib["class"] = "tabcontent"
 
             # download link 
-            jsonLink = ET.SubElement(jsonDiv, "{http://www.w3.org/1999/xhtml}a")
-            jsonLink.attrib["class"] = "download"
-            jsonLink.attrib["href"] = jsonlink
-            jsonLink.attrib["download"] = ""
-            jsonLink.attrib["target"] = "_blank"
-            jsonLink.attrib["rel"] = "noopener noreferrer"
-            jsonLink.text = "Download JSON-LD"
+            jsonlink_a = ET.SubElement(json_div, "{http://www.w3.org/1999/xhtml}a")
+            jsonlink_a.attrib["class"] = "download"
+            jsonlink_a.attrib["href"] = jsonlink_href
+            jsonlink_a.attrib["download"] = ""
+            jsonlink_a.attrib["target"] = "_blank"
+            jsonlink_a.attrib["rel"] = "noopener noreferrer"
+            jsonlink_a.text = "Download JSON-LD"
 
             # display text
-            jsonPre = ET.SubElement(jsonDiv, "{http://www.w3.org/1999/xhtml}pre")
+            jsonPre = ET.SubElement(json_div, "{http://www.w3.org/1999/xhtml}pre")
             jsonPre.text = jsontext
 
-            hr.addprevious(rdfDiv)
+            # locate hr and add tab divs above
+            hr = child.find("{http://www.w3.org/1999/xhtml}hr")
+
+            hr.addprevious(rdf_div)
             hr.addprevious(ttlDiv)
-            hr.addprevious(ntDiv)
-            hr.addprevious(jsonDiv)
+            hr.addprevious(nt_Div)
+            hr.addprevious(json_div)
     
+    # format and rewrite file
     ET.indent(root, '    ')
-    tree.write("../uwlswd_vocabs/test_format.html", method="html", encoding="UTF-8", pretty_print = True)
+    tree.write(filepath, method="html", encoding="UTF-8", pretty_print = True)
