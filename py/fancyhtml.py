@@ -147,6 +147,4 @@ def fancifyHTML(filepath):
             hr.addprevious(jsonDiv)
     
     ET.indent(root, '    ')
-    tree.write("testlinks.html", method="html", encoding="UTF-8", pretty_print = True)
-
-fancifyHTML("../uwlswd_vocabs/linked_data_platforms.html")
+    tree.write("../uwlswd_vocabs/test_format.html", method="html", encoding="UTF-8", pretty_print = True)
