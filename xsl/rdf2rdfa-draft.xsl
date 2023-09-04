@@ -95,7 +95,7 @@
                     <xsl:value-of select="$md_file/datacite:resource/datacite:descriptions/datacite:description"/>
                 </p>
                 <!-- Links to alternate serializations -->
-                <h2>Links to Alternate Serializations for <xsl:value-of select="$datasetName"/></h2>
+                <h2 id="links">Links to Alternate Serializations for <xsl:value-of select="$datasetName"/></h2>
                 <div class="alternatelinks">
                     <a>
                         <xsl:attribute name="href">

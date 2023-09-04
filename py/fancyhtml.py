@@ -18,6 +18,25 @@ def fancifyHTML(filepath):
             # find header 
             tripleH2 = child.find("{http://www.w3.org/1999/xhtml}h2[@id='triples']")
 
+            # find links
+            alternatelinks = child.find("{http://www.w3.org/1999/xhtml}div[@class='alternatelinks']")
+            rdflink = "NOT FOUND"
+            ttllink = "NOT FOUND"
+            ntlink = "NOT FOUND"
+            jsonlink = "NOT FOUND"
+            for link in alternatelinks:
+                if link.attrib["href"].endswith(".nt"):
+                    ntlink = link.attrib["href"]
+                if link.attrib["href"].endswith(".ttl"):
+                    ttllink = link.attrib["href"]
+                if link.attrib["href"].endswith(".jsonld"):
+                    jsonlink = link.attrib["href"]
+                if link.attrib["href"].endswith(".rdf"):
+                    rdflink = link.attrib["href"]
+
+            child.remove(alternatelinks)
+            child.remove(child.find("{http://www.w3.org/1999/xhtml}h2[@id='links']"))
+
             # add tabs
             tripleH2.addnext(ET.XML(
                          '''<div class="tab" xmlns="http://www.w3.org/1999/xhtml">
@@ -45,9 +64,21 @@ def fancifyHTML(filepath):
 
             with open(rdfpath) as f:
                 rdftext = f.read()
+
             rdfDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
             rdfDiv.attrib["id"] = "rdfxml"
             rdfDiv.attrib["class"] = "tabcontent"
+            
+            # download link 
+            rdfLink = ET.SubElement(rdfDiv, "{http://www.w3.org/1999/xhtml}a")
+            rdfLink.attrib["class"] = "download"
+            rdfLink.attrib["href"] = rdflink
+            rdfLink.attrib["download"] = ""
+            rdfLink.attrib["target"] = "_blank"
+            rdfLink.attrib["rel"] = "noopener noreferrer"
+            rdfLink.text = "Download RDF/XML"
+            
+            # display text
             rdfPre = ET.SubElement(rdfDiv, "{http://www.w3.org/1999/xhtml}pre")
             rdfPre.text = rdftext
 
@@ -56,6 +87,17 @@ def fancifyHTML(filepath):
             ttlDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
             ttlDiv.attrib["id"] = "ttl"
             ttlDiv.attrib["class"] = "tabcontent"
+
+            # download link 
+            ttlLink = ET.SubElement(ttlDiv, "{http://www.w3.org/1999/xhtml}a")
+            ttlLink.attrib["class"] = "download"
+            ttlLink.attrib["href"] = ttllink
+            ttlLink.attrib["download"] = ""
+            ttlLink.attrib["target"] = "_blank"
+            ttlLink.attrib["rel"] = "noopener noreferrer"
+            ttlLink.text = "Download Turtle"
+
+            # display text
             ttlPre = ET.SubElement(ttlDiv, "{http://www.w3.org/1999/xhtml}pre")
             ttlPre.text = ttltext
 
@@ -65,6 +107,17 @@ def fancifyHTML(filepath):
             ntDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
             ntDiv.attrib["id"] = "nt"
             ntDiv.attrib["class"] = "tabcontent"
+
+            # download link 
+            ntLink = ET.SubElement(ntDiv, "{http://www.w3.org/1999/xhtml}a")
+            ntLink.attrib["class"] = "download"
+            ntLink.attrib["href"] = ntlink
+            ntLink.attrib["download"] = ""
+            ntLink.attrib["target"] = "_blank"
+            ntLink.attrib["rel"] = "noopener noreferrer"
+            ntLink.text = "Download N-Triples"
+
+            #display text
             ntPre = ET.SubElement(ntDiv, "{http://www.w3.org/1999/xhtml}pre")
             ntPre.text = nttext
 
@@ -74,6 +127,17 @@ def fancifyHTML(filepath):
             jsonDiv = ET.Element("{http://www.w3.org/1999/xhtml}div")
             jsonDiv.attrib["id"] = "json"
             jsonDiv.attrib["class"] = "tabcontent"
+
+            # download link 
+            jsonLink = ET.SubElement(jsonDiv, "{http://www.w3.org/1999/xhtml}a")
+            jsonLink.attrib["class"] = "download"
+            jsonLink.attrib["href"] = jsonlink
+            jsonLink.attrib["download"] = ""
+            jsonLink.attrib["target"] = "_blank"
+            jsonLink.attrib["rel"] = "noopener noreferrer"
+            jsonLink.text = "Download JSON-LD"
+
+            # display text
             jsonPre = ET.SubElement(jsonDiv, "{http://www.w3.org/1999/xhtml}pre")
             jsonPre.text = jsontext
 
@@ -83,4 +147,6 @@ def fancifyHTML(filepath):
             hr.addprevious(jsonDiv)
     
     ET.indent(root, '    ')
-    tree.write(filepath, method="html", encoding="UTF-8", pretty_print = True)
+    tree.write("testlinks.html", method="html", encoding="UTF-8", pretty_print = True)
+
+fancifyHTML("../uwlswd_vocabs/linked_data_platforms.html")
