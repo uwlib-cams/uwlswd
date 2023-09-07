@@ -23,6 +23,9 @@ def format_rdflib(abs_path):
 # this function begins the process of transforming the rdf file to all other serializations 
 def process_file(file_path):
 
+    # file path parsing assumes main.py is being run in top-level uwlswd 
+    # AND that the file being parsed is NOT located in uwlswd
+    
     #absolute path
     abspath = os.path.abspath(file_path)
     
@@ -38,10 +41,10 @@ def process_file(file_path):
     # sets output file as file path with no extension + html extenstion
     output_file = f'{file_path_noext}.html'
 
+
     print(dedent(f"""{'=' * 20}
 PROCESSING {file_name}
 {'=' * 20}"""))
-
 
     # serialize 
     format_rdflib(abspath)
