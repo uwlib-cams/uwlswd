@@ -54,13 +54,13 @@ def fix_hasFormat(new_format, graph, uri_path):
     graph.remove((doi_uri, dct_hasFormat, new_file))
 
 
-# this function processes data as rdflib graph and parses to missing formats
-# serializations are saved in the same location as the inputted file
-# note: does not fix dct:hasFormat in initial file 
-def serialize(format, file_path_noext, file_name, uri_path):
+# this function processes data as rdflib graph and parses to all formats, adding dct:hasFormat
+# serializations are saved in the same location as the input file
 
-    # full file path
-    file_path = file_path_noext + "." + format
+def serialize(file_path, file_name, uri_path):
+
+    # file path w/o extension
+    file_path_noext = file_path.rsplit('.', 1)[0]
 
     # generate rdflib graph
     g = rdflib.Graph().parse(file_path)
@@ -69,7 +69,7 @@ def serialize(format, file_path_noext, file_name, uri_path):
     for ns_prefix, namespace in g.namespaces():
         g.bind(ns_prefix, namespace)
 
-    if format != "rdf":
+    def format_rdf(g, uri_path):
         fix_hasFormat("rdf", g, uri_path)
         rdf = g.serialize(format='xml')
         path = file_path_noext + "." + "rdf"
@@ -78,7 +78,7 @@ def serialize(format, file_path_noext, file_name, uri_path):
         file.close()
         print("    " + file_name + "." + "rdf" + " generated")
 
-    if format != "nt":
+    def format_nt(g, uri_path):
         fix_hasFormat("nt", g, uri_path)
         nt = g.serialize(format='nt')
         path = file_path_noext + "." + "nt"
@@ -88,7 +88,7 @@ def serialize(format, file_path_noext, file_name, uri_path):
         print("    " + file_name + "." + "nt" + " generated")
 
     
-    if format != "ttl":
+    def format_ttl(g, uri_path):
         fix_hasFormat("ttl", g, uri_path)
         turtle = g.serialize(format='turtle')
         path = file_path_noext + "." + "ttl"
@@ -98,7 +98,7 @@ def serialize(format, file_path_noext, file_name, uri_path):
         print("    " + file_name + "." + "ttl" + " generated")
 
 
-    if format != "jsonld":
+    def format_jsonld(g, uri_path):
         fix_hasFormat("jsonld", g, uri_path)
         jsonld = g.serialize(format='json-ld')
         path = file_path_noext + "." + "jsonld"
@@ -106,6 +106,11 @@ def serialize(format, file_path_noext, file_name, uri_path):
         file.write(jsonld)
         file.close()
         print("    " + file_name + "." + "jsonld" + " generated")
+    
+    format_rdf(g, uri_path)
+    format_nt(g, uri_path)
+    format_ttl(g, uri_path)
+    format_jsonld(g, uri_path)
 
 # onlySerialize can be run from this script to produce all serializations
 # except an html-rdfa serialization
@@ -129,7 +134,7 @@ def only_serialize():
     # remove extension
     ext = "." + format
     file_path_noext = file_path.replace(ext, "")
-
+    
     # get uri path - assumes top-level directory for file is parallel to uwlswd directory
     uri_path = "https://uwlib-cams.github.io/" + file_path_noext.replace("../", "")
 
@@ -140,7 +145,7 @@ def only_serialize():
 SERIALIZING DATA
 {'=' * 20}"""))
 
-    serialize(format, file_path_noext, file_name, uri_path)
+    serialize(file_path, file_name, uri_path)
 
 #only_serialize()
 

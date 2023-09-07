@@ -45,7 +45,7 @@ PROCESSING {file_name}
 
     # serialize 
     format_rdflib(abspath)
-    serialize("rdf", file_path_noext, file_name, uri_path)
+    serialize(file_path, file_name, uri_path)
 
     # generate html+rdfa
     # call rdf2rdfa stylesheets
