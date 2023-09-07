@@ -12,49 +12,44 @@ from fancyhtml import fancify_HTML
 # input can be either an rdf/xml file or a directory containing multiple rdf/xml files
 
 # uses rdflib graph to format rdf/xml file so each rdf:Description element has a unique rdf:about attribute
-def format_rdflib(file):
-    g = rdflib.Graph().parse(file_path)
+def format_rdflib(abs_path):
+    g = rdflib.Graph().parse(abs_path)
 
     for ns_prefix, namespace in g.namespaces():
         g.bind(ns_prefix, namespace)
 
-    g.serialize(destination=file, format="xml")
+    g.serialize(destination=abs_path, format="xml")
 
 # this function begins the process of transforming the rdf file to all other serializations 
 def process_file(file_path):
-    split = file_path.split("/")
 
-    directory = ""
-    while len(split) > 1:
-            directory = directory + split.pop(0) + "/"
+    #absolute path
+    abspath = os.path.abspath(file_path)
+    
+    # remove extension
+    file_path_noext = file_path.replace(".rdf", "")
 
-    split = split[0].split(".")
-    format = split.pop()
-    file_name = split.pop()
-    output_file = f'{directory}{file_name}.html'
+    # get uri path - assumes top-level directory for file is parallel to uwlswd directory
+    uri_path = "https://uwlib-cams.github.io/" + file_path_noext.replace("../", "")
+
+    # gets file name - splits string at furthest / and takes string to the right
+    file_name = file_path_noext.rsplit("/", 1)[1]
+    
+    # sets output file as file path with no extension + html extenstion
+    output_file = f'{file_path_noext}.html'
 
     print(dedent(f"""{'=' * 20}
 PROCESSING {file_name}
 {'=' * 20}"""))
 
-    # if format not in ["jsonld","rdf","ttl","nt"]:
-    #     print("Error: file is not one of the accepted formats")
-    #     exit(0)
 
     # serialize 
-    format_rdflib(file_path)
-    serialize(format, file_path, directory, file_name)
+    format_rdflib(abspath)
+    serialize("rdf", file_path_noext, file_name, uri_path)
 
     # generate html+rdfa
-
-    # this will always end with rdf because of pre-processing
-    if (file_path.endswith('.rdf')):
-        xsl_input_file = file_path
-    # this is only if we serialize from other formats, currently it is obsolete
-    else:
-        xsl_input_file = file_path.rsplit(".", 1)[0] + ".rdf"
-
     # call rdf2rdfa stylesheets
+
     rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
