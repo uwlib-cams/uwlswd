@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:hclsr="https://doi.org/10.70027/uwlib.55.A.2.1#" xmlns:dct="http://purl.org/dc/terms/"
-    xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/"
-    xmlns:dpla="http://dp.la/about/map/" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-    xmlns:bf="http://id.loc.gov/ontologies/bibframe/"
-    xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace"
-    xmlns:void="http://rdfs.org/ns/void#" xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:schema="http://schema.org/" xmlns:xhtml="http://www.w3.org/1999/xhtml" 
-    xmlns:datacite="http://datacite.org/schema/kernel-4" version="3.0">
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:datacite="http://datacite.org/schema/kernel-4"
+    xmlns:schema="https://schema.org/"
+    version="3.0">
     <xsl:strip-space elements="*"/>
     
     <!-- match creators and publishers xsl -->
@@ -59,7 +53,7 @@
             </xsl:when>
             <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
         </xsl:choose>",
-        "encodingFormat" : "application/xhtml+xml" ,
+        "encodingFormat" : "text/html" , <!-- i think this is what it should be - needs review -->
         "license" : "<xsl:choose>
             <xsl:when test="$locale/dct:license">
                 <xsl:value-of select="$locale/dct:license"/>

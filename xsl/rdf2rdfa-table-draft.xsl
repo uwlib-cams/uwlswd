@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:dct="http://purl.org/dc/terms/"
-    xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/"
-    xmlns:dpla="http://dp.la/about/map/" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-    xmlns:bf="http://id.loc.gov/ontologies/bibframe/"
-    xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace"
-    xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs" version="2.0">
+    exclude-result-prefixes="#all" version="3.0">
  
  <!-- this is the core RDF-2-RDFa transform to be included in a dataset-specific custom xslt file;
       it produces the html table with embedded rdfa-->
