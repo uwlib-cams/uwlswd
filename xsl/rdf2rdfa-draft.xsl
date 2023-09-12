@@ -2,24 +2,16 @@
 <!-- determine which namespaces we need -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:hclsr="https://doi.org/10.70027/uwlib.55.A.2.1#" 
-    xmlns:dct="http://purl.org/dc/terms/"
-    xmlns:dc="http://purl.org/dc/elements/1.1/" 
-    xmlns:edm="http://www.europeana.eu/schemas/edm/"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
-    xmlns:foaf="http://xmlns.com/foaf/0.1/"
-    xmlns:dpla="http://dp.la/about/map/" 
-    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-    xmlns:bf="http://id.loc.gov/ontologies/bibframe/"
-    xmlns:ore="http://www.openarchives.org/ore/terms/" 
-    xmlns:dcmitype="http://purl.org/dc/dcmitype/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xml="http://www.w3.org/XML/1998/namespace" 
-    xmlns:ldproc="https://doi.org/10.6069/uwlib.55.b.2#"
-    xmlns:datacite="http://datacite.org/schema/kernel-4"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:j="http://www.w3.org/2005/xpath-functions"
+    xmlns:schema="https://schema.org/"
+    xmlns:datacite="http://datacite.org/schema/kernel-4"
+    xmlns:dct="http://purl.org/dc/terms/"
+    exclude-result-prefixes="#all"
     version="3.0">
+    
+    <!-- using xhtml method of output BECAUSE we want closing tags on all elements -->
+    <!-- note that we are ACTUALLY outputing an HTML5+RDFa doc -->
+    <xsl:output omit-xml-declaration="true" method="xhtml"/>
     
     <!-- rdfa xsl -->
     <xsl:include href="rdf2rdfa-table-draft.xsl"/>
@@ -57,11 +49,20 @@
         <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/owl:versionInfo"/>
         
         <!-- HTML declaration -->
-        <!-- look into xmlns -->
-        <html xmlns="http://www.w3.org/1999/xhtml"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/MarkUp/SCHEMA/xhtml-rdfa-2.xsd"
-            lang="en" xml:lang="en">
+     
+        <!-- doctype as text -->
+        <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
+        <html lang="en">
+            
+            <!-- prefix elements from input namespace prefixes -->
+            <xsl:attribute name="prefix">
+                <xsl:for-each select="rdf:RDF/namespace::*">
+                    <xsl:value-of select="local-name(.)"/>
+                    <xsl:text>: </xsl:text>
+                    <xsl:value-of select="."/>
+                    <xsl:text> </xsl:text>
+                </xsl:for-each>
+            </xsl:attribute>
             <head>
                 <title>
                     <xsl:value-of select="$datasetName"/>
