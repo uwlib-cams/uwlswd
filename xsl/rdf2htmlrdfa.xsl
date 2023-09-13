@@ -53,13 +53,14 @@
                 <title>
                     <xsl:value-of select="$description/dct:title"/>
                 </title>
-                <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
+               
                 <!-- schema.org content -->
-                <!-- find out what variables are fixed vs unique -->
                 <script type="application/ld+json">
                     <xsl:call-template name="rdf2schemaorg"/>
                 </script>
+                
                 <!-- alternate links (not visible on page) -->
                 <link rel="alternate" type="application/n-triples"
                     href="{concat($final_path, $file_name, '.nt')}"/>
@@ -118,7 +119,7 @@
                             <xsl:variable name="file_plus">
                                 <xsl:copy select=".">
                                     <xsl:copy select="rdf:RDF">
-                                        <xsl:copy select="rdf:Description[@rdf:about = $description/dct:title]">
+                                        <xsl:copy select="$description">
                                             <xsl:copy-of select="@*"/>
                                             <xsl:copy-of select="node()"/>
                                             <xsl:element name="dct:hasFormat">
