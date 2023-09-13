@@ -53,7 +53,7 @@ PROCESSING {file_name}
     # generate html+rdfa
     # call rdf2rdfa stylesheets
 
-    rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
+    rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
