@@ -37,19 +37,41 @@
             <xsl:otherwise>"VALUE MISSING" , </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
-            <xsl:when test="$description/dc:creator"><xsl:for-each select="$description/dc:creator">
+            <xsl:when test="$description/dct:creator"><xsl:for-each select="$description/dct:creator">
+        "creator" : { 
+            "@id" : "<xsl:value-of select="./@rdf:resource"/>" 
+             } , </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$description/dc:creator and not($description/dct:creator)"><xsl:for-each select="$description/dc:creator">
         "creator" : { 
             "name" : "<xsl:value-of select="."/>" 
              } , </xsl:for-each>
             </xsl:when>
             <xsl:otherwise> 
-        "creator" : { "name": "VALUE MISSING" } , </xsl:otherwise>
+        "creator" : { 
+            "name" : "VALUE MISSING",
+            "@id" : "VALUE MISSING"
+            } , </xsl:otherwise>
         </xsl:choose> 
-        "publisher" : { <xsl:choose><xsl:when test="$description/dc:publisher"> 
+        "publisher" : { <xsl:choose><xsl:when test="$description/dct:publisher">
+            "@id" : "<xsl:value-of select="$description/dct:publisher/@rdf:resource"/>" 
+            } , </xsl:when>
+            <xsl:when test="$description/dc:publisher and not($description/dct:publisher)"> 
             "name" : "<xsl:value-of select="$description/dc:publisher"/>" 
             } , </xsl:when>
-            <xsl:otherwise> "name": "VALUE MISSING" } , </xsl:otherwise>
-        </xsl:choose> 
+            <xsl:otherwise> 
+            "name" : "VALUE MISSING"
+            "@id" : "VALUE MISSING"
+            } , </xsl:otherwise>
+        </xsl:choose><xsl:if test="$description/dct:contributor or $description/dc:contributor">
+        "contributer" : { <xsl:choose><xsl:when test="$description/dct:contributor">
+            "@id" : <xsl:value-of select="$description/dct:contributor/@rdf:resource"/>
+            } , </xsl:when>
+            <xsl:when test="$description/dc:contributor and not($description/dct:contributor)">
+            "name" : <xsl:value-of select="$description/dc:contributor"/>
+            } , </xsl:when>
+         </xsl:choose>
+         </xsl:if>
         "datePublished" : "<xsl:choose>
             <xsl:when test="$description/dct:issued">
                 <xsl:value-of select="$description/dct:issued"/>
@@ -62,8 +84,8 @@
             </xsl:when>
             <xsl:otherwise>VALUE MISSING</xsl:otherwise>
         </xsl:choose>", 
-        "encodingFormat" : "text/html" ,
-        "license" : "<xsl:choose> <!-- i think this is what it should be - needs review --> 
+        "encodingFormat" : "text/html" , <!-- i think this is what it should be - needs review --> 
+        "license" : "<xsl:choose> 
             <xsl:when test="$description/dct:license">
                 <xsl:value-of select="$description/dct:license/@rdf:resource"/>
             </xsl:when>
