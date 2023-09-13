@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-4"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+   <identifier identifierType="DOI">10.6069/UWLSWD.25Z4-E963</identifier>
+   <titles>
+      <title xml:lang="en">Form of material</title>
+      <title titleType="Alternative Title" xml:lang="en">MARC21 006/00 values for all materials expressed using
+         RDF</title>
+   </titles>
+   <creators>
+      <creator>
+         <creatorName>University of Washington Libraries</creatorName>
+      </creator>
+   </creators>
+   <publisher>University of Washington Libraries</publisher>
+   <publicationYear>2023</publicationYear>
+   <resourceType resourceTypeGeneral="Dataset">http://www.w3.org/2004/02/skos/core#ConceptScheme</resourceType>
+   <language>en</language>
+   <relatedIdentifiers>
+      <relatedIndentifier relatedIdentifierType="URL" relationType="isDerivedFrom">https://www.loc.gov/marc/bibliographic/bd008.html</relatedIndentifier>
+      <relatedIndentifier relatedIdentifierType="URL" relationType="isDerivedFrom">http://marc21rdf.info</relatedIndentifier>
+   </relatedIdentifiers>
+   <rightsList>
+      <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0"/>
+   </rightsList>
+   <descriptions>
+      <description xml:lang="en" descriptionType="TechnicalInfo">Identifies a form of material.</description>
+   </descriptions>
+</resource>
