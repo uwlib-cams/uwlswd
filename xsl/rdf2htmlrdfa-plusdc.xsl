@@ -46,7 +46,7 @@
         <xsl:variable name="doi" select="lower-case(concat('https://doi.org/', $md_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
         <xsl:variable name="datasetName" select="$md_file/datacite:resource/datacite:titles/datacite:title[1]"/>
         
-        <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/owl:versionInfo"/>
+        <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/schema:version"/>
         
         <!-- HTML declaration -->
         
