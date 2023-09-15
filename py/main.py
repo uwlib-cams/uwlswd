@@ -54,6 +54,8 @@ PROCESSING {file_name}
     # call rdf2rdfa stylesheets
 
     rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
+    # to generate html + rdfa from datacite metadata use
+    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa_plusdc.xsl"
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
