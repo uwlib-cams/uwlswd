@@ -67,7 +67,7 @@
                 <title>
                     <xsl:value-of select="$datasetName"/>
                 </title>
-                <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
                 <!-- schema.org content -->
                 <!-- find out what variables are fixed vs unique -->
