@@ -66,7 +66,7 @@
             </xsl:when>
             <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
         </xsl:choose>",
-        "encodingFormat" : "application/xhtml+xml" ,
+        "encodingFormat" : "text/html" ,
         "license" : "<xsl:choose>
             <xsl:when test="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI">
                 <xsl:value-of select="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI"/>
