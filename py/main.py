@@ -21,7 +21,7 @@ def format_rdflib(abs_path):
     g.serialize(destination=abs_path, format="xml")
 
 # this function begins the process of transforming the rdf file to all other serializations 
-def process_file(file_path):
+def process_file(file_path, fancy):
 
     # file path parsing assumes main.py is being run in top-level uwlswd 
     # AND that the file being parsed is NOT located in uwlswd
@@ -53,7 +53,9 @@ PROCESSING {file_name}
     # generate html+rdfa
     # call rdf2rdfa stylesheets
 
-    rdf2rdfa_stylesheet = "xsl/rdf2rdfa-draft.xsl"
+    rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
+    # to generate html + rdfa from datacite metadata use
+    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
@@ -65,12 +67,12 @@ PROCESSING {file_name}
 
     print(f"""    {file_name}.html generated""")
 
-    fancy = input("\n\tFancify HTML? (Yes or No):\n\t> ")
-    if fancy.lower() == "yes":
+    if fancy == True:
         fancify_HTML(output_file)
-        print(f"fancy HTML generated")
+        print(f"\tfancy HTML generated")
 
 ### SCRIPT STARTS HERE ###
+fancy = False
 
 # check set-up
 print(dedent("""Please confirm:
@@ -113,13 +115,21 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
-        process_file(file_path)
+        fancy = input("\nGenerate fancier HTML page? (yes/no)\n> ")
+        if fancy.lower() == 'yes':
+            fancy = True
+        process_file(file_path, fancy)
     else: 
         print("Input must be an rdf file or a directory containing rdf files")
         exit()
 
 elif os.path.isdir(file_path):
     complete_files = []
+
+    fancy = input("\nGenerate fancier HTML pages? (yes/no)\n> ")
+    if fancy.lower() == 'yes':
+        fancy = True
+
     for root, dir_names, file_names in os.walk(file_path):
         for f in file_names:
             if f.endswith('.rdf'):
@@ -130,4 +140,4 @@ elif os.path.isdir(file_path):
 {'=' * 20}"""))
 
     for f in complete_files:
-        process_file(f)
+        process_file(f, fancy)
