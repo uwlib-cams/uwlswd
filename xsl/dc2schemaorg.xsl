@@ -62,14 +62,14 @@
         <xsl:if test="count($metadata_file/datacite:resource/datacite:relatedIdentifiers/datacite:relatedIdentifier[@relationType = 'IsDerivedFrom']) gt 1">
         "isBasedOn" : [ 
             <xsl:for-each select="$metadata_file/datacite:resource/datacite:relatedIdentifiers/datacite:relatedIdentifier[@relationType = 'IsDerivedFrom']">"<xsl:value-of select="."/>" , 
-            </xsl:for-each>] , 
-        </xsl:if>
+            </xsl:for-each>] , </xsl:if>
         <xsl:choose>
             <xsl:when test="count($metadata_file/datacite:resource/datacite:creators/datacite:creator) gt 1">
         "creator" : {
            <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/>
         } , </xsl:when>
-            <xsl:otherwise>"creator" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/></xsl:otherwise>
+            <xsl:otherwise>
+        "creator" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/></xsl:otherwise>
         </xsl:choose>
         "publisher" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:publisher"/>
         "datePublished" : "<xsl:choose>
