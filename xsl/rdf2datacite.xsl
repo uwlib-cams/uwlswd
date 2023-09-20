@@ -37,7 +37,7 @@
                         </xsl:choose>
                     </title>
                     <xsl:if test="$description/dct:alternative">
-                        <title titleType="Alternative Title">
+                        <title titleType="AlternativeTitle">
                             <xsl:if test="$description/dct:alternative[@xml:lang]">
                                 <xsl:attribute name="xml:lang">
                                     <xsl:value-of select="$description/dct:alternative/@xml:lang"/>
@@ -122,7 +122,7 @@
                         <relatedIdentifiers>
                             <xsl:for-each select="$description/dct:source[@rdf:resource]">
                                 <relatedIndentifier relatedIdentifierType="URL"
-                                    relationType="isDerivedFrom">
+                                    relationType="IsDerivedFrom">
                                     <xsl:value-of select="./@rdf:resource"/>
                                 </relatedIndentifier>
                             </xsl:for-each>
