@@ -19,7 +19,6 @@ def format_rdflib(abs_path):
         g.bind(ns_prefix, namespace)
 
     g.serialize(destination=abs_path, format="xml")
-    print("start number ", len(g))
 
 # this function begins the process of transforming the rdf file to all other serializations 
 def process_file(file_path, fancy):
