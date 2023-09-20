@@ -121,10 +121,10 @@
                     <xsl:when test="$description/dct:source">
                         <relatedIdentifiers>
                             <xsl:for-each select="$description/dct:source[@rdf:resource]">
-                                <relatedIndentifier relatedIdentifierType="URL"
+                                <relatedIdentifier relatedIdentifierType="URL"
                                     relationType="IsDerivedFrom">
                                     <xsl:value-of select="./@rdf:resource"/>
-                                </relatedIndentifier>
+                                </relatedIdentifier>
                             </xsl:for-each>
                         </relatedIdentifiers>
                     </xsl:when>
