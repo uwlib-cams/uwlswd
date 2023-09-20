@@ -32,7 +32,7 @@
                         >"<xsl:value-of select="."/>" , </xsl:for-each> 
             ] </xsl:when>
             <xsl:when
-                test="(count($description/dct:description) gt 1) and (count($description/skos:scopeNote) = 0)"
+                test="(count($description/dct:description) = 1) and (count($description/skos:scopeNote) = 0)"
                 > "<xsl:value-of select="$description/dct:description"/>" , </xsl:when>
             <xsl:otherwise>"VALUE MISSING" , </xsl:otherwise>
         </xsl:choose>
