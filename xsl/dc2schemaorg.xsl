@@ -41,6 +41,12 @@
             </xsl:when>
             <xsl:otherwise>VALUE NOT FOUND</xsl:otherwise>
         </xsl:choose>" ,
+        <xsl:if test="count($metadata_file/datacite:resource/datacite:titles/datacite:title[@titleType = 'AlternativeTitle']) = 1">
+        "alternateName" : "<xsl:value-of select="$metadata_file/datacite:resource/datacite:titles/datacite:title[@titleType = 'AlternativeTitle']"/>" , </xsl:if>
+        <xsl:if test="count($metadata_file/datacite:resource/datacite:titles/datacite:title[@titleType = 'AlternativeTitle']) gt 1">
+        "alternateName" : [ 
+            <xsl:for-each select="$metadata_file/datacite:resource/datacite:titles/datacite:title[@titleType = 'AlternativeTitle']">"<xsl:value-of select="."/>" , 
+            </xsl:for-each>] , </xsl:if>
         "description" : "<xsl:choose>
             <xsl:when test="$metadata_file/datacite:resource/datacite:descriptions/datacite:description[@descriptionType = 'Abstract']">
                 <xsl:value-of select="normalize-space($metadata_file/datacite:resource/datacite:descriptions/datacite:description[@descriptionType = 'Abstract'])"/>
@@ -50,7 +56,7 @@
         <xsl:choose>
             <xsl:when test="count($metadata_file/datacite:resource/datacite:creators/datacite:creator) gt 1">"creator" : [
            <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/>
-        ],</xsl:when>
+        ] , </xsl:when>
             <xsl:otherwise>"creator" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName"/></xsl:otherwise>
         </xsl:choose>
         "publisher" : <xsl:apply-templates select="$metadata_file/datacite:resource/datacite:publisher"/>
