@@ -50,7 +50,7 @@
                     </xsl:choose>
                     <!-- predicate is element name -->
                     <td>
-                        <a href="{concat(namespace-uri(.),local-name(*))}">
+                        <a href="{concat(namespace-uri(.),local-name(.))}">
                             <xsl:value-of select="name(.)"/>
                         </a>
                     </td>
