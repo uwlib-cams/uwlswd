@@ -71,7 +71,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </creators>
-                <xsl:if test="$description/dc:contributor">
+           <!--     <xsl:if test="$description/dc:contributor">
                     <contributors>
                         <xsl:for-each select="$description/dc:contributor">
                             <contributor>
@@ -86,7 +86,7 @@
                             </contributor>
                         </xsl:for-each>
                     </contributors>
-                </xsl:if>
+                </xsl:if> -->
                 <publisher>
                     <xsl:choose>
                         <xsl:when test="$description/dc:publisher">
