@@ -53,6 +53,11 @@
                             <xsl:for-each select="$description/dc:creator">
                                 <creator>
                                     <creatorName>
+                                        <xsl:if test="$description/dc:creator[@xml:lang]">
+                                            <xsl:attribute name="xml:lang">
+                                                <xsl:value-of select="$description/dc:creator/@xml:lang"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
                                         <xsl:value-of select="."/>
                                     </creatorName>
                                 </creator>
@@ -66,12 +71,28 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </creators>
+                <xsl:if test="$description/dc:contributor">
+                    <contributors>
+                        <xsl:for-each select="$description/dc:contributor">
+                            <contributor>
+                                <contributorName>
+                                    <xsl:if test=".[@xml:lang]">
+                                        <xsl:attribute name="xml:lang">
+                                            <xsl:value-of select="./@xml:lang"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:value-of select="."/>
+                                </contributorName>
+                            </contributor>
+                        </xsl:for-each>
+                    </contributors>
+                </xsl:if>
                 <publisher>
                     <xsl:choose>
                         <xsl:when test="$description/dc:publisher">
-                            <xsl:if test="$description/dct:publisher[@xml:lang]">
+                            <xsl:if test="$description/dc:publisher[@xml:lang]">
                                 <xsl:attribute name="xml:lang">
-                                    <xsl:value-of select="$description/dct:publisher/@xml:lang"/>
+                                    <xsl:value-of select="$description/dc:publisher/@xml:lang"/>
                                 </xsl:attribute>
                             </xsl:if>
                             <xsl:value-of select="$description/dc:publisher"/>
