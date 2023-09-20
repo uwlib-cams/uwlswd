@@ -19,6 +19,7 @@ def format_rdflib(abs_path):
         g.bind(ns_prefix, namespace)
 
     g.serialize(destination=abs_path, format="xml")
+    print("start number ", len(g))
 
 # this function begins the process of transforming the rdf file to all other serializations 
 def process_file(file_path, fancy):
@@ -33,8 +34,8 @@ def process_file(file_path, fancy):
     file_path_noext = file_path.replace(".rdf", "")
 
     # get uri path - assumes top-level directory for file is parallel to uwlswd directory
-    uri_path = "https://uwlib-cams.github.io/" + file_path_noext.replace("../", "")
-
+    uri_path = "https://uwlib-cams.github.io/" + file_path_noext.replace("../", "").replace("\\", "/")
+    
     # gets file name - splits string at furthest / and takes string to the right
     file_name = file_path_noext.rsplit("/", 1)[1]
     
@@ -53,9 +54,9 @@ PROCESSING {file_name}
     # generate html+rdfa
     # call rdf2rdfa stylesheets
 
-    rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
+    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
     # to generate html + rdfa from datacite metadata use
-    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
+    rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
