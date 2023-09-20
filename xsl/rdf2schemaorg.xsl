@@ -64,7 +64,7 @@
             "@id" : "VALUE MISSING"
             } , </xsl:otherwise>
         </xsl:choose><xsl:if test="$description/dct:contributor or $description/dc:contributor">
-        "contributer" : { <xsl:choose><xsl:when test="$description/dct:contributor">
+        "contributor" : { <xsl:choose><xsl:when test="$description/dct:contributor">
             "@id" : <xsl:value-of select="$description/dct:contributor/@rdf:resource"/>
             } , </xsl:when>
             <xsl:when test="$description/dc:contributor and not($description/dct:contributor)">
