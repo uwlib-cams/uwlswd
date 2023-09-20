@@ -37,7 +37,7 @@
         <!-- currently gotten from rdf:description/rdf:type void#Dataset - is this in every dataset? -->
         <!-- DataCite metadata file name - uses DOI from rdf/xml file -->
         <xsl:variable name="metadata_file_name">
-            <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[./rdf:type[@rdf:resource = 'http://rdfs.org/ns/void#Dataset']]/@rdf:about"/>
+            <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[not(contains(@rdf:about, '#'))]/@rdf:about"/>
             <xsl:value-of select="concat('../DataCite/', substring-after($rdfabout, 'https://doi.org/10.6069/'), '.xml')"/>
         </xsl:variable>
         <xsl:variable name="md_file" select="document($metadata_file_name)"/>
