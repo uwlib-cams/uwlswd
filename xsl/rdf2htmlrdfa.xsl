@@ -76,6 +76,25 @@
                 <h1>
                     <xsl:value-of select="$description/dct:title"/>
                 </h1>
+                <xsl:if test="$description/dct:alternative">
+                    <xsl:choose>
+                        <xsl:when test="count($description/dct:alternative) = 1">
+                            <h2 id="altTitle">(<xsl:value-of select="$description/dct:alternative"/>)</h2>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <h2 id="altTitle">(<xsl:for-each select="$description/dct:alternative">
+                               <xsl:choose>
+                                   <xsl:when test="position() = count($description/dct:alternative)">
+                                       <xsl:value-of select="."/>
+                                   </xsl:when>
+                                   <xsl:otherwise>
+                                       <xsl:value-of select="."/>, 
+                                   </xsl:otherwise>
+                               </xsl:choose>
+                            </xsl:for-each>)</h2>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
                 <p>
                     <xsl:value-of select="$description/dct:description"/>
                 </p>
