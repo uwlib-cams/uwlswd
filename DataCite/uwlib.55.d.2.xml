@@ -11,7 +11,7 @@
   </titles>
   <publisher>University of Washington Libraries</publisher>
   <publicationYear>2018</publicationYear>
-  <resourceType resourceTypeGeneral="Dataset">LibraryData</resourceType>
+  <resourceType resourceTypeGeneral="Dataset">RDF Vocabulary</resourceType>
   <dates>
     <date dateType="Issued">2018</date>
   </dates>
@@ -20,7 +20,7 @@
     <size>17 KB</size>
   </sizes>
   <formats>
-    <format>XHTML+RDFa 1.1</format>
+    <format>text/html</format>
   </formats>
   <version/>
   <rightsList>
