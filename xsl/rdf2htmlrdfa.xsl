@@ -6,6 +6,7 @@
     xmlns:schema="https://schema.org/"
     xmlns:datacite="http://datacite.org/schema/kernel-4"
     xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     exclude-result-prefixes="#all"
     version="3.0">
     
@@ -95,9 +96,18 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>
-                <p>
-                    <xsl:value-of select="$description/dct:description"/>
-                </p>
+                <xsl:for-each select="$description/dct:description">
+                    <p>
+                        <xsl:value-of select="."/>
+                    </p>
+                </xsl:for-each>
+                <!-- do we want skos:scopeNote in top-of-page? -->
+                <xsl:for-each select="$description/skos:scopeNote">
+                    <p>
+                        <xsl:value-of select="."/>
+                    </p>
+                </xsl:for-each>
+                
                 <!-- Links to alternate serializations -->
                 <h2 id="links">Links to Alternate Serializations for <xsl:value-of select="$description/dct:title"/></h2>
                 <div class="alternatelinks">
@@ -141,11 +151,11 @@
                                         <xsl:copy select="$description">
                                             <xsl:copy-of select="@*"/>
                                             <xsl:copy-of select="node()"/>
-                                            <xsl:element name="dct:hasFormat">
+                                            <xsl:copy select="./dct:hasFormat[1]">
                                                 <xsl:attribute name="rdf:resource">
                                                     <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
                                                 </xsl:attribute>
-                                            </xsl:element>
+                                            </xsl:copy>
                                         </xsl:copy>
                                         <xsl:copy-of select="rdf:Description[not(@rdf:about = $description/@rdf:about)]"/>
                                     </xsl:copy>
