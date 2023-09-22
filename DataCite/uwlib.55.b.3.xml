@@ -7,16 +7,22 @@
     </creator>
   </creators>
   <titles>
-    <title>Historical Children's Literature Categories</title>
+    <title>Linked Data Vocabularies: Children's Literature Categories</title>
+    <title titleType="AlternativeTitle">University of Washington Libraries Linked Data Vocabularies: Childrens Literature Categories</title>
   </titles>
   <publisher>University of Washington Libraries</publisher>
   <publicationYear>2018</publicationYear>
-  <resourceType resourceTypeGeneral="Dataset">LibraryData</resourceType>
+  <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme</resourceType>
+  <language>en-US</language>
   <dates>
     <date dateType="Issued">2018</date>
   </dates>
-  <sizes/>
-  <formats/>
+  <sizes>
+    <size>109 KB</size>
+  </sizes>
+  <formats>
+    <format>text/html</format>
+  </formats>
   <version/>
   <rightsList>
     <rights rightsURI="https://creativecommons.org/licenses/by-nc/4.0">Creative Commons license Attribution-NonCommercial; see https://creativecommons.org/licenses/ </rights>

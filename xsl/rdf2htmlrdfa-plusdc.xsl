@@ -159,11 +159,11 @@
                                     <xsl:copy select="rdf:Description[@rdf:about = $doi]">
                                         <xsl:copy-of select="@*"/>
                                         <xsl:copy-of select="node()"/>
-                                        <xsl:element name="dct:hasFormat">
+                                        <xsl:copy select="./dct:hasFormat[1]">
                                             <xsl:attribute name="rdf:resource">
                                                 <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
                                             </xsl:attribute>
-                                        </xsl:element>
+                                        </xsl:copy>
                                     </xsl:copy>
                                     <xsl:copy-of select="rdf:Description[not(@rdf:about = $doi)]"/>
                                 </xsl:copy>
