@@ -4,7 +4,7 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:dct="http://purl.org/dc/terms/"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:void="http://rdfs.org/ns/void#">
@@ -30,26 +30,15 @@
         680 >> only $i exist in NGL MARC records; extract only $i.
         681 >> not used in RDF.
         750 >> Output only $0. All 750s in current MARC NGL have only $0, no $1.
-               Problem: MARC 750 may have been used inappropriately?
-               Can use skos:closeMatch or skos:relatedMatch for $0's that begin with http://id.loc.gov/authorities/subjects as those are skos:Concepts.
-               Other 750s are fast headings and they are not skos:Concepts so we cannot use a skos mapping relation; in addition, they are not madsrdf:Authority instances and so we cannot use madsrdf:isIdentifiedByAuthority; so I believe we're stuck with rdfs:seeAlso.
+               $0 values are either FAST headings (not instances of skos:Concept) or have base IRI http://id.loc.gov/authorities/subjects (are instances of skos:Concept).
                If other types of headings are used, we will have to write additional conditions.
         755 >> only $1 exist in NGL MARC records; extract only $1.
-               All IRIs point to wikidata; these probably need to be related with rdfs:seeAlso.
-    -->
-    <!-- 
-        ERRORS THAT SHOULD BE CORRECTED IN MARC XML:
-        1. 155=Native American newspapers. 
-            1.a. 680is a dupe of the 360. The 360 is correct. Deletre the 680.
-            1.b. The 360 is truncated. Add the correct full text from the HTML.
-        2. Is MARC 750 appropriately used in current MARC NGL? Shouldn't those be 755s?
-            2.a. Note: 750s in current NGL always points to an authority.
-        3. NGL IRIs entered in 555$1 should be moved to 555$0
     -->
     <xsl:key name="lookup" match="marc:record" use="marc:datafield[@tag = '155']"/>
     <xsl:template match="/">
         <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
-            xmlns:dcterms="http://purl.org/dc/terms/"
+            xmlns:dct="http://purl.org/dc/terms/"
+            xmlns:schema="http://schema.org/"
             xmlns:ldproc="https://doi.org/10.6069/uwlib.55.b.2#"
             xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#"
             xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -57,34 +46,33 @@
             xmlns:skos="http://www.w3.org/2004/02/skos/core#" 
             xmlns:void="http://rdfs.org/ns/void#">
             <rdf:Description rdf:about="https://doi.org/10.6069/uwlib.55.d.5">
-                <dc:contributor>Jessica Albano</dc:contributor>
-                <dcterms:contributor rdf:resource="http://viaf.org/viaf/139541794"/>
-                <dcterms:description xml:lang="en">Terms used to designate genres of
-                    newspapers.</dcterms:description>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.html"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.json"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.nt"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.rdf"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.ttl"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.xml"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list_uwl.json"/>
-                <dcterms:hasFormat
-                    rdf:resource="https://www.lib.washington.edu/gmm/collections/mcnews/ngl"/>
-                <dcterms:title xml:lang="en">Newspaper Genre List</dcterms:title>
-                <rdf:type rdf:resource="http://rdfs.org/ns/void#Dataset"/>
                 <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
-                <owl:versionInfo>1-1-0</owl:versionInfo>
+                <schema:additionalType xml:lang="en">SKOS Concept Scheme</schema:additionalType>
+                <dc:creator xml:lang="en">University of Washington Libraries Government Publications, Maps, Microforms and Newspapers</dc:creator>
+                <dct:title xml:lang="en">Newspaper Genre List</dct:title>
+                <dc:publisher xml:lang="en">University of Washington Libraries</dc:publisher>
+                <dct:publisher rdf:resource="http://viaf.org/viaf/139541794"/>
+                <dct:issued>2021</dct:issued>
+                <dc:language>en</dc:language>
+                <dct:format rdf:resource="http://www.w3.org/ns/formats/RDF_XML"/>
+                <dct:hasFormat
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.html"/>
+                <dct:hasFormat
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.json"/>
+                <dct:hasFormat
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.nt"/>
+                <dct:hasFormat
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.ttl"/>
+                <dct:hasFormat
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.xml"/>
+                <dct:hasFormat
+                    rdf:resource="https://www.lib.washington.edu/gmm/collections/mcnews/ngl/"/>
+                <dct:license rdf:resource="http://creativecommons.org/publicdomain/zero/1.0"/>
+                <dct:description xml:lang="en">Terms used to designate genres of newspapers.</dct:description>
+                <schema:version>1-1-1</schema:version>
+                <dc:contributor>Jessica Albano</dc:contributor>
                 <rdfs:seeAlso rdf:resource="http://www.wikidata.org/entity/Q106632466"/>
-                <void:class rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
-                <void:class rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
-            </rdf:Description>
+             </rdf:Description>
             <xsl:apply-templates select="marc:collection/marc:record"/>
         </rdf:RDF>
     </xsl:template>

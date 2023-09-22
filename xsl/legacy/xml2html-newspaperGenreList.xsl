@@ -90,6 +90,10 @@
             <p style="padding-left:15px;">USE <xsl:value-of select="marc:subfield"/></p>
         </xsl:for-each>
 
+        <xsl:for-each select="../marc:datafield[@tag = '360']">
+            <p style="padding-left:15px;">(<xsl:value-of select="marc:subfield"/>)</p>
+        </xsl:for-each>
+
         <xsl:for-each select="../marc:datafield[@tag = '680']">
             <p style="padding-left:15px;">(<xsl:value-of select="marc:subfield"/>)</p>
         </xsl:for-each>

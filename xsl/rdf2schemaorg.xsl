@@ -23,19 +23,30 @@
             </xsl:when>
             <xsl:otherwise>VALUE MISSING</xsl:otherwise>
         </xsl:choose>" , 
+        <xsl:if test="count($description/dct:alternative) = 1">
+        "alternateName" : "<xsl:value-of select="$description/dct:alternative"/>" , 
+        </xsl:if><xsl:if test="count($description/dct:alternative) gt 1">
+        "alternateName" : [ 
+            <xsl:for-each select="$description/dct:alternative">"<xsl:value-of select="."/>" , 
+            </xsl:for-each>] , </xsl:if>
         "description" : <xsl:choose><xsl:when
                 test="(count($description/dct:description) gt 1) or ($description/dct:description and $description/skos:scopeNote)"
                 >[ 
             <xsl:for-each 
                     select="$description/dct:description">"<xsl:value-of select="."/>" , 
             </xsl:for-each><xsl:for-each select="$description/skos:scopeNote"
-                        >"<xsl:value-of select="."/>" , </xsl:for-each> 
-            ] </xsl:when>
+                        >"<xsl:value-of select="."/>" , </xsl:for-each>] , </xsl:when>
             <xsl:when
-                test="(count($description/dct:description) gt 1) and (count($description/skos:scopeNote) = 0)"
+                test="(count($description/dct:description) = 1) and (count($description/skos:scopeNote) = 0)"
                 > "<xsl:value-of select="$description/dct:description"/>" , </xsl:when>
             <xsl:otherwise>"VALUE MISSING" , </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="count($description/dct:source) = 1">
+        "isBasedOn" : "<xsl:value-of select="$description/dct:source/@rdf:resource"/>" ,
+        </xsl:if><xsl:if test="count($description/dct:source) gt 1">
+        "isBasedOn" : [ 
+                <xsl:for-each select="$description/dct:source">"<xsl:value-of select="./@rdf:resource"/>" , 
+                </xsl:for-each>] , </xsl:if>
         <xsl:choose>
             <xsl:when test="$description/dct:creator"><xsl:for-each select="$description/dct:creator">
         "creator" : { 
@@ -64,7 +75,7 @@
             "@id" : "VALUE MISSING"
             } , </xsl:otherwise>
         </xsl:choose><xsl:if test="$description/dct:contributor or $description/dc:contributor">
-        "contributer" : { <xsl:choose><xsl:when test="$description/dct:contributor">
+        "contributor" : { <xsl:choose><xsl:when test="$description/dct:contributor">
             "@id" : <xsl:value-of select="$description/dct:contributor/@rdf:resource"/>
             } , </xsl:when>
             <xsl:when test="$description/dc:contributor and not($description/dct:contributor)">

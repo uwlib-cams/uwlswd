@@ -37,17 +37,18 @@
         <!-- currently gotten from rdf:description/rdf:type void#Dataset - is this in every dataset? -->
         <!-- DataCite metadata file name - uses DOI from rdf/xml file -->
         <xsl:variable name="metadata_file_name">
-            <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[./rdf:type[@rdf:resource = 'http://rdfs.org/ns/void#Dataset']]/@rdf:about"/>
+            <xsl:variable name="rdfabout" select="rdf:RDF/rdf:Description[not(contains(@rdf:about, '#'))]/@rdf:about"/>
             <xsl:value-of select="concat('../DataCite/', substring-after($rdfabout, 'https://doi.org/10.6069/'), '.xml')"/>
         </xsl:variable>
         <xsl:variable name="md_file" select="document($metadata_file_name)"/>
         
         <!-- use doi from md_file to find title and version -->
         <xsl:variable name="doi" select="lower-case(concat('https://doi.org/', $md_file/datacite:resource/datacite:identifier[@identifierType = 'DOI']))"/>
-        <xsl:variable name="datasetName" select="$md_file/datacite:resource/datacite:titles/datacite:title[1]"/>
         
         <xsl:variable name="version" select="rdf:RDF/rdf:Description[lower-case(@rdf:about) = $doi]/schema:version"/>
         
+        <!-- rdf:description for resource as a whole -->
+        <xsl:variable name="description" select="./rdf:RDF/rdf:Description[not(contains(@rdf:about, '#'))]"/>
         <!-- HTML declaration -->
         
         <!-- doctype as text -->
@@ -65,7 +66,7 @@
             </xsl:attribute>
             <head>
                 <title>
-                    <xsl:value-of select="$datasetName"/>
+                    <xsl:value-of select="$description/dct:title"/>
                 </title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
@@ -89,14 +90,34 @@
             </head>
             <body about="{$doi}">
                 <!-- Title of dataset -->
+                <!-- Title of dataset -->
                 <h1>
-                    <xsl:value-of select="$datasetName"/>
+                    <xsl:value-of select="$description/dct:title"/>
                 </h1>
+                <xsl:if test="$description/dct:alternative">
+                    <xsl:choose>
+                        <xsl:when test="count($description/dct:alternative) = 1">
+                            <h2 id="altTitle">(<xsl:value-of select="$description/dct:alternative"/>)</h2>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <h2 id="altTitle">(<xsl:for-each select="$description/dct:alternative">
+                                <xsl:choose>
+                                    <xsl:when test="position() = count($description/dct:alternative)">
+                                        <xsl:value-of select="."/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="."/>, 
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each>)</h2>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
                 <p>
-                    <xsl:value-of select="$md_file/datacite:resource/datacite:descriptions/datacite:description"/>
+                    <xsl:value-of select="$description/dct:description"/>
                 </p>
                 <!-- Links to alternate serializations -->
-                <h2 id="links">Links to Alternate Serializations for <xsl:value-of select="$datasetName"/></h2>
+                <h2 id="links">Links to Alternate Serializations for <xsl:value-of select="$description/dct:title"/></h2>
                 <div class="alternatelinks">
                     <a>
                         <xsl:attribute name="href">
@@ -120,7 +141,7 @@
                     </a>
                 </div>
                 <!-- Table headline -->
-                <h2 id="triples">RDF Triples for <xsl:value-of select="$datasetName"/></h2>
+                <h2 id="triples">RDF Triples for <xsl:value-of select="$description/dct:title"/></h2>
                 <!-- Table setup below always stays the same -->
                 <table>
                     <thead>
@@ -168,7 +189,7 @@
                         <a href="http://creativecommons.org/publicdomain/zero/1.0/">
                             <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
                         </a>
-                        To the extent possible under law, the University of Washington Libraries has waived all copyright and related or neighboring rights to the <xsl:value-of select="$datasetName"/>. This work was published in the United States.
+                        To the extent possible under law, the University of Washington Libraries has waived all copyright and related or neighboring rights to the <xsl:value-of select="$description/dct:title"/>. This work was published in the United States.
                     </div>
                 </footer>
             </body>

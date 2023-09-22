@@ -5,21 +5,28 @@
    <identifier identifierType="DOI">10.6069/UWLSWD.25Z4-E963</identifier>
    <titles>
       <title xml:lang="en">Form of material</title>
-      <title titleType="Alternative Title" xml:lang="en">MARC21 006/00 values for all materials expressed using
-         RDF</title>
+      <title titleType="AlternativeTitle" xml:lang="en">MARC21 006/00 values for all materials expressed using RDF</title>
    </titles>
    <creators>
       <creator>
-         <creatorName>University of Washington Libraries</creatorName>
+         <creatorName xml:lang="en">University of Washington Libraries</creatorName>
       </creator>
    </creators>
-   <publisher>University of Washington Libraries</publisher>
+   <contributors>
+      <contributor>
+         <contributorName xml:lang="en">Metadata Management Associates</contributorName>
+      </contributor>
+      <contributor>
+         <contributorName xml:lang="en">Library of Congress</contributorName>
+      </contributor>
+   </contributors>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
    <publicationYear>2023</publicationYear>
    <resourceType resourceTypeGeneral="Dataset">http://www.w3.org/2004/02/skos/core#ConceptScheme</resourceType>
    <language>en</language>
    <relatedIdentifiers>
-      <relatedIndentifier relatedIdentifierType="URL" relationType="isDerivedFrom">https://www.loc.gov/marc/bibliographic/bd008.html</relatedIndentifier>
-      <relatedIndentifier relatedIdentifierType="URL" relationType="isDerivedFrom">http://marc21rdf.info</relatedIndentifier>
+      <relatedIdentifier relatedIdentifierType="URL" relationType="IsDerivedFrom">https://www.loc.gov/marc/bibliographic/bd008.html</relatedIdentifier>
+      <relatedIdentifier relatedIdentifierType="URL" relationType="IsDerivedFrom">http://marc21rdf.info</relatedIdentifier>
    </relatedIdentifiers>
    <rightsList>
       <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0"/>
