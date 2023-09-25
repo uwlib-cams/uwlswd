@@ -125,8 +125,7 @@ def only_serialize():
         exit()
     
     # get format - CHECK
-    format = file_path.rsplit(".")[1]
-
+    format = file_path.rsplit(".", 1)[1]
     if format not in ["jsonld","rdf","ttl","nt"]:
         print("Error: file is not one of the accepted formats")
         exit(0)
@@ -147,5 +146,5 @@ SERIALIZING DATA
 
     serialize(file_path, file_name, uri_path)
 
-#only_serialize()
+# only_serialize()
 
