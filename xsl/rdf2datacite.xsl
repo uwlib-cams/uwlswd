@@ -115,6 +115,7 @@
                 <resourceType>
                     <xsl:attribute name="resourceTypeGeneral">
                         <xsl:choose>
+                            <!-- subject to change -->
                             <xsl:when test="$description/schema:additionalType">
                                 <xsl:value-of select="$description/schema:additionalType"/>
                             </xsl:when>
@@ -123,12 +124,24 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
-                    <!-- no need to check if rdf:type is missing - it has to exist to locate $description -->
+                    <!-- subject to change -->
                     <xsl:value-of select="$description/rdf:type/@rdf:resource"/>
                 </resourceType>
-
+                <!-- if there is more than one dc:language element AND neither are english, omit for now -->
                 <xsl:choose>
-                    <xsl:when test="$description/dc:language">
+                    <xsl:when test="count($description/dc:language) > 1">
+                        <xsl:for-each select="$description/dc:language">
+                            <xsl:if test="starts-with(lower-case(.), 'en')">
+                                <language>
+                                    <xsl:value-of select="$description/dc:language"/>
+                                </language>
+                            </xsl:if>s
+                        </xsl:for-each>
+                        <language>
+                            <xsl:value-of select="$description/dc:language"/>
+                        </language>
+                    </xsl:when>
+                    <xsl:when test="count($description/dc:language) = 1">
                         <language>
                             <xsl:value-of select="$description/dc:language"/>
                         </language>
@@ -176,6 +189,7 @@
                                             <xsl:value-of select="./@xml:lang"/>
                                         </xsl:attribute>
                                     </xsl:if>
+                                    <!-- subject to change -->
                                     <xsl:choose>
                                         <xsl:when
                                             test="$description/rdf:type/@rdf:resource = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'">
@@ -195,6 +209,7 @@
                                                 <xsl:value-of select="./@xml:lang"/>
                                             </xsl:attribute>
                                         </xsl:if>
+                                        <!-- subject to change -->
                                         <xsl:choose>
                                             <xsl:when
                                                 test="$description/rdf:type/@rdf:resource = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'">
