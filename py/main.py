@@ -21,7 +21,7 @@ def format_rdflib(abs_path):
     g.serialize(destination=abs_path, format="xml")
 
 # this function begins the process of transforming the rdf file to all other serializations 
-def process_file(file_path, fancy):
+def process_file(file_path, fancy, schema_workflow_rdfxml):
 
     # file path parsing assumes main.py is being run in top-level uwlswd 
     # AND that the file being parsed is NOT located in uwlswd
@@ -53,9 +53,11 @@ PROCESSING {file_name}
     # generate html+rdfa
     # call rdf2rdfa stylesheets
 
-    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
-    # to generate html + rdfa from datacite metadata use
-    rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
+    if schema_workflow_rdfxml == True:
+        rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
+    else: 
+        rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
+
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
@@ -73,7 +75,7 @@ PROCESSING {file_name}
 
 ### SCRIPT STARTS HERE ###
 fancy = False
-
+schema_workflow_rdfxml = False
 # check set-up
 print(dedent("""Please confirm:
 1) Terminal is open in the uwlswd top-level directory
@@ -85,8 +87,9 @@ else:
     exit(0)
 
 # get location and version of saxon folder
+#add processing for slashes? 
 saxon_dir_prompt = dedent("""Enter the full directory path to where your Saxon HE .jar file is stored
-For example: '~/saxon', 'c:/Users/cpayn/saxon11', etc.
+For example: ~/saxon, c:/Users/cpayn/saxon11, etc.
 > """)
 saxon_dir = input(saxon_dir_prompt)
 
@@ -100,7 +103,7 @@ def prompt_user():
     file_prompt = dedent("""Enter the path of the folder or file relative to the working directory. 
     The file must have the extenstion ".rdf", 
     if entering the path of a folder, each '.rdf' file within the directory will be serialized
-    For example: '../uwlswd_vocabs' or '../uwlswd_vocabs/linked_data_platforms.rdf
+    For example: ../uwlswd_vocabs or ../uwlswd_vocabs/linked_data_platforms.rdf
     > """)
     file_path = input(file_prompt)
 
@@ -115,10 +118,17 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
-        fancy = input("\nGenerate fancier HTML page? (yes/no)\n> ")
-        if fancy.lower() == 'yes':
+        schema_workflow_input = input('''\nGenerate schema.org data from rdf/xml? 
+If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite.
+        (yes/no) > ''')
+        if schema_workflow_input.lower() == 'yes':
+            schema_workflow_rdfxml = True
+
+        fancy_input = input("\nGenerate fancier HTML page? (yes/no) > ")
+        if fancy_input.lower() == 'yes':
             fancy = True
-        process_file(file_path, fancy)
+
+        process_file(file_path, fancy, schema_workflow_rdfxml)
     else: 
         print("Input must be an rdf file or a directory containing rdf files")
         exit()
@@ -126,7 +136,13 @@ if os.path.isfile(file_path):
 elif os.path.isdir(file_path):
     complete_files = []
 
-    fancy = input("\nGenerate fancier HTML pages? (yes/no)\n> ")
+    schema_workflow_input = input('''\nGenerate schema.org data from rdf/xml? 
+If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite.
+        (yes/no) > ''')
+    if schema_workflow_input.lower() == 'yes':
+        schema_workflow_rdfxml = True
+
+    fancy = input("\nGenerate fancier HTML pages? (yes/no) > ")
     if fancy.lower() == 'yes':
         fancy = True
 
@@ -140,4 +156,4 @@ elif os.path.isdir(file_path):
 {'=' * 20}"""))
 
     for f in complete_files:
-        process_file(f, fancy)
+        process_file(f, fancy, schema_workflow_rdfxml)
