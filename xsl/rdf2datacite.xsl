@@ -4,9 +4,7 @@
     xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/"
     xmlns:schema="https://schema.org/" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="3.0">
-
     <xsl:output method="xml" indent="yes"/>
-
     <xsl:template match="/">
         <xsl:variable name="description"
             select="rdf:RDF/rdf:Description[not(contains(@rdf:about, '#'))]"/>
@@ -15,38 +13,49 @@
             <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns="http://datacite.org/schema/kernel-4"
                 xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+                <!-- identifier should never be missing, it's how we find the correct rdf:description -->
                 <identifier identifierType="DOI">
                     <xsl:value-of
                         select="upper-case(substring-after($description/@rdf:about, 'https://doi.org/'))"
                     />
                 </identifier>
-                <titles>
-                    <title>
-                        <xsl:choose>
-                            <xsl:when test="$description/dct:title">
+                
+                <!-- titles-->
+                <xsl:choose>
+                    <!-- main title - REQUIRED -->
+                    <xsl:when test="$description/dct:title">
+                        <titles>
+                            <title>
+                                <!-- @xml:lang attribute -->
                                 <xsl:if test="$description/dct:title[@xml:lang]">
                                     <xsl:attribute name="xml:lang">
                                         <xsl:value-of select="$description/dct:title/@xml:lang"/>
                                     </xsl:attribute>
                                 </xsl:if>
                                 <xsl:value-of select="$description/dct:title"/>
-                            </xsl:when>
-                            <xsl:otherwise> VALUE MISSING 
-                                <xsl:message>dct:title missing in rdf/xml</xsl:message>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </title>
-                    <xsl:if test="$description/dct:alternative">
-                        <title titleType="AlternativeTitle">
-                            <xsl:if test="$description/dct:alternative[@xml:lang]">
-                                <xsl:attribute name="xml:lang">
-                                    <xsl:value-of select="$description/dct:alternative/@xml:lang"/>
-                                </xsl:attribute>
+                            </title>
+                            <!-- alternative titles -->
+                            <xsl:if test="$description/dct:alternative">
+                                <xsl:for-each select="$description/dct:alternative">
+                                    <title titleType="AlternativeTitle">
+                                        <!-- @xml:lang attribute -->
+                                        <xsl:if test=".[@xml:lang]">
+                                            <xsl:attribute name="xml:lang">
+                                                <xsl:value-of select="./@xml:lang"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:value-of select="."/>
+                                    </title>
+                                </xsl:for-each>
                             </xsl:if>
-                            <xsl:value-of select="$description/dct:alternative"/>
-                        </title>
-                    </xsl:if>
-                </titles>
+                        </titles>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>REQUIRED VALUE MISSING: dct:title missing in rdf/xml.</xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+                
+                <!-- creators - NEEDS EDITING -->
                 <creators>
                     <xsl:choose>
                         <xsl:when test="$description/dc:creator">
@@ -55,7 +64,8 @@
                                     <creatorName>
                                         <xsl:if test="$description/dc:creator[@xml:lang]">
                                             <xsl:attribute name="xml:lang">
-                                                <xsl:value-of select="$description/dc:creator/@xml:lang"/>
+                                                <xsl:value-of
+                                                  select="$description/dc:creator/@xml:lang"/>
                                             </xsl:attribute>
                                         </xsl:if>
                                         <xsl:value-of select="."/>
@@ -71,7 +81,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </creators>
-           <!--     <xsl:if test="$description/dc:contributor">
+                <!--     <xsl:if test="$description/dc:contributor">
                     <contributors>
                         <xsl:for-each select="$description/dc:contributor">
                             <contributor>
@@ -87,6 +97,8 @@
                         </xsl:for-each>
                     </contributors>
                 </xsl:if> -->
+                
+                <!-- publisher - NEEDS EDITING -->
                 <publisher>
                     <xsl:choose>
                         <xsl:when test="$description/dc:publisher">
@@ -97,21 +109,24 @@
                             </xsl:if>
                             <xsl:value-of select="$description/dc:publisher"/>
                         </xsl:when>
-                        <xsl:otherwise>VALUE MISSING 
-                            <xsl:message>dc:publisher missing in rdf/xml</xsl:message>
+                        <xsl:otherwise>VALUE MISSING <xsl:message>dc:publisher missing in rdf/xml</xsl:message>
                         </xsl:otherwise>
                     </xsl:choose>
                 </publisher>
-                <publicationYear>
-                    <xsl:choose>
-                        <xsl:when test="$description/dct:issued">
+                
+                <!-- publicationYear - REQUIRED -->
+                <xsl:choose>
+                    <xsl:when test="$description/dct:issued">
+                        <publicationYear>
                             <xsl:value-of select="$description/dct:issued"/>
-                        </xsl:when>
-                        <xsl:otherwise> VALUE MISSING 
-                            <xsl:message>dct:issued missing in rdf/xml</xsl:message>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </publicationYear>
+                        </publicationYear>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>REQUIRED VALUE MISSING: dct:issued missing in rdf/xml</xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+                
+                <!-- resourceType - REQUIRED -->
                 <resourceType>
                     <xsl:attribute name="resourceTypeGeneral">
                         <xsl:choose>
@@ -119,38 +134,44 @@
                             <xsl:when test="$description/schema:additionalType">
                                 <xsl:value-of select="$description/schema:additionalType"/>
                             </xsl:when>
-                            <xsl:otherwise> VALUE MISSING 
-                                <xsl:message>schema:additonalType missing in rdf/xml</xsl:message>
+                            <xsl:otherwise> VALUE MISSING <xsl:message>schema:additonalType missing in rdf/xml</xsl:message>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
                     <!-- subject to change -->
                     <xsl:value-of select="$description/rdf:type/@rdf:resource"/>
                 </resourceType>
+                
+                <!-- language -->
                 <!-- if there is more than one dc:language element AND neither are english, omit for now -->
                 <xsl:choose>
+                    <!-- more than one language -->
                     <xsl:when test="count($description/dc:language) > 1">
-                        <xsl:for-each select="$description/dc:language">
-                            <xsl:if test="starts-with(lower-case(.), 'en')">
+                        <xsl:choose>
+                            <!-- check if this will work - always just one en? -->
+                            <xsl:when test="starts-with(lower-case($description/dc:language), 'en')">
                                 <language>
                                     <xsl:value-of select="$description/dc:language"/>
                                 </language>
-                            </xsl:if>s
-                        </xsl:for-each>
-                        <language>
-                            <xsl:value-of select="$description/dc:language"/>
-                        </language>
+                            </xsl:when>
+                            <!-- multiple languages, none english -->
+                            <xsl:otherwise>
+                                <xsl:message>Unable to determine primary language, no language element added.</xsl:message>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
+                    <!-- one language -->
                     <xsl:when test="count($description/dc:language) = 1">
                         <language>
                             <xsl:value-of select="$description/dc:language"/>
                         </language>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>dc:language missing from rdf/xml</xsl:message>
+                        <xsl:message>no dc:language in rdf/xml</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
-
+                
+                <!-- relatedIdentifiers -->
                 <xsl:choose>
                     <xsl:when test="$description/dct:source">
                         <relatedIdentifiers>
@@ -162,8 +183,10 @@
                             </xsl:for-each>
                         </relatedIdentifiers>
                     </xsl:when>
+                    <xsl:otherwise>no dct:source in rdf/xml</xsl:otherwise>
                 </xsl:choose>
-
+                
+                <!-- rightsList -->
                 <xsl:choose>
                     <xsl:when test="$description/dct:license">
                         <rightsList>
@@ -175,11 +198,13 @@
                         </rightsList>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>dct:license missing in rdf/xml</xsl:message>
+                        <xsl:message>no dct:license in rdf/xml</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
-
+                
+                <!-- description -->
                 <xsl:choose>
+                    <!-- there should always be at least one dct:description -->
                     <xsl:when test="$description/dct:description">
                         <descriptions>
                             <xsl:for-each select="$description/dct:description">
@@ -189,18 +214,23 @@
                                             <xsl:value-of select="./@xml:lang"/>
                                         </xsl:attribute>
                                     </xsl:if>
-                                    <!-- subject to change -->
                                     <xsl:choose>
+                                        <!-- if skos:ConceptScheme, type is TechnicalInfo -->
                                         <xsl:when
                                             test="$description/rdf:type/@rdf:resource = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'">
                                             <xsl:attribute name="descriptionType"
                                                 >TechnicalInfo</xsl:attribute>
                                         </xsl:when>
-                                        <xsl:otherwise/>
+                                        <!-- else it is Other -->
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="descriptionType"
+                                                >Other</xsl:attribute>
+                                        </xsl:otherwise>
                                     </xsl:choose>
                                     <xsl:value-of select="."/>
                                 </description>
                             </xsl:for-each>
+                            <!-- description from skos:scopeNote -->
                             <xsl:if test="$description/skos:scopeNote">
                                 <xsl:for-each select="$description/skos:scopeNote">
                                     <description>
@@ -209,14 +239,18 @@
                                                 <xsl:value-of select="./@xml:lang"/>
                                             </xsl:attribute>
                                         </xsl:if>
-                                        <!-- subject to change -->
+                                        <!-- if skos:ConceptScheme, type is TechnicalInfo -->
                                         <xsl:choose>
                                             <xsl:when
                                                 test="$description/rdf:type/@rdf:resource = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'">
                                                 <xsl:attribute name="descriptionType"
                                                   >TechnicalInfo</xsl:attribute>
                                             </xsl:when>
-                                            <xsl:otherwise/>
+                                            <!-- else it is Other -->
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="descriptionType"
+                                                    >Other</xsl:attribute>
+                                            </xsl:otherwise>
                                         </xsl:choose>
                                         <xsl:value-of select="."/>
                                     </description>
@@ -225,11 +259,10 @@
                         </descriptions>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>dct:description not in rdf/xml</xsl:message>
+                        <xsl:message>no dct:description in rdf/xml</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
             </resource>
         </xsl:result-document>
     </xsl:template>
-
 </xsl:stylesheet>
