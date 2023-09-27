@@ -58,61 +58,36 @@
                 <!-- creators - NEEDS EDITING -->
                 <creators>
                     <xsl:choose>
+                        <xsl:when test="$description/dct:creator">
+                            <xsl:for-each select="$description/dct:creator">
+                                <xsl:apply-templates select="."/>
+                            </xsl:for-each>
+                        </xsl:when>
                         <xsl:when test="$description/dc:creator">
                             <xsl:for-each select="$description/dc:creator">
-                                <creator>
-                                    <creatorName>
-                                        <xsl:if test="$description/dc:creator[@xml:lang]">
-                                            <xsl:attribute name="xml:lang">
-                                                <xsl:value-of
-                                                  select="$description/dc:creator/@xml:lang"/>
-                                            </xsl:attribute>
-                                        </xsl:if>
-                                        <xsl:value-of select="."/>
-                                    </creatorName>
-                                </creator>
+                                <xsl:apply-templates select="."/>
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:otherwise>
-                            <creator>
-                                <creatorName>VALUE MISSING</creatorName>
-                            </creator>
-                            <xsl:message>dc:creator missing in rdf/xml</xsl:message>
+                            <xsl:message>REQUIRED VALUE MISSING: dct:creator or dc:creator missing in rdf/xml</xsl:message>
                         </xsl:otherwise>
                     </xsl:choose>
                 </creators>
-                <!--     <xsl:if test="$description/dc:contributor">
-                    <contributors>
-                        <xsl:for-each select="$description/dc:contributor">
-                            <contributor>
-                                <contributorName>
-                                    <xsl:if test=".[@xml:lang]">
-                                        <xsl:attribute name="xml:lang">
-                                            <xsl:value-of select="./@xml:lang"/>
-                                        </xsl:attribute>
-                                    </xsl:if>
-                                    <xsl:value-of select="."/>
-                                </contributorName>
-                            </contributor>
-                        </xsl:for-each>
-                    </contributors>
-                </xsl:if> -->
                 
-                <!-- publisher - NEEDS EDITING -->
-                <publisher>
-                    <xsl:choose>
-                        <xsl:when test="$description/dc:publisher">
-                            <xsl:if test="$description/dc:publisher[@xml:lang]">
-                                <xsl:attribute name="xml:lang">
-                                    <xsl:value-of select="$description/dc:publisher/@xml:lang"/>
-                                </xsl:attribute>
-                            </xsl:if>
-                            <xsl:value-of select="$description/dc:publisher"/>
-                        </xsl:when>
-                        <xsl:otherwise>VALUE MISSING <xsl:message>dc:publisher missing in rdf/xml</xsl:message>
-                        </xsl:otherwise>
+                <!-- publisher - REQUIRED, MAX 1 -->
+                <xsl:choose>
+                    <xsl:when test="$description/dct:publisher">
+                        <xsl:apply-templates select="$description/dct:publisher"/>
+                    </xsl:when>
+                    <xsl:when test="$description/dc:publisher">
+                        <xsl:apply-templates select="$description/dc:publisher"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>REQUIRED VALUE MISSING: dct:publisher or dc:publisher missing in rdf/xml</xsl:message>
+                    </xsl:otherwise>
                     </xsl:choose>
-                </publisher>
+                
+                <!-- contributor currently not included in DataCite metadata -->
                 
                 <!-- publicationYear - REQUIRED -->
                 <xsl:choose>
@@ -127,20 +102,20 @@
                 </xsl:choose>
                 
                 <!-- resourceType - REQUIRED -->
-                <resourceType>
-                    <xsl:attribute name="resourceTypeGeneral">
-                        <xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$description/schema:disambiguatingDescription">
+                        <resourceType>
+                            <xsl:attribute name="resourceTypeGeneral">
+                                <xsl:value-of select="'Dataset'"/>
+                            </xsl:attribute>
                             <!-- subject to change -->
-                            <xsl:when test="$description/schema:additionalType">
-                                <xsl:value-of select="$description/schema:additionalType"/>
-                            </xsl:when>
-                            <xsl:otherwise> VALUE MISSING <xsl:message>schema:additonalType missing in rdf/xml</xsl:message>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:attribute>
-                    <!-- subject to change -->
-                    <xsl:value-of select="$description/rdf:type/@rdf:resource"/>
-                </resourceType>
+                            <xsl:value-of select="$description/schema:disambiguatingDescription"/>
+                        </resourceType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>REQUIRED VALUE MISSING: schema:disambiguatingDescription missing in rdf/xml</xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>                
                 
                 <!-- language -->
                 <!-- if there is more than one dc:language element AND neither are english, omit for now -->
@@ -264,5 +239,46 @@
                 </xsl:choose>
             </resource>
         </xsl:result-document>
+    </xsl:template>
+    
+    <xsl:template match="dct:creator">
+        <xsl:variable name="uri" select="@rdf:resource"/>
+        <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
+        <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
+        />
+        <creator xmlns="http://datacite.org/schema/kernel-4">
+            <creatorName>
+                <xsl:value-of select="$agent/schema:name"/>
+            </creatorName>
+        </creator>
+    </xsl:template>
+    
+    <xsl:template match="dc:creator">
+        <xsl:variable name="name" select="."/>
+        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
+            <creator xmlns="http://datacite.org/schema/kernel-4">
+                <creatorName>
+                    <xsl:value-of select="$name"/>
+                </creatorName>
+            </creator>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="dct:publisher">
+        <xsl:variable name="uri" select="@rdf:resource"/>
+        <xsl:variable name="agent"
+            select="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]"
+        />
+        <publisher xmlns="http://datacite.org/schema/kernel-4">
+            <xsl:value-of select="$agent/schema:name"/>
+        </publisher>
+    </xsl:template>
+    <xsl:template match="dc:publisher">
+        <xsl:variable name="name" select="."/>
+        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
+            <publisher xmlns="http://datacite.org/schema/kernel-4">
+                <xsl:value-of select="$name"/>
+            </publisher>
+        </xsl:if>
     </xsl:template>
 </xsl:stylesheet>
