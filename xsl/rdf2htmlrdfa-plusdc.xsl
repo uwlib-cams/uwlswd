@@ -151,7 +151,7 @@
                             <th>Object</th>
                         </tr>
                     </thead>
-                    <!-- add missing dct:hasFormat before passing to templates -->
+                    <!-- add missing dct:hasFormat and update dct:format before passing to templates -->
                     <tbody>
                         <xsl:variable name="file_plus">
                             <xsl:copy select=".">
@@ -162,6 +162,11 @@
                                         <xsl:copy select="./dct:hasFormat[1]">
                                             <xsl:attribute name="rdf:resource">
                                                 <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
+                                            </xsl:attribute>
+                                        </xsl:copy>
+                                        <xsl:copy select="./dct:format[1]">
+                                            <xsl:attribute name="rdf:resource">
+                                                <xsl:value-of select="'http://www.w3.org/ns/formats/RDFa'"/>
                                             </xsl:attribute>
                                         </xsl:copy>
                                     </xsl:copy>
