@@ -53,6 +53,24 @@ def fix_hasFormat(new_format, graph, uri_path):
 
     graph.remove((doi_uri, dct_hasFormat, new_file))
 
+def fix_format(format, graph):
+    dct_format = rdflib.URIRef("http://purl.org/dc/terms/format")
+    doi = get_doi(graph)
+    graph.remove((doi, dct_format, None))
+    
+    if format == "rdf":
+        graph.add((doi, dct_format, rdflib.URIRef("http://www.w3.org/ns/formats/RDF_XML")))
+    
+    if format == "nt": 
+        graph.add((doi, dct_format, rdflib.URIRef("http://www.w3.org/ns/formats/N-Triples")))
+
+    if format == "ttl":
+        graph.add((doi, dct_format, rdflib.URIRef("http://www.w3.org/ns/formats/Turtle")))
+
+    if format == "jsonld":
+        graph.add((doi, dct_format, rdflib.URIRef("http://www.w3.org/ns/formats/JSON-LD")))
+
+
 
 # this function processes data as rdflib graph and parses to all formats, adding dct:hasFormat
 # serializations are saved in the same location as the input file
@@ -71,6 +89,7 @@ def serialize(file_path, file_name, uri_path):
 
     def format_rdf(g, uri_path):
         fix_hasFormat("rdf", g, uri_path)
+        fix_format("rdf", g)
         rdf = g.serialize(format='xml')
         path = file_path_noext + "." + "rdf"
         file = open(path, 'w')
@@ -80,6 +99,7 @@ def serialize(file_path, file_name, uri_path):
 
     def format_nt(g, uri_path):
         fix_hasFormat("nt", g, uri_path)
+        fix_format("nt", g)
         nt = g.serialize(format='nt')
         path = file_path_noext + "." + "nt"
         file = open(path, 'w')
@@ -90,6 +110,7 @@ def serialize(file_path, file_name, uri_path):
     
     def format_ttl(g, uri_path):
         fix_hasFormat("ttl", g, uri_path)
+        fix_format("ttl", g)
         turtle = g.serialize(format='turtle')
         path = file_path_noext + "." + "ttl"
         file = open(path, 'w')
@@ -100,6 +121,7 @@ def serialize(file_path, file_name, uri_path):
 
     def format_jsonld(g, uri_path):
         fix_hasFormat("jsonld", g, uri_path)
+        fix_format("jsonld", g)
         jsonld = g.serialize(format='json-ld')
         path = file_path_noext + "." + "jsonld"
         file = open(path, 'w')
