@@ -67,7 +67,7 @@
                     href="{concat($final_path, $file_name, '.nt')}"/>
                 <link rel="alternate" type="application/rdf+xml"
                     href="{concat($final_path, $file_name,'.rdf')}"/>
-                <link rel="alternate" type="application/turtle"
+                <link rel="alternate" type="text/turtle"
                     href="{concat($final_path, $file_name,'.ttl')}"/>
                 <link rel="alternate" type="application/ld+json"
                     href="{concat($final_path, $file_name,'.jsonld')}"/>
