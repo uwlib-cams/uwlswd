@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     xmlns:datacite="http://datacite.org/schema/kernel-4"
     exclude-result-prefixes="#all"
     version="3.0">
@@ -18,7 +18,10 @@
                 <body>
                     <h1>University of Washington Libraries Semantic Web Data</h1>
                     <h2>Semantic-web data and related resources published by the University of Washington Libraries, Cataloging and Metadata Services</h2>
-                    <xsl:apply-templates select="collection('../DataCite/?select=*.xml')/datacite:resource"/>
+                    <xsl:for-each-group select="collection('../DataCite/?select=*.xml')/datacite:resource" group-by="datacite:resourceType">
+                        <h2><xsl:value-of select="current-grouping-key()"/></h2>
+                        <xsl:apply-templates select="current-group()"/>
+                    </xsl:for-each-group>
                 </body>
                 
             </html>
@@ -36,9 +39,11 @@
                 <xsl:value-of select="./datacite:titles/datacite:title"/>
             </a>
             </h3>
-            <p>
-                <xsl:value-of select="./datacite:descriptions/datacite:description"/>
-            </p>
+            <xsl:for-each select="./datacite:descriptions/datacite:description">
+                <p class="italic">
+                    <xsl:value-of select="."/>
+                </p>
+            </xsl:for-each>
             <xsl:text> &#xa; </xsl:text>
         </xsl:for-each>
     </xsl:template>
