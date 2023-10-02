@@ -14,4 +14,8 @@
         <schema:sameAs rdf:resource="http://viaf.org/viaf/151962300"/>
     </agent>
     
+    <agent>
+        <schema:name>Metadata Management Associates</schema:name>
+    </agent>
+    
 </agents>
