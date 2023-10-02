@@ -121,52 +121,44 @@
         <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
             />
         "creator" : {
-            "@id" : "<xsl:value-of select="$uri"/>", 
-            "name" : "<xsl:value-of select="$agent/schema:name"/>"
+            "@id" : "<xsl:value-of select="$uri"/>", <xsl:if test="$agent/schema:name">
+            "name" : "<xsl:value-of select="$agent/schema:name"/>"</xsl:if>
             } , 
     </xsl:template>
     <xsl:template match="dc:creator">
-        <xsl:variable name="name" select="."/>
-        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
         "creator" : {
-            "name" : "<xsl:value-of select="$name"/>"
+            "name" : "<xsl:value-of select="."/>"
             } , 
-            </xsl:if>
     </xsl:template>
     <xsl:template match="dct:publisher">
         <xsl:variable name="uri" select="@rdf:resource"/>
-        <xsl:variable name="agent"
-            select="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]"
-            />
+        <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
+        <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
+        />
         "publisher" : {
-            "@id" : "<xsl:value-of select="$uri"/>",
-            "name" : "<xsl:value-of select="$agent/schema:name"/>"
+            "@id" : "<xsl:value-of select="$uri"/>", <xsl:if test="$agent/schema:name">
+            "name" : "<xsl:value-of select="$agent/schema:name"/>"</xsl:if>
             } , 
     </xsl:template>
     <xsl:template match="dc:publisher">
-        <xsl:variable name="name" select="."/>
-        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
         "publisher" : {
-            "name" : "<xsl:value-of select="$name"/>"
+            "name" : "<xsl:value-of select="."/>"
             } , 
-        </xsl:if>
     </xsl:template>
+    
     <xsl:template match="dct:contributor">
         <xsl:variable name="uri" select="@rdf:resource"/>
-        <xsl:variable name="agent"
-            select="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]"
-            />
+        <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
+        <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
+        />
         "contributor" : {
-            "@id" : "<xsl:value-of select="$uri"/>",
-            "name" : "<xsl:value-of select="$agent/schema:name"/>"
+            "@id" : "<xsl:value-of select="$uri"/>", <xsl:if test="$agent/schema:name">
+            "name" : "<xsl:value-of select="$agent/schema:name"/>"</xsl:if>
             } , 
     </xsl:template>
     <xsl:template match="dc:contributor">
-        <xsl:variable name="name" select="."/>
-        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
         "contributor" : {
-            "name" : "<xsl:value-of select="$name"/>"
+            "name" : "<xsl:value-of select="."/>"
             } , 
-        </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

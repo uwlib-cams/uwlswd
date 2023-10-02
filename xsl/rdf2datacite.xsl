@@ -158,7 +158,9 @@
                             </xsl:for-each>
                         </relatedIdentifiers>
                     </xsl:when>
-                    <xsl:otherwise>no dct:source in rdf/xml</xsl:otherwise>
+                    <xsl:otherwise>
+                        <xsl:message>no dct:source in rdf/xml</xsl:message>
+                    </xsl:otherwise>
                 </xsl:choose>
                 
                 <!-- rightsList -->
@@ -243,42 +245,57 @@
     
     <xsl:template match="dct:creator">
         <xsl:variable name="uri" select="@rdf:resource"/>
-        <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
-        <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
-        />
+        <xsl:choose>
+            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]">
+                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]"
+                />
+                <xsl:choose>
+                    <xsl:when test="$agent/schema:name">
+                        <creator xmlns="http://datacite.org/schema/kernel-4">
+                            <creatorName>
+                                <xsl:value-of select="$agent/schema:name"/>
+                            </creatorName>
+                        </creator>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>WARNING: schema:sameAs has no associated schema:name in agents.xml</xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>WARNING: dct:creator not found in agents.xml</xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="dc:creator">
         <creator xmlns="http://datacite.org/schema/kernel-4">
             <creatorName>
-                <xsl:value-of select="$agent/schema:name"/>
+                <xsl:value-of select="."/>
             </creatorName>
         </creator>
     </xsl:template>
     
-    <xsl:template match="dc:creator">
-        <xsl:variable name="name" select="."/>
-        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
-            <creator xmlns="http://datacite.org/schema/kernel-4">
-                <creatorName>
-                    <xsl:value-of select="$name"/>
-                </creatorName>
-            </creator>
-        </xsl:if>
-    </xsl:template>
-    
     <xsl:template match="dct:publisher">
         <xsl:variable name="uri" select="@rdf:resource"/>
-        <xsl:variable name="agent"
-            select="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]"
-        />
-        <publisher xmlns="http://datacite.org/schema/kernel-4">
-            <xsl:value-of select="$agent/schema:name"/>
-        </publisher>
+        <xsl:choose>
+            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]">
+                <xsl:variable name="agent"
+                    select="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]"
+                />
+                <publisher xmlns="http://datacite.org/schema/kernel-4">
+                    <xsl:value-of select="$agent/schema:name"/>
+                </publisher>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>WARNING: dct:publisher not found in agents.xml</xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="dc:publisher">
-        <xsl:variable name="name" select="."/>
-        <xsl:if test="not(document('../xml/agents.xml')/agents/agent[schema:name = $name])">
-            <publisher xmlns="http://datacite.org/schema/kernel-4">
-                <xsl:value-of select="$name"/>
-            </publisher>
-        </xsl:if>
+        <publisher xmlns="http://datacite.org/schema/kernel-4">
+            <xsl:value-of select="."/>
+        </publisher>
     </xsl:template>
 </xsl:stylesheet>
