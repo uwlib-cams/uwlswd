@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-  <identifier identifierType="DOI">10.6069/UWLIB.55.B.3</identifier>
-  <creators>
-    <creator>
-      <creatorName>University Of Washington Libraries</creatorName>
-    </creator>
-  </creators>
-  <titles>
-    <title>Linked Data Vocabularies: Children's Literature Categories</title>
-    <title titleType="AlternativeTitle">University of Washington Libraries Linked Data Vocabularies: Childrens Literature Categories</title>
-  </titles>
-  <publisher>University of Washington Libraries</publisher>
-  <publicationYear>2018</publicationYear>
-  <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme</resourceType>
-  <language>en-US</language>
-  <dates>
-    <date dateType="Issued">2018</date>
-  </dates>
-  <sizes>
-    <size>109 KB</size>
-  </sizes>
-  <formats>
-    <format>text/html</format>
-  </formats>
-  <version/>
-  <rightsList>
-    <rights rightsURI="https://creativecommons.org/licenses/by-nc/4.0">Creative Commons license Attribution-NonCommercial; see https://creativecommons.org/licenses/ </rights>
-  </rightsList>
-  <descriptions>
-    <description descriptionType="Abstract">RDF vocabulary derived from a thesaurus intended to provide terms for describing categories of historical children's literature. The thesaurus was constructed for use in describing the University of Washington Libraries' Historical Children's Literature Collection which can be seen at https://content.lib.washington.edu/childrensweb/index.html.</description>
-  </descriptions>
+<resource xmlns="http://datacite.org/schema/kernel-4"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+   <identifier identifierType="DOI">10.6069/UWLIB.55.B.3</identifier>
+   <titles>
+      <title>Linked Data Vocabularies: Children's Literature Categories</title>
+      <title titleType="AlternativeTitle">University of Washington Libraries Linked Data Vocabularies: Childrens Literature Categories</title>
+   </titles>
+   <creators>
+      <creator>
+         <creatorName>University of Washington Libraries</creatorName>
+      </creator>
+   </creators>
+   <publisher>University of Washington Libraries</publisher>
+   <publicationYear>2018</publicationYear>
+   <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme</resourceType>
+   <language>en-US</language>
+   <rightsList>
+      <rights rightsURI="https://creativecommons.org/licenses/by-nc/4.0"/>
+   </rightsList>
+   <descriptions>
+      <description descriptionType="Other">Categories for describing types of historical children's literature</description>
+      <description descriptionType="Other">RDF vocabulary derived from a thesaurus intended to provide terms for describing categories of historical children's literature. The thesaurus was constructed for use in describing the University of Washington Libraries' Historical Children's Literature Collection which can be seen at https://content.lib.washington.edu/childrensweb/index.html.</description>
+   </descriptions>
 </resource>
