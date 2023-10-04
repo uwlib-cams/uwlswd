@@ -95,7 +95,7 @@ def serialize(file_path, file_name, uri_path):
         file = open(path, 'w')
         file.write(rdf)
         file.close()
-        print("    " + file_name + "." + "rdf" + " generated")
+        print(file_name + "." + "rdf" + " generated")
 
     def format_nt(g, uri_path):
         fix_hasFormat("nt", g, uri_path)
@@ -105,7 +105,7 @@ def serialize(file_path, file_name, uri_path):
         file = open(path, 'w')
         file.write(nt)
         file.close()
-        print("    " + file_name + "." + "nt" + " generated")
+        print(file_name + "." + "nt" + " generated")
 
     
     def format_ttl(g, uri_path):
@@ -116,7 +116,7 @@ def serialize(file_path, file_name, uri_path):
         file = open(path, 'w')
         file.write(turtle)
         file.close()
-        print("    " + file_name + "." + "ttl" + " generated")
+        print(file_name + "." + "ttl" + " generated")
 
 
     def format_jsonld(g, uri_path):
@@ -127,7 +127,7 @@ def serialize(file_path, file_name, uri_path):
         file = open(path, 'w')
         file.write(jsonld)
         file.close()
-        print("    " + file_name + "." + "jsonld" + " generated")
+        print(file_name + "." + "jsonld" + " generated")
     
     format_rdf(g, uri_path)
     format_nt(g, uri_path)

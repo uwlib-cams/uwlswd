@@ -58,6 +58,7 @@ PROCESSING {file_name}
     else: 
         rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
 
+    print(f"""\ngenerating HTML+RDFa with Schema.org data""")
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 
@@ -67,11 +68,11 @@ PROCESSING {file_name}
     os_command = os_command.replace('\n', '')
     os.system(os_command)
 
-    print(f"""    {file_name}.html generated""")
+    print(f"""{file_name}.html generated""")
 
     if fancy == True:
         fancify_HTML(output_file)
-        print(f"\tfancy HTML generated")
+        print(f"""fancy HTML generated""")
 
 ### SCRIPT STARTS HERE ###
 fancy = False
@@ -104,7 +105,7 @@ def prompt_user():
     The file must have the extenstion ".rdf", 
     if entering the path of a folder, each '.rdf' file within the directory will be serialized
     For example: ../uwlswd_vocabs or ../uwlswd_vocabs/linked_data_platforms.rdf
-    > """)
+> """)
     file_path = input(file_prompt)
 
     if os.path.exists(file_path):
@@ -118,13 +119,14 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
-        schema_workflow_input = input('''\nGenerate schema.org data from rdf/xml? 
-If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite.
-        (yes/no) > ''')
+        schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
+If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
+> """)
         if schema_workflow_input.lower() == 'yes':
             schema_workflow_rdfxml = True
 
-        fancy_input = input("\nGenerate fancier HTML page? (yes/no) > ")
+        fancy_input = input("""\nGenerate fancier HTML page? (yes/no) 
+> """)
         if fancy_input.lower() == 'yes':
             fancy = True
 
@@ -136,13 +138,14 @@ If no, schema.org data will be generated using the DataCite metadata file locate
 elif os.path.isdir(file_path):
     complete_files = []
 
-    schema_workflow_input = input('''\nGenerate schema.org data from rdf/xml? 
-If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite.
-        (yes/no) > ''')
+    schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
+If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
+> """)
     if schema_workflow_input.lower() == 'yes':
         schema_workflow_rdfxml = True
 
-    fancy = input("\nGenerate fancier HTML pages? (yes/no) > ")
+    fancy = input("""\nGenerate fancier HTML pages? (yes/no) 
+> """)
     if fancy.lower() == 'yes':
         fancy = True
 
