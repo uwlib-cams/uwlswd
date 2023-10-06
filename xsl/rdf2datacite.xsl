@@ -55,7 +55,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 
-                <!-- creators - NEEDS EDITING -->
+                <!-- creators -->
                 <creators>
                     <xsl:choose>
                         <xsl:when test="$description/dct:creator">
@@ -147,21 +147,16 @@
                 </xsl:choose>
                 
                 <!-- relatedIdentifiers -->
-                <xsl:choose>
-                    <xsl:when test="$description/dct:source">
-                        <relatedIdentifiers>
-                            <xsl:for-each select="$description/dct:source[@rdf:resource]">
-                                <relatedIdentifier relatedIdentifierType="URL"
-                                    relationType="IsDerivedFrom">
-                                    <xsl:value-of select="./@rdf:resource"/>
-                                </relatedIdentifier>
-                            </xsl:for-each>
-                        </relatedIdentifiers>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:message>no dct:source in rdf/xml</xsl:message>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:if test="$description/dct:source">
+                    <relatedIdentifiers>
+                        <xsl:for-each select="$description/dct:source">
+                            <relatedIdentifier relatedIdentifierType="URL"
+                                relationType="IsDerivedFrom">
+                                <xsl:value-of select="./@rdf:resource"/>
+                            </relatedIdentifier>
+                        </xsl:for-each>
+                    </relatedIdentifiers>
+                </xsl:if>    
                 
                 <!-- rightsList -->
                 <xsl:choose>
@@ -258,7 +253,7 @@
                         </creator>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>WARNING: schema:sameAs has no associated schema:name in agents.xml</xsl:message>
+                        <xsl:message>WARNING: dct:creator schema:sameAs has no associated schema:name in agents.xml</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -279,13 +274,19 @@
     <xsl:template match="dct:publisher">
         <xsl:variable name="uri" select="@rdf:resource"/>
         <xsl:choose>
-            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]">
-                <xsl:variable name="agent"
-                    select="document('../xml/agents.xml')/agents/agent[schema:sameAs[@rdf:resource = $uri]]"
+            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]">
+                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]"
                 />
-                <publisher xmlns="http://datacite.org/schema/kernel-4">
-                    <xsl:value-of select="$agent/schema:name"/>
-                </publisher>
+                <xsl:choose>
+                    <xsl:when test="$agent/schema:name">
+                        <publisher xmlns="http://datacite.org/schema/kernel-4">
+                                <xsl:value-of select="$agent/schema:name"/>
+                        </publisher>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>WARNING: dct:publisher schema:sameAs has no associated schema:name in agents.xml</xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:message>WARNING: dct:publisher not found in agents.xml</xsl:message>
