@@ -16,10 +16,10 @@
         "@type" : "Dataset" , 
         "@id" : "<xsl:value-of select="$description/@rdf:about"/>", <!-- doi -->
         "name" : "<xsl:value-of select="$description/dct:title"/>" , 
-        <xsl:if test="count($description/dct:alternative) = 1"> 
+        <xsl:choose><xsl:when test="count($description/dct:alternative) = 1"> 
         "alternateName" : "<xsl:value-of select="$description/dct:alternative"
-            />" ,</xsl:if>
-        <xsl:if test="count($description/dct:alternative) > 1">
+            />" ,</xsl:when>
+        <xsl:when test="count($description/dct:alternative) > 1">
         "alternateName" : [ <xsl:for-each select="$description/dct:alternative">
                 <xsl:choose><xsl:when test="position() = last()"> <!-- add comma except for last in list -->
             "<xsl:value-of select="."/>"</xsl:when>
@@ -27,11 +27,14 @@
             "<xsl:value-of select="."/>" , </xsl:otherwise>
                 </xsl:choose>
             </xsl:for-each>
-        </xsl:if>
+            ] , 
+        </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
         <xsl:choose>
             <xsl:when
                 test="count($description/dct:description) = 1 and not($description/skos:scopeNote)">
-        "description: "<xsl:value-of select="$description/dct:description"/>" , <!-- one description -->
+        "description" : "<xsl:value-of select="$description/dct:description"/>" , <!-- one description -->
             </xsl:when>
             <xsl:when test="count($description/dct:description) > 1 and not($description/skos:scopeNote)">
         "description" : [<xsl:for-each select="$description/dct:description"> <!-- multiple descriptions -->
@@ -68,39 +71,84 @@
         </xsl:for-each>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="$description/dct:creator"><xsl:for-each
-                    select="$description/dct:creator">
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
+            <xsl:when test="$description/dct:creator and not($description/dc:creator)">
+                <xsl:choose>
+                    <xsl:when test="count($description/dct:creator) = 1">
+        "creator" : <xsl:apply-templates select="$description/dct:creator"/> ,        
+                    </xsl:when>
+                    <xsl:otherwise>
+        "creator" : [<xsl:for-each select="$description/dct:creator">
+            <xsl:apply-templates select="."/><xsl:if test="not(position() = last())"> , </xsl:if> 
+        </xsl:for-each>
+            ] , </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
-            <xsl:when test="$description/dc:creator"><xsl:for-each select="$description/dc:creator">
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
+            <xsl:when test="$description/dct:creator and $description/dc:creator">
+        "creator" : [<xsl:for-each select="$description/dct:creator">
+            <xsl:apply-templates select="."/> , 
+        </xsl:for-each><xsl:for-each select="$description/dc:creator">
+            <xsl:apply-templates select="."/><xsl:if test="not(position() = last())"> , </xsl:if>
+        </xsl:for-each>
+            ] , 
+            </xsl:when>
+            <xsl:when test="not($description/dct:creator) and $description/dc:creator">
+                <xsl:choose>
+                    <xsl:when test="count($description/dc:creator) = 1">
+        "creator" : <xsl:apply-templates select="$description/dc:creator"/> ,       
+                    </xsl:when>
+                    <xsl:otherwise>
+        "creator" : [<xsl:for-each select="$description/dc:creator">
+            <xsl:apply-templates select="."/><xsl:if test="not(position() = last())"> , </xsl:if> 
+        </xsl:for-each>
+            ] , </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>
         <xsl:choose>
-            <xsl:when test="$description/dct:publisher"><xsl:for-each
-                    select="$description/dct:publisher">
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
+            <xsl:when test="$description/dct:publisher">
+                <xsl:apply-templates select="$description/dct:publisher"/>
             </xsl:when>
-            <xsl:when test="$description/dc:publisher"><xsl:for-each
-                    select="$description/dc:publisher">
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
+            <xsl:when test="$description/dc:publisher">
+                <xsl:apply-templates select="$description/dc:publisher"/>
             </xsl:when>
             <xsl:otherwise/>
-        </xsl:choose><xsl:if test="$description/dct:contributor"><xsl:for-each
-                select="$description/dct:contributor">
-                <xsl:apply-templates select="."/>
-            </xsl:for-each>
-        </xsl:if>
-        <xsl:if test="$description/dc:contributor"><xsl:for-each
-                select="$description/dc:contributor">
-                <xsl:apply-templates select="."/>
-            </xsl:for-each>
-        </xsl:if>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="$description/dct:contributor and not($description/dc:contributor)">
+                <xsl:choose>
+                    <xsl:when test="count($description/dct:contributor) = 1">
+        "contributor" : <xsl:apply-templates select="$description/dct:contributor"/> ,        
+                    </xsl:when>
+                    <xsl:otherwise>
+        "contributor" : [<xsl:for-each select="$description/dct:contributor">
+            <xsl:apply-templates select="."/><xsl:if test="not(position() = last())"> , </xsl:if> 
+        </xsl:for-each>
+            ] , </xsl:otherwise>
+                </xsl:choose>
+        </xsl:when>
+            <xsl:when test="$description/dct:contributor and $description/dc:contributor">
+        "contributor" : [<xsl:for-each select="$description/dct:contributor">
+            <xsl:apply-templates select="."/> , 
+        </xsl:for-each><xsl:for-each select="$description/dc:contributor">
+            <xsl:apply-templates select="."/><xsl:if test="not(position() = last())"> , </xsl:if>
+        </xsl:for-each>
+            ] , 
+            </xsl:when>
+            <xsl:when test="not($description/dct:contributor) and $description/dc:contributor">
+                <xsl:choose>
+                    <xsl:when test="count($description/dc:contributor) = 1">
+        "contributor" : <xsl:apply-templates select="$description/dc:contributor"/> ,       
+                    </xsl:when>
+                    <xsl:otherwise>
+        "contributor" : [<xsl:for-each select="$description/dc:contributor">
+            <xsl:apply-templates select="."/><xsl:if test="not(position() = last())"> , </xsl:if> 
+        </xsl:for-each>
+            ] , </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
         "datePublished" : "<xsl:choose>
             <xsl:when test="$description/dct:issued">
                 <xsl:value-of select="$description/dct:issued"/>
@@ -126,12 +174,14 @@
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>", 
-        "version" : "<xsl:choose>
+        <xsl:choose>
             <xsl:when test="$description/schema:version">
-                <xsl:value-of select="$description/schema:version"/>
+        "version" : "<xsl:value-of select="$description/schema:version"/>" , 
             </xsl:when>
-            <xsl:otherwise/>
-        </xsl:choose>" , 
+            <xsl:otherwise>
+                <xsl:message>WARNING: schema:version missing from rdf/xml</xsl:message>
+            </xsl:otherwise>
+        </xsl:choose> 
         "distribution" : [
             { "@type" : "DataDownload" , 
               "url" : "<xsl:value-of
@@ -163,17 +213,17 @@
         <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
         <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
             />
-        "creator" : {
+            {
             "@id" : "<xsl:value-of select="$uri"/>", <xsl:if test="$agent/schema:name">
-            "name" : "<xsl:value-of select="$agent/schema:name"
-        />"</xsl:if>
-            } , 
-    </xsl:template>
+            "name" : "<xsl:value-of select="$agent/schema:name"/>" , </xsl:if> 
+            "sameAs" : "<xsl:value-of select="$uri"/>" 
+            }</xsl:template>
+    
     <xsl:template match="dc:creator">
-        "creator" : {
+            {
             "name" : "<xsl:value-of select="."/>"
-            } , 
-    </xsl:template>
+            }</xsl:template>
+    
     <xsl:template match="dct:publisher">
         <xsl:variable name="uri" select="@rdf:resource"/>
         <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
@@ -181,8 +231,8 @@
             />
         "publisher" : {
             "@id" : "<xsl:value-of select="$uri"/>", <xsl:if test="$agent/schema:name">
-            "name" : "<xsl:value-of select="$agent/schema:name"
-        />"</xsl:if>
+            "name" : "<xsl:value-of select="$agent/schema:name"/>" ,  </xsl:if>
+            "sameAs" : "<xsl:value-of select="$uri"/>"
             } , 
     </xsl:template>
     <xsl:template match="dc:publisher">
@@ -190,20 +240,21 @@
             "name" : "<xsl:value-of select="."/>"
             } , 
     </xsl:template>
+    
     <xsl:template match="dct:contributor">
         <xsl:variable name="uri" select="@rdf:resource"/>
         <xsl:variable name="agents" select="document('../xml/agents.xml')"/>
         <xsl:variable name="agent" select="$agents/agents/agent[schema:sameAs/@rdf:resource = $uri]"
             />
-        "contributor" : {
+            {
             "@id" : "<xsl:value-of select="$uri"/>", <xsl:if test="$agent/schema:name">
-            "name" : "<xsl:value-of select="$agent/schema:name"
-        />"</xsl:if>
-            } , 
-    </xsl:template>
+            "name" : "<xsl:value-of select="$agent/schema:name"/>" , </xsl:if>
+            "sameAs" : "<xsl:value-of select="$uri"/>"
+            }</xsl:template>
+    
     <xsl:template match="dc:contributor">
-        "contributor" : {
+            {
             "name" : "<xsl:value-of select="."/>"
-            } , 
-    </xsl:template>
+            }</xsl:template>
+    
 </xsl:stylesheet>
