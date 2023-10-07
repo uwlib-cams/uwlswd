@@ -123,10 +123,9 @@
                     <!-- more than one language -->
                     <xsl:when test="count($description/dc:language) > 1">
                         <xsl:choose>
-                            <!-- check if this will work - always just one en? -->
-                            <xsl:when test="starts-with(lower-case($description/dc:language), 'en')">
+                            <xsl:when test="$description/dc:language[starts-with(., 'en')]">
                                 <language>
-                                    <xsl:value-of select="$description/dc:language"/>
+                                    <xsl:value-of select="$description/dc:language[starts-with(., 'en')]"/>
                                 </language>
                             </xsl:when>
                             <!-- multiple languages, none english -->
