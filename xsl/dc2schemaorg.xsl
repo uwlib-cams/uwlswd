@@ -84,14 +84,21 @@
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>",
-        "encodingFormat" : "text/html" ,
         "license" : "<xsl:choose>
             <xsl:when test="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI">
                 <xsl:value-of select="$metadata_file/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI"/>
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>",
-        "version" : "<xsl:value-of select="$version"/>" <!-- version from rdf/xml -->
+        <xsl:choose>
+            <xsl:when test="$version">
+        "version" : "<xsl:value-of select="$version"/>" , <!-- version from rdf/xml -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>WARNING: schema:version missing from rdf/xml</xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+        "encodingFormat" : "text/html" <!-- this will ALWAYS be here, so we don't have to worry about trailing commas -->
         }
     </xsl:template>
     

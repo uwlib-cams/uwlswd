@@ -167,7 +167,6 @@
        </xsl:choose></xsl:for-each></xsl:when>
           <xsl:otherwise/>
         </xsl:choose> 
-        "encodingFormat" : "text/html" , 
         "license" : "<xsl:choose>
             <xsl:when test="$description/dct:license">
                 <xsl:value-of select="$description/dct:license/@rdf:resource"/>
@@ -205,7 +204,8 @@
         />" ,
               "encodingFormat" : "application/n-triples" 
             } 
-            ]  
+            ] , 
+        "encodingFormat" : "text/html" <!-- this will ALWAYS be here, so we don't have to worry about trailing commas -->
         } 
     </xsl:template>
     <xsl:template match="dct:creator">
