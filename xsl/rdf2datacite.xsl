@@ -7,7 +7,7 @@
     <xsl:output method="xml" indent="yes"/>
     <xsl:template match="/">
         <xsl:variable name="description"
-            select="rdf:RDF/rdf:Description[not(contains(@rdf:about, '#'))]"/>
+            select="rdf:RDF/rdf:Description[not(contains(@rdf:about, '#')) and starts-with(@rdf:about, 'https://doi.org')]"/>
         <xsl:result-document
             href="./DataCite/{substring-after($description/@rdf:about, 'https://doi.org/10.6069/')}.xml">
             <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -144,6 +144,10 @@
                         <xsl:message>no dc:language in rdf/xml</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
+                
+                <formats>
+                    <format>text/html</format>
+                </formats>
                 
                 <!-- relatedIdentifiers -->
                 <xsl:if test="$description/dct:source">

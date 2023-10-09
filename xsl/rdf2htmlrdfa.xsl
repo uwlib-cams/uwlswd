@@ -36,7 +36,7 @@
     <!-- TEMPLATE -->
     <xsl:template match="/">
 
-        <xsl:variable name="description" select="./rdf:RDF/rdf:Description[not(contains(@rdf:about, '#')) and contains(@rdf:about, 'https://doi.org')]"/>
+        <xsl:variable name="description" select="./rdf:RDF/rdf:Description[not(contains(@rdf:about, '#')) and starts-with(@rdf:about, 'https://doi.org')]"/>
         
         <!-- doctype as text -->
         <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
