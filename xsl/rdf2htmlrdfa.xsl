@@ -10,6 +10,8 @@
     exclude-result-prefixes="#all"
     version="3.0">
     
+    <xsl:include href="https://uwlib-cams.github.io/webviews/xsl/CC0-footer.xsl"/>
+    
     <!-- using xhtml method of output BECAUSE we want closing tags on all elements -->
     <!-- note that we are ACTUALLY outputing an HTML5+RDFa doc -->
     <xsl:output omit-xml-declaration="true" method="xhtml"/>
@@ -179,16 +181,11 @@
                             Cataloging and Metadata Services</a><br/> Box 352900, Seattle, WA 98195-2900<br/> Telephone: 206-543-1919<br/>
                         <a href="mailto:tgis@uw.edu">tgis@uw.edu</a></p>
                 </div>
-                <!-- CC0 image/link, rights statement -->
-                <div class="footer_workaround"></div>
-                <footer>
-                    <div class="footer_container">
-                        <a href="http://creativecommons.org/publicdomain/zero/1.0/">
-                            <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
-                        </a>
-                        To the extent possible under law, the University of Washington Libraries has waived all copyright and related or neighboring rights to the <xsl:value-of select="$description/dct:title"/>. This work was published in the United States.
-                    </div>
-                </footer>
+                <xsl:call-template name="CC0-footer">
+                    <xsl:with-param name="resource_title"
+                        select="$description/dct:title"/>
+                    <xsl:with-param name="org" select="'cams'"/>
+                </xsl:call-template>
             </body>
         </html>
     </xsl:template>
