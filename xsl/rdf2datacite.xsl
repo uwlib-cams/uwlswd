@@ -145,6 +145,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 
+                <!-- format -->
                 <formats>
                     <format>text/html</format>
                 </formats>
