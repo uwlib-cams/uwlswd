@@ -202,7 +202,7 @@
               "url" : "<xsl:value-of
             select="replace($description/dct:hasFormat[contains(@rdf:resource, '.ttl')]/@rdf:resource, '.ttl', '.rdf')"
         />" ,
-              "encodingFormat" : "application/rdf+xml"  <!-- wrong encodingFormat -->
+              "encodingFormat" : "application/rdf+xml"
             } 
             ] , 
         "encodingFormat" : "text/html" <!-- this will ALWAYS be here, so we don't have to worry about trailing commas -->
