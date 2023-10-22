@@ -34,6 +34,8 @@
                     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                     <link href="https://uwlib-cams.github.io/webviews/css/index_pages.css"
                         rel="stylesheet" type="text/css"/>
+                    <link rel="icon" type="image/png"
+                        href="https://uwlib-cams.github.io/webviews/images/book.png"/>
                 </head>
                 <body>
                     <h1>University of Washington Libraries Semantic Web Data</h1>
