@@ -57,11 +57,11 @@
                             <xsl:variable name="URL"
                                 select="concat('https://doi.org/', key('datacite', ., $doi_title_desc)/doi)"/>
                             <h4>{.}</h4>
-                            <p>
+                            <p class="indent">
                                 <a href="{$URL}">{$URL}</a>
                             </p>
                             <xsl:if test="key('datacite', ., $doi_title_desc)/description">
-                                <p class="italic"
+                                <p class="italic indent"
                                     >{key('datacite', ., $doi_title_desc)/description}</p>
                             </xsl:if>
                         </xsl:for-each>
