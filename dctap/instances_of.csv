@@ -1,5 +1,13 @@
-﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType
-instancesOf,UWLSWD Instances Of Dataset,dct:title,Title,xsd:string
-,,dct:issued,Date Issued,xsd:gYear
-,,dct:hasFormat,Has Format,xsd:anyURI
-,,owl:versionInfo,versionInfo,xsd:string
+﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType,valueConstraint,valueConstraintType
+instancesOf,UWLSWD Instances Of Dataset,dct:title,Title,xsd:string,,
+,,dct:description,Description,xsd:string,,
+,,schema:disambiguatingDescription,disambiguatingDescription,xsd:string,"Linked Open Cultural Heritage Dataset,RDF Dataset Description,RDF Vocabulary,RDF Ontology Extension,SKOS Concept Scheme,SKOS Concept Scheme for MARC 00X Values",picklist
+,,dct:creator,Creator,xsd:anyURI,,
+,,dct:publisher,Publisher,xsd:anyURI,http://viaf.org/viaf/139541794,
+,,dct:issued,Date Issued,xsd:gYear,,
+,,dct:language,,,,
+,,dct:hasFormat,Has Format,xsd:anyURI,,
+,,schema:version,versionInfo,xsd:string,/^[0-9]-[0-9]-[0-9]$/,pattern
+,,dct:format,Format,xsd:anyURI,"http://www.w3.org/ns/formats/JSON-LD,http://www.w3.org/ns/formats/N-Triples,http://www.w3.org/ns/formats/RDFa,http://www.w3.org/ns/formats/RDF_XML,http://www.w3.org/ns/formats/Turtle",picklist
+,,dct:license,License,xsd:anyURI,https://creativecommons.org/licenses/by-nc/4.0,
+,,dct:hasFormat,Has Format,xsd:anyURI,,
