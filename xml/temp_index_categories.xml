@@ -10,7 +10,6 @@
         <resource>Maps: relief</resource>
         <resource>Music: literary text of sound recordings</resource>
         <resource>Form of material</resource>
-        <resource>Instances of the ProvenanceStatement Class</resource>
         <resource>Some: government publication</resource>
         <resource>Computer: form of item</resource>
         <resource>Continuing: form of original item</resource>
@@ -57,5 +56,6 @@
         <resource>Instances of the Collection Class</resource>
         <resource>Instances of the RightsStatement Class</resource>
         <resource>Instances of the Agent Class</resource>
+        <resource>Instances of the ProvenanceStatement Class</resource>
     </category>
 </temp_index_categories>
