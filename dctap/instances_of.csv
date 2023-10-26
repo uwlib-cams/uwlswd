@@ -1,11 +1,12 @@
 ﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType,valueConstraint,valueConstraintType
-instancesOf,UWLSWD Instances Of Dataset,dct:title,Title,xsd:string,,
+instancesOf,UWLSWD Instances Of Dataset,rdf:type,type,xsd:anyURI,void:Dataset,
+,,dct:title,Title,xsd:string,,
 ,,dct:description,Description,xsd:string,,
-,,schema:disambiguatingDescription,disambiguatingDescription,xsd:string,"Linked Open Cultural Heritage Dataset,RDF Dataset Description,RDF Vocabulary,RDF Ontology Extension,SKOS Concept Scheme,SKOS Concept Scheme for MARC 00X Values",picklist
+,,schema:disambiguatingDescription,disambiguatingDescription,xsd:string,Linked Open Cultural Heritage Dataset,picklist
 ,,dct:creator,Creator,xsd:anyURI,,
 ,,dct:publisher,Publisher,xsd:anyURI,http://viaf.org/viaf/139541794,
 ,,dct:issued,Date Issued,xsd:gYear,,
-,,dct:language,,,,
+,,dct:language,Language,xsd:string,en,picklist
 ,,dct:hasFormat,Has Format,xsd:anyURI,,
 ,,schema:version,versionInfo,xsd:string,/^[0-9]-[0-9]-[0-9]$/,pattern
 ,,dct:format,Format,xsd:anyURI,"http://www.w3.org/ns/formats/JSON-LD,http://www.w3.org/ns/formats/N-Triples,http://www.w3.org/ns/formats/RDFa,http://www.w3.org/ns/formats/RDF_XML,http://www.w3.org/ns/formats/Turtle",picklist
