@@ -88,7 +88,6 @@ else:
     exit(0)
 
 # get location and version of saxon folder
-#add processing for slashes? 
 saxon_dir_prompt = dedent("""Enter the full directory path to where your Saxon HE .jar file is stored
 For example: ~/saxon, c:/Users/cpayn/saxon11, etc.
 > """)
