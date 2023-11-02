@@ -5,17 +5,17 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
     
     <agent>
-        <schema:name>University of Washington Libraries</schema:name>
+        <schema:name xml:lang="en">University of Washington Libraries</schema:name>
         <schema:sameAs rdf:resource="http://viaf.org/viaf/139541794"/>
     </agent>
     
     <agent>
-        <schema:name>Library of Congress</schema:name>
+        <schema:name xml:lang="en">Library of Congress</schema:name>
         <schema:sameAs rdf:resource="http://viaf.org/viaf/151962300"/>
     </agent>
     
     <agent>
-        <schema:name>Metadata Management Associates</schema:name>
+        <schema:name xml:lang="en">Metadata Management Associates</schema:name>
     </agent>
     
 </agents>
