@@ -252,6 +252,11 @@
                     <xsl:when test="$agent/schema:name">
                         <creator xmlns="http://datacite.org/schema/kernel-4">
                             <creatorName>
+                                <xsl:if test="$agent/schema:name/@xml:lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="$agent/schema:name/@xml:lang"/>
+                                    </xsl:attribute>
+                                </xsl:if>
                                 <xsl:value-of select="$agent/schema:name"/>
                             </creatorName>
                         </creator>
@@ -268,11 +273,36 @@
     </xsl:template>
     
     <xsl:template match="dc:creator">
-        <creator xmlns="http://datacite.org/schema/kernel-4">
-            <creatorName>
-                <xsl:value-of select="."/>
-            </creatorName>
-        </creator>
+        <xsl:variable name="name" select="."/>
+        <xsl:choose>
+            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:name = $name]">
+                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:name = $name]"
+                />
+                <creator xmlns="http://datacite.org/schema/kernel-4">
+                    <creatorName>
+                        <xsl:if test="$agent/schema:name/@xml:lang">
+                            <xsl:attribute name="xml:lang">
+                                <xsl:value-of select="$agent/schema:name/@xml:lang"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="$agent/schema:name"/>
+                    </creatorName>
+                </creator>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>WARNING: dc:creator not found in agents.xml, using dc:creator value from RDF/XML</xsl:message>
+                <creator xmlns="http://datacite.org/schema/kernel-4">
+                    <creatorName>
+                        <xsl:if test="@xml:lang">
+                            <xsl:attribute name="xml:lang">
+                                <xsl:value-of select="@xml:lang"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="."/>
+                    </creatorName>
+                </creator>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="dct:publisher">
@@ -284,7 +314,12 @@
                 <xsl:choose>
                     <xsl:when test="$agent/schema:name">
                         <publisher xmlns="http://datacite.org/schema/kernel-4">
-                                <xsl:value-of select="$agent/schema:name"/>
+                            <xsl:if test="$agent/schema:name/@xml:lang">
+                                <xsl:attribute name="xml:lang">
+                                    <xsl:value-of select="$agent/schema:name/@xml:lang"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:value-of select="$agent/schema:name"/>
                         </publisher>
                     </xsl:when>
                     <xsl:otherwise>
@@ -299,8 +334,31 @@
     </xsl:template>
     
     <xsl:template match="dc:publisher">
-        <publisher xmlns="http://datacite.org/schema/kernel-4">
-            <xsl:value-of select="."/>
-        </publisher>
+        <xsl:variable name="name" select="."/>
+        <xsl:choose>
+            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:name = $name]">
+                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:name = $name]"
+                />
+                <publisher xmlns="http://datacite.org/schema/kernel-4">
+                    <xsl:if test="$agent/schema:name/@xml:lang">
+                        <xsl:attribute name="xml:lang">
+                            <xsl:value-of select="$agent/schema:name/@xml:lang"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$agent/schema:name"/>
+                </publisher>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>WARNING: dc:publisher not found in agents.xml, using dc:publisher value from RDF/XML</xsl:message>
+                <publisher xmlns="http://datacite.org/schema/kernel-4">
+                    <xsl:if test="@xml:lang">
+                        <xsl:attribute name="xml:lang">
+                            <xsl:value-of select="@xml:lang"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$name"/>
+                </publisher>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
