@@ -1,14 +1,13 @@
-﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType,valueConstraint,valueConstraintType
-instancesOf,UWLSWD Instances Of Dataset,rdf:type,type,xsd:anyURI,void:Dataset,
-,,dct:title,Title,xsd:string,,
-,,dct:description,Description,xsd:string,,
-,,schema:disambiguatingDescription,disambiguatingDescription,xsd:string,Linked Open Cultural Heritage Dataset,picklist
-,,dct:creator,Creator,xsd:anyURI,,
-,,dct:publisher,Publisher,xsd:anyURI,http://viaf.org/viaf/139541794,
-,,dct:issued,Date Issued,xsd:gYear,,
-,,dct:language,Language,xsd:string,en,picklist
-,,dct:hasFormat,Has Format,xsd:anyURI,,
-,,schema:version,versionInfo,xsd:string,/^[0-9]-[0-9]-[0-9]$/,pattern
-,,dct:format,Format,xsd:anyURI,"http://www.w3.org/ns/formats/JSON-LD,http://www.w3.org/ns/formats/N-Triples,http://www.w3.org/ns/formats/RDFa,http://www.w3.org/ns/formats/RDF_XML,http://www.w3.org/ns/formats/Turtle",picklist
-,,dct:license,License,xsd:anyURI,https://creativecommons.org/licenses/by-nc/4.0,
-,,dct:hasFormat,Has Format,xsd:anyURI,,
+﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType,valueConstraint,valueConstraintType,Repeatable,Notes
+instancesOf,UWLSWD Instances Of Dataset,rdf:type,type,xsd:anyURI,void:Dataset,,FALSE,
+,,dct:title,Title,xsd:string,,,FALSE,
+,,dct:description,Description,xsd:string,,,TRUE,
+,,schema:disambiguatingDescription,disambiguatingDescription,xsd:string,Linked Open Cultural Heritage Dataset,picklist,FALSE,
+,,dct:creator,Creator,xsd:anyURI,,,TRUE,
+,,dct:publisher,Publisher,xsd:anyURI,http://viaf.org/viaf/139541794,,FALSE,
+,,dct:issued,Date Issued,xsd:gYear,,,FALSE,
+,,dct:language,Language,xsd:string,en,picklist,TRUE,
+,,schema:version,versionInfo,xsd:string,/^[0-9]-[0-9]-[0-9]$/,pattern,FALSE,
+,,dct:format,Format,xsd:anyURI,"http://www.w3.org/ns/formats/JSON-LD,http://www.w3.org/ns/formats/N-Triples,http://www.w3.org/ns/formats/RDFa,http://www.w3.org/ns/formats/RDF_XML,http://www.w3.org/ns/formats/Turtle",picklist,FALSE,
+,,dct:license,License,xsd:anyURI,https://creativecommons.org/licenses/by-nc/4.0,,FALSE,
+,,dct:hasFormat,Has Format,xsd:anyURI,,,TRUE,
