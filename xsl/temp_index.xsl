@@ -19,7 +19,7 @@
                 <resource>
                     <doi>{datacite:identifier[@identifierType = 'DOI']}</doi>
                     <title>{datacite:titles/datacite:title[not(@titleType)]}</title>
-                    <description>{datacite:descriptions/datacite:description[@xml:lang = 'en-US']}</description>
+                    <description>{datacite:descriptions/datacite:description}</description>
                 </resource>
             </xsl:for-each>
         </collection>
@@ -39,8 +39,12 @@
                         href="https://uwlib-cams.github.io/webviews/images/book.png"/>
                 </head>
                 <body>
-                    <h1>University of Washington Libraries Semantic Web Data</h1>
-                    <p>University of Washington Libraries, Cataloging and Metadata Services</p>
+                    <h1 id="top">University of Washington Libraries Semantic Web Data</h1>
+                    <p>The following datasets and vocabularies are published and maintained by the <a
+                            href="https://www.lib.washington.edu/cams"
+                            >University of Washington Libraries Cataloging and Metadata Services department</a>. For additional information about linked-data initiatives at the University of Washington Libraries, visit the <a
+                            href="https://www.lib.washington.edu/cams/swr"
+                            >University of Washington Libraries Semantic Web Resources</a> page.</p>
                     <h2>Categories</h2>
                     <ul>
                         <xsl:for-each select="$temp_index_categories/category">
@@ -57,14 +61,21 @@
                             <xsl:variable name="URL"
                                 select="concat('https://doi.org/', key('datacite', ., $doi_title_desc)/doi)"/>
                             <h4>{.}</h4>
-                            <p class="indent">
-                                <a href="{$URL}">{$URL}</a>
-                            </p>
-                            <xsl:if test="key('datacite', ., $doi_title_desc)/description">
-                                <p class="italic indent"
-                                    >{key('datacite', ., $doi_title_desc)/description}</p>
-                            </xsl:if>
+                            <div class="margin_left_30">
+                                <p>
+                                    <a href="{$URL}">{$URL}</a>
+                                </p>
+                                <xsl:if test="key('datacite', ., $doi_title_desc)/description">
+                                    <p class="italic"
+                                        >{key('datacite', ., $doi_title_desc)/description}</p>
+                                </xsl:if>
+                            </div>
                         </xsl:for-each>
+                        <div class="italic return_to_top">
+                            <p>
+                                <a href="#top">Return to categories</a>
+                            </p>
+                        </div>
                     </xsl:for-each>
                     <xsl:call-template name="CC0-footer">
                         <xsl:with-param name="resource_title" select="'UWLSWD'"/>
