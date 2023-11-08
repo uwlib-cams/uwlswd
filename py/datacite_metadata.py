@@ -1,6 +1,11 @@
+# This script calls the xsl script rdf2datacite.xsl
+# and produces datacite metadata files stored in UWLSWD/DataCite/
+# outputting any missing elements to command line 
+
 from textwrap import dedent
 import rdflib
 import os
+
 
 # uses rdflib graph to format rdf/xml file so each rdf:Description element has a unique rdf:about attribute
 def format_rdflib(abs_path):
@@ -33,6 +38,9 @@ Generating DataCite metadata file from {file_path}
     os_command = os_command.replace('\n', '')
     os.system(os_command)
 
+
+### SCRIPT STARTS HERE ###
+
 # check set-up
 print(dedent("""Please confirm:
 1) Terminal is open in the uwlswd top-level directory
@@ -43,8 +51,7 @@ if confirm.lower() == "yes":
 else:
     exit(0)
 
-# get location and version of saxon folder
-#add processing for slashes? 
+# get location and version of saxon folder 
 saxon_dir_prompt = dedent("""Enter the full directory path to where your Saxon HE .jar file is stored
 For example: ~/saxon, c:/Users/cpayn/saxon11, etc.
 > """)
