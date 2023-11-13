@@ -8,11 +8,13 @@
     <xsl:template match="/">
         <xsl:variable name="description"
             select="rdf:RDF/rdf:Description[not(contains(@rdf:about, '#')) and starts-with(@rdf:about, 'https://doi.org')]"/>
-        <xsl:result-document
-            href="./DataCite/{substring-after($description/@rdf:about, 'https://doi.org/10.6069/')}.xml">
+        <xsl:result-document href="./DataCite/{substring-after($description/@rdf:about,
+            'https://doi.org/10.6069/')}.xml">
             <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns="http://datacite.org/schema/kernel-4"
-                xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+                xsi:schemaLocation="http://datacite.org/schema/kernel-4
+                http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+                
                 <!-- identifier should never be missing, it's how we find the correct rdf:description -->
                 <identifier identifierType="DOI">
                     <xsl:value-of
@@ -54,7 +56,7 @@
                         <xsl:message>REQUIRED VALUE MISSING: dct:title missing in rdf/xml.</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
-                
+               
                 <!-- creators -->
                 <creators>
                     <xsl:choose>
@@ -85,7 +87,7 @@
                     <xsl:otherwise>
                         <xsl:message>REQUIRED VALUE MISSING: dct:publisher or dc:publisher missing in rdf/xml</xsl:message>
                     </xsl:otherwise>
-                    </xsl:choose>
+                </xsl:choose>
                 
                 <!-- contributor currently not included in DataCite metadata -->
                 
@@ -115,33 +117,80 @@
                     <xsl:otherwise>
                         <xsl:message>REQUIRED VALUE MISSING: schema:disambiguatingDescription missing in rdf/xml</xsl:message>
                     </xsl:otherwise>
-                </xsl:choose>                
+                </xsl:choose>
                 
                 <!-- language -->
-                <!-- if there is more than one dc:language element AND neither are english, omit for now -->
+                <!-- if there is more than one language element AND neither are english, omit for now -->
                 <xsl:choose>
-                    <!-- more than one language -->
-                    <xsl:when test="count($description/dc:language) > 1">
+                    
+                    <!-- dc:language -->
+                    <xsl:when test="$description/dc:language and not($description/dct:language)"> 
+                        <!-- more than one language -->
                         <xsl:choose>
-                            <xsl:when test="$description/dc:language[starts-with(., 'en')]">
+                            <xsl:when test="count($description/dc:language) > 1">
+                                <xsl:choose>
+                                    <xsl:when test="$description/dc:language[starts-with(., 'en')]">
+                                        <language>
+                                            <xsl:value-of
+                                                select="$description/dc:language[starts-with(., 'en')]"
+                                            />
+                                        </language>
+                                    </xsl:when>
+                                    
+                                    <!-- multiple languages, none english -->
+                                    <xsl:otherwise>
+                                        <xsl:message>Unable to determine primary language, no language element added.</xsl:message>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            
+                            <!-- one language -->
+                            <xsl:when test="count($description/dc:language) = 1">
                                 <language>
-                                    <xsl:value-of select="$description/dc:language[starts-with(., 'en')]"/>
+                                    <xsl:value-of select="$description/dc:language"/>
                                 </language>
                             </xsl:when>
-                            <!-- multiple languages, none english -->
-                            <xsl:otherwise>
-                                <xsl:message>Unable to determine primary language, no language element added.</xsl:message>
-                            </xsl:otherwise>
+                            <xsl:otherwise/>
                         </xsl:choose>
                     </xsl:when>
-                    <!-- one language -->
-                    <xsl:when test="count($description/dc:language) = 1">
-                        <language>
-                            <xsl:value-of select="$description/dc:language"/>
-                        </language>
+                    
+                    <!-- dct:language  -->
+                    <xsl:when test="$description/dct:language and not($description/dc:language)">
+                        <!-- more than one language -->
+                        <xsl:choose>
+                            <xsl:when test="count($description/dct:language) > 1">
+                                <xsl:choose>
+                                    <xsl:when test="$description/dct:language[starts-with(., 'en')]">
+                                        <language>
+                                            <xsl:value-of
+                                                select="$description/dct:language[starts-with(., 'en')]"
+                                            />
+                                        </language>
+                                    </xsl:when>
+                                    
+                                    <!-- multiple languages, none english -->
+                                    <xsl:otherwise>
+                                        <xsl:message>Unable to determine primary language, no language element added.</xsl:message>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            
+                            <!-- one language -->
+                            <xsl:when test="count($description/dct:language) = 1">
+                                <language>
+                                    <xsl:value-of select="$description/dct:language"/>
+                                </language>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
                     </xsl:when>
+                    
+                    <xsl:when test="not($description/dc:language) and not($description/dct:language)">
+                        <xsl:message>no dc:language or dct:language in rdf/xml</xsl:message>
+                    </xsl:when>
+                    
                     <xsl:otherwise>
-                        <xsl:message>no dc:language in rdf/xml</xsl:message>
+                        <xsl:message>language elements must be dc:language OR dct:language, not both.</xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
                 
@@ -160,7 +209,7 @@
                             </relatedIdentifier>
                         </xsl:for-each>
                     </relatedIdentifiers>
-                </xsl:if>    
+                </xsl:if>
                 
                 <!-- rightsList -->
                 <xsl:choose>
@@ -206,6 +255,7 @@
                                     <xsl:value-of select="."/>
                                 </description>
                             </xsl:for-each>
+                            
                             <!-- description from skos:scopeNote -->
                             <xsl:if test="$description/skos:scopeNote">
                                 <xsl:for-each select="$description/skos:scopeNote">
@@ -225,7 +275,7 @@
                                             <!-- else it is Other -->
                                             <xsl:otherwise>
                                                 <xsl:attribute name="descriptionType"
-                                                    >Other</xsl:attribute>
+                                                  >Other</xsl:attribute>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                         <xsl:value-of select="."/>
@@ -240,14 +290,15 @@
                 </xsl:choose>
             </resource>
         </xsl:result-document>
+        
     </xsl:template>
-    
     <xsl:template match="dct:creator">
         <xsl:variable name="uri" select="@rdf:resource"/>
         <xsl:choose>
-            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]">
-                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]"
-                />
+            <xsl:when
+                test="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]">
+                <xsl:variable name="agent"
+                    select="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]"/>
                 <xsl:choose>
                     <xsl:when test="$agent/schema:name">
                         <creator xmlns="http://datacite.org/schema/kernel-4">
@@ -276,8 +327,8 @@
         <xsl:variable name="name" select="."/>
         <xsl:choose>
             <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:name = $name]">
-                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:name = $name]"
-                />
+                <xsl:variable name="agent"
+                    select="document('../xml/agents.xml')/agents/agent[schema:name = $name]"/>
                 <creator xmlns="http://datacite.org/schema/kernel-4">
                     <creatorName>
                         <xsl:if test="$agent/schema:name/@xml:lang">
@@ -303,14 +354,15 @@
                 </creator>
             </xsl:otherwise>
         </xsl:choose>
+        
     </xsl:template>
-    
     <xsl:template match="dct:publisher">
         <xsl:variable name="uri" select="@rdf:resource"/>
         <xsl:choose>
-            <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]">
-                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]"
-                />
+            <xsl:when
+                test="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]">
+                <xsl:variable name="agent"
+                    select="document('../xml/agents.xml')/agents/agent[schema:sameAs/@rdf:resource = $uri]"/>
                 <xsl:choose>
                     <xsl:when test="$agent/schema:name">
                         <publisher xmlns="http://datacite.org/schema/kernel-4">
@@ -337,8 +389,8 @@
         <xsl:variable name="name" select="."/>
         <xsl:choose>
             <xsl:when test="document('../xml/agents.xml')/agents/agent[schema:name = $name]">
-                <xsl:variable name="agent" select="document('../xml/agents.xml')/agents/agent[schema:name = $name]"
-                />
+                <xsl:variable name="agent"
+                    select="document('../xml/agents.xml')/agents/agent[schema:name = $name]"/>
                 <publisher xmlns="http://datacite.org/schema/kernel-4">
                     <xsl:if test="$agent/schema:name/@xml:lang">
                         <xsl:attribute name="xml:lang">
