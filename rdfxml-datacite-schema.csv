@@ -38,6 +38,6 @@ $['contributor']['sameAs']",
 /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/skos:scopeNote",/datacite:resource/datacite:descriptions/datacite:description,$['description'],
 "/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/dct:description/@xml:lang
 /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/skos:scopeNote/@xml:lang",/datacite:resource/datacite:descriptions/datacite:description/@xml:lang,,
-,/datacite:resource/datacite:descriptions/datacite:descriptionType,,"if /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/rdf:type/@rdf:resource = ""http://www.w3.org/2004/02/skos/core#ConceptScheme"", value = ""TechnicalInfo""
+,/datacite:resource/datacite:descriptions/datacite:description/@descriptionType,,"if /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/rdf:type/@rdf:resource = ""http://www.w3.org/2004/02/skos/core#ConceptScheme"", value = ""TechnicalInfo""
 otherwise value = ""Other"""
 /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/schema:version,,$['version'],
