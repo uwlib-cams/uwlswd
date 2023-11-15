@@ -156,6 +156,7 @@
             <xsl:otherwise/>
         </xsl:choose>", 
        <xsl:choose>
+            <xsl:when test="$description/dc:language and not($description/dct:language)"><xsl:choose>
             <xsl:when test="count($description/dc:language) = 1">
         "inLanguage" : "<xsl:value-of select="$description/dc:language"/>" , </xsl:when>
             <xsl:when test="count($description/dc:language) > 1">
@@ -165,8 +166,19 @@
            ] , </xsl:when><xsl:otherwise>
            "<xsl:value-of select="."/>" , </xsl:otherwise>
        </xsl:choose></xsl:for-each></xsl:when>
-          <xsl:otherwise/>
-        </xsl:choose> 
+           <xsl:otherwise/></xsl:choose></xsl:when>
+           <xsl:when test="$description/dct:language and not($description/dc:language)"><xsl:choose>
+               <xsl:when test="count($description/dct:language) = 1">
+        "inLanguage" : "<xsl:value-of select="$description/dct:language"/>" , </xsl:when>
+            <xsl:when test="count($description/dct:language) > 1">
+        "inLanguage" : [ <xsl:for-each select="$description/dct:language"><xsl:choose>
+            <xsl:when test="position() = last()">
+           "<xsl:value-of select="."/>"
+           ] , </xsl:when><xsl:otherwise>
+           "<xsl:value-of select="."/>" , </xsl:otherwise>
+       </xsl:choose></xsl:for-each></xsl:when>
+       <xsl:otherwise/></xsl:choose></xsl:when><xsl:otherwise/>
+       </xsl:choose> 
         "license" : "<xsl:choose>
             <xsl:when test="$description/dct:license">
                 <xsl:value-of select="$description/dct:license/@rdf:resource"/>
