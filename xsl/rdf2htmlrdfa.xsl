@@ -58,8 +58,11 @@
                 </title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
-               
-                <!-- schema.org content -->
+                
+                <!-- favicon -->
+                <link rel="icon" type="image/png" href="https://uwlib-cams.github.io/webviews/images/book.png"/>
+                
+                    <!-- schema.org content -->
                 <script type="application/ld+json">
                     <xsl:call-template name="rdf2schemaorg"/>
                 </script>

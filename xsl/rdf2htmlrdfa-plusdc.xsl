@@ -72,8 +72,11 @@
                 </title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
+               
+                <!-- favicon -->
+                <link rel="icon" type="image/png" href="https://uwlib-cams.github.io/webviews/images/book.png"/>
+                
                 <!-- schema.org content -->
-                <!-- find out what variables are fixed vs unique -->
                 <script type="application/ld+json">
                     <xsl:call-template name="schemaorgMarkup">
                         <xsl:with-param name="metadata_file_name" select="$metadata_file_name"/>
