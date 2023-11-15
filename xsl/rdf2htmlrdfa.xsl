@@ -76,7 +76,7 @@
             </head>
             <body about="{$description/@rdf:about}">
                 <!-- return to index link -->
-                <a class="return" href="https://uwlib-cams.github.io/uwlswd/">return to all UWLSWD datasets and vocabularies</a>
+                <a class="return" href="https://uwlib-cams.github.io/uwlswd/">Return to all UWLSWD datasets and vocabularies</a>
                 <!-- Title of dataset -->
                 <h1>
                     <xsl:value-of select="$description/dct:title"/>
