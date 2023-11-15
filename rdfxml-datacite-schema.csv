@@ -1,5 +1,4 @@
-UWLSWD top-level resource description,DataCite metadata,schema.org in HTML+RDFa web document,Notes
-XPath (see RDF/XML serialization),XPath (see XML conforming to the DataCite Metadata Schema),"JSONPath (see html/head/script[@type+""application/ld+json""])",
+UWLSWD top-level resource description: XPath (see RDF/XML serialization),DataCite metadata: XPath (see XML conforming to the DataCite Metadata Schema),"schema.org in HTML+RDFa web document: JSONPath (see html/head/script[@type+""application/ld+json""])",Notes
 /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/@rdf:about,/datacite:resource/datacite:identifier,$['@id'],
 ,/datacite:resource/datacite:identifier/@identifierType,,"value = ""DOI"""
 /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource/dct:title,/datacite:resource/datacite:titles/datacite:title,$['name'],
