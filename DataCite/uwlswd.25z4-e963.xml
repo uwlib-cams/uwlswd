@@ -12,6 +12,7 @@
          <creatorName xml:lang="en">University of Washington Libraries</creatorName>
       </creator>
    </creators>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
    <publicationYear>2023</publicationYear>
    <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme for MARC 00X Values</resourceType>
    <language>en</language>
