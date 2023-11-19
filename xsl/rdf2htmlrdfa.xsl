@@ -145,9 +145,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Subject</th>
-                                <th>Predicate</th>
-                                <th>Object</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Predicate</th>
+                                <th scope="col">Object</th>
                             </tr>
                         </thead>
                         <!-- add missing dct:hasFormat and update dct:format before passing to templates -->

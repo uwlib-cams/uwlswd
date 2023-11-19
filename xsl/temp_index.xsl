@@ -29,7 +29,7 @@
 
     <xsl:template match="/">
         <xsl:result-document href="../index.html">
-            <html>
+            <html lang="en">
                 <head>
                     <title>UWLSWD</title>
                     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -45,18 +45,21 @@
                             >University of Washington Libraries Cataloging and Metadata Services department</a>. For additional information about linked-data initiatives at the University of Washington Libraries, visit the <a
                             href="https://www.lib.washington.edu/cams/swr"
                             >University of Washington Libraries Semantic Web Resources</a> page.</p>
-                    <h2>Categories</h2>
-                    <ul>
-                        <xsl:for-each select="$temp_index_categories/category">
-                            <li>
-                                <a href="{concat('#', @label)}">{@label}</a>
-                            </li>
-                        </xsl:for-each>
-                    </ul>
+                    <!-- navigation links -->
+                    <nav>
+                        <h2>Categories</h2>
+                        <ul>
+                            <xsl:for-each select="$temp_index_categories/category">
+                                <li>
+                                    <a href="{concat('#', replace(@label, ' ', ''))}">{@label}</a>
+                                </li>
+                            </xsl:for-each>
+                        </ul>
+                    </nav>
                     <!-- link to CAMS public page
                         provide uwlsemanticweb@uw.edu email link -->
                     <xsl:for-each select="$temp_index_categories/category">
-                        <h3 id="{@label}">{@label}</h3>
+                        <h3 id="{replace(@label, ' ', '')}">{@label}</h3>
                         <xsl:for-each select="resource">
                             <xsl:variable name="URL"
                                 select="concat('https://doi.org/', key('datacite', ., $doi_title_desc)/doi)"/>
