@@ -16,12 +16,12 @@ def format_rdflib(abs_path):
 
     g.serialize(destination=abs_path, format="xml")
 
-# call format_rdflib and then run rdf2datacite.xsl on formatted file
+# calls format_rdflib and then runs rdf2datacite.xsl on formatted file
 def process_file(file_path):
     # file path parsing assumes main.py is being run in top-level uwlswd 
-    # AND that the file being parsed is NOT located in uwlswd
+    # AND that the file being parsed is NOT located IN uwlswd folder
     
-    #absolute path
+    # absolute path
     abspath = os.path.abspath(file_path)
 
     print(dedent(f"""{'=' * 20}
@@ -30,6 +30,7 @@ Generating DataCite metadata file from {file_path}
 
     format_rdflib(abspath)
 
+    # run rdf2datacite.xsl
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
     net.sf.saxon.Transform 
     -s:{file_path} 

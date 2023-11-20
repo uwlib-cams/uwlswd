@@ -1,6 +1,5 @@
 # This script parses an html file produced using main.py
 # and adjusts formatting to create tabs displaying each serialization of the resource
-# written by Cypress Payne
 
 import lxml.etree as ET
 
