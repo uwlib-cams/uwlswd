@@ -9,6 +9,11 @@
     exclude-result-prefixes="#all"
     version="3.0">
     
+    <!-- NOTE: This script uses datacite2schemaorg.xsl to generate the Schema.org data from DataCite metadata. 
+        Once all resources meet our current guidelines, this script will not be neccessary,
+        as Schema.org data will be able to be produced directly from the RDF/XML 
+        using rdf2htmlrdfa.xsl and rdf2schemaorg.xsl -->
+    
     <xsl:include href="https://uwlib-cams.github.io/webviews/xsl/CC0-footer.xsl"/>
     
     <!-- using xhtml method of output BECAUSE we want closing tags on all elements -->
@@ -17,7 +22,7 @@
     
     <!-- rdfa xsl -->
     <xsl:include href="rdf2rdfa-table.xsl"/>
-    <xsl:include href="dc2schemaorg.xsl"/>
+    <xsl:include href="datacite2schemaorg.xsl"/>
     
     <!-- VARIABLES -->
     <!-- file path minus .rdf extension -->

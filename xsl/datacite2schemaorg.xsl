@@ -6,6 +6,12 @@
     <xsl:strip-space elements="*"/>
     
     <!-- template for producing the json schema.org markup based on DataCite metadata -->
+    
+    <!-- NOTE: This script uses DataCite metadata to generate the Schema.org data.
+            Once all resources meet our current guidelines, this script will not be neccessary,
+            as Schema.org data will be able to be produced directly from the RDF/XML 
+            using rdf2htmlrdfa.xsl and rdf2schemaorg.xsl -->
+    
     <!-- NOTE: indentation is weird within this template and hierarchy of elements is not always clear -->
     <!-- this is to produce proper indentation within the output file -->
     <xsl:template name="schemaorgMarkup"> 
