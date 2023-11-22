@@ -58,8 +58,11 @@
                 </title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
-               
-                <!-- schema.org content -->
+                
+                <!-- favicon -->
+                <link rel="icon" type="image/png" href="https://uwlib-cams.github.io/webviews/images/book.png"/>
+                
+                    <!-- schema.org content -->
                 <script type="application/ld+json">
                     <xsl:call-template name="rdf2schemaorg"/>
                 </script>
@@ -76,7 +79,7 @@
             </head>
             <body about="{$description/@rdf:about}">
                 <!-- return to index link -->
-                <a class="return" href="https://uwlib-cams.github.io/uwlswd/">return to all UWLSWD datasets and vocabularies</a>
+                <a class="return" href="https://uwlib-cams.github.io/uwlswd/">Return to all UWLSWD datasets and vocabularies</a>
                 <!-- Title of dataset -->
                 <h1>
                     <xsl:value-of select="$description/dct:title"/>
@@ -142,9 +145,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Subject</th>
-                                <th>Predicate</th>
-                                <th>Object</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Predicate</th>
+                                <th scope="col">Object</th>
                             </tr>
                         </thead>
                         <!-- add missing dct:hasFormat and update dct:format before passing to templates -->

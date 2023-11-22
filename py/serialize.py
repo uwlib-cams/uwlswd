@@ -7,7 +7,7 @@ import rdflib
 from textwrap import dedent
 import os
 
-## returns doi for generated dct:hasFormat
+## retrieves doi from rdf:type triple where the stype is skos:conceptScheme or void:dataset
 def get_doi(graph):
     i = 0
     doi = ""
@@ -23,7 +23,8 @@ def get_doi(graph):
 
     return doi
 
-# adds all four dct:hasFormat triples - resetting the graph 
+
+# adds any missing dct:hasFormat triples - resetting the graph to contain all five
 def reset_hasFormat(graph, uri_path):
     doi = get_doi(graph)
 
@@ -40,24 +41,36 @@ def reset_hasFormat(graph, uri_path):
     if (doi, dct_hasFormat, rdflib.URIRef(f"{uri_path}.html")) not in graph:
         graph.add((doi, dct_hasFormat, rdflib.URIRef(f"{uri_path}.html")))
 
+
 # removes dct:hasFormat of the current format
-# e.g. if serializing rdf, removes the dct:hasFormat with the rdf file as the object
+# e.g. if serializing rdf/xml, removes the dct:hasFormat triple with the rdf/xml file as the object
 def fix_hasFormat(new_format, graph, uri_path):
+    # reset to all five formats
     reset_hasFormat(graph, uri_path)
 
+    # get doi to locate relevant triples 
     doi = get_doi(graph)
-    base_uri = rdflib.URIRef(uri_path)
-    doi_uri = rdflib.URIRef(doi)
-    dct_hasFormat = rdflib.URIRef("http://purl.org/dc/terms/hasFormat")
-    new_file = rdflib.URIRef(f"{base_uri}.{new_format}")
 
+    base_uri = rdflib.URIRef(uri_path)
+    
+    doi_uri = rdflib.URIRef(doi)
+    new_file = rdflib.URIRef(f"{base_uri}.{new_format}")
+    
+    dct_hasFormat = rdflib.URIRef("http://purl.org/dc/terms/hasFormat")
+   
+    # remove triple where s=doi_uri, p=dct:hasFormat, o=file
     graph.remove((doi_uri, dct_hasFormat, new_file))
 
+
+# removes all dct:format triples and adds the dct:format for the specific serialization
 def fix_format(format, graph):
     dct_format = rdflib.URIRef("http://purl.org/dc/terms/format")
     doi = get_doi(graph)
+    
+    # remove dct:format triples 
     graph.remove((doi, dct_format, None))
     
+    # add correct dct:format triple based on format of serialization
     if format == "rdf":
         graph.add((doi, dct_format, rdflib.URIRef("http://www.w3.org/ns/formats/RDF_XML")))
     
@@ -71,13 +84,11 @@ def fix_format(format, graph):
         graph.add((doi, dct_format, rdflib.URIRef("http://www.w3.org/ns/formats/JSON-LD")))
 
 
-
-# this function processes data as rdflib graph and parses to all formats, adding dct:hasFormat
+# this function processes data as rdflib graph and parses to all formats, adding dct:hasFormat and dct:format
 # serializations are saved in the same location as the input file
-
 def serialize(file_path, file_name, uri_path):
 
-    # file path w/o extension
+    # file path w no extension
     file_path_noext = file_path.rsplit('.', 1)[0]
 
     # generate rdflib graph
@@ -87,46 +98,56 @@ def serialize(file_path, file_name, uri_path):
     for ns_prefix, namespace in g.namespaces():
         g.bind(ns_prefix, namespace)
 
+    # generate each serialization
     def format_rdf(g, uri_path):
         fix_hasFormat("rdf", g, uri_path)
         fix_format("rdf", g)
+
         rdf = g.serialize(format='xml')
+
         path = file_path_noext + "." + "rdf"
         file = open(path, 'w')
         file.write(rdf)
         file.close()
+
         print(file_name + "." + "rdf" + " generated")
 
     def format_nt(g, uri_path):
         fix_hasFormat("nt", g, uri_path)
         fix_format("nt", g)
+
         nt = g.serialize(format='nt')
+
         path = file_path_noext + "." + "nt"
         file = open(path, 'w')
         file.write(nt)
         file.close()
+
         print(file_name + "." + "nt" + " generated")
 
-    
     def format_ttl(g, uri_path):
         fix_hasFormat("ttl", g, uri_path)
         fix_format("ttl", g)
+
         turtle = g.serialize(format='turtle')
+
         path = file_path_noext + "." + "ttl"
         file = open(path, 'w')
         file.write(turtle)
         file.close()
-        print(file_name + "." + "ttl" + " generated")
 
+        print(file_name + "." + "ttl" + " generated")
 
     def format_jsonld(g, uri_path):
         fix_hasFormat("jsonld", g, uri_path)
         fix_format("jsonld", g)
+        
         jsonld = g.serialize(format='json-ld')
         path = file_path_noext + "." + "jsonld"
         file = open(path, 'w')
         file.write(jsonld)
         file.close()
+
         print(file_name + "." + "jsonld" + " generated")
     
     format_rdf(g, uri_path)
@@ -134,7 +155,8 @@ def serialize(file_path, file_name, uri_path):
     format_ttl(g, uri_path)
     format_jsonld(g, uri_path)
 
-# onlySerialize can be run from this script to produce all serializations
+
+# only_serialize can be run from this script to produce all serializations
 # except an html-rdfa serialization
 def only_serialize():
     file_prompt = dedent("""Enter the path of the file relative to the working directory. 
@@ -146,7 +168,7 @@ def only_serialize():
     if not(os.path.exists(file_path)):
         exit()
     
-    # get format - CHECK
+    # get format
     format = file_path.rsplit(".", 1)[1]
     if format not in ["jsonld","rdf","ttl","nt"]:
         print("Error: file is not one of the accepted formats")

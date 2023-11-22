@@ -1,4 +1,5 @@
 # main file for workflow/management of uwlswd datasets/vocabs
+# formats rdf/xml file(s), serializes N-Triples, Turtle, JSON-LD, and HTML+RDFa versions
 
 from textwrap import dedent
 import rdflib
@@ -24,21 +25,21 @@ def format_rdflib(abs_path):
 def process_file(file_path, fancy, schema_workflow_rdfxml):
 
     # file path parsing assumes main.py is being run in top-level uwlswd 
-    # AND that the file being parsed is NOT located in uwlswd
+    # AND that the file being parsed is NOT located IN uwlswd folder
     
-    #absolute path
+    # absolute path
     abspath = os.path.abspath(file_path)
     
-    # remove extension
+    # path w no extension
     file_path_noext = file_path.replace(".rdf", "")
 
     # get uri path - assumes top-level directory for file is parallel to uwlswd directory
     uri_path = "https://uwlib-cams.github.io/" + file_path_noext.replace("../", "").replace("\\", "/")
     
-    # gets file name - splits string at furthest / and takes string to the right
+    # get file name - splits string at furthest '/' and takes string to the right
     file_name = file_path_noext.rsplit("/", 1)[1]
     
-    # sets output file as file path with no extension + html extenstion
+    # set output file as file path with no extension + html extenstion
     output_file = f'{file_path_noext}.html'
 
 
@@ -52,6 +53,10 @@ PROCESSING {file_name}
 
     # generate html+rdfa
     # call rdf2rdfa stylesheets
+
+    # **once rdf2htmlrdfa-plusdc.xsl is not needed**
+    # replace the following if/else statement with:
+    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
 
     if schema_workflow_rdfxml == True:
         rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
@@ -118,6 +123,8 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
+        # **once rdf2htmlrdfa-plusdc.xsl is not needed**
+        # remove schema_workflow_input and following if statement
         schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
 If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
 > """)
@@ -137,6 +144,8 @@ If no, schema.org data will be generated using the DataCite metadata file locate
 elif os.path.isdir(file_path):
     complete_files = []
 
+    # **once rdf2htmlrdfa-plusdc.xsl is not needed**
+    # remove schema_workflow_input and following if statement
     schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
 If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
 > """)

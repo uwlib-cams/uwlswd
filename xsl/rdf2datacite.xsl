@@ -12,8 +12,7 @@
             'https://doi.org/10.6069/')}.xml">
             <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns="http://datacite.org/schema/kernel-4"
-                xsi:schemaLocation="http://datacite.org/schema/kernel-4
-                http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+                xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
                 
                 <!-- identifier should never be missing, it's how we find the correct rdf:description -->
                 <identifier identifierType="DOI">
