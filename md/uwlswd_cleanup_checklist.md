@@ -2,8 +2,6 @@
 
 - [ ] Delete any incorrect `dct:hasFormat` triples
 - [ ] Delete any incorrect `dct:format` triples
-- [ ] Correct lang tags - all lang tag values should come from the [IANA language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)
-- [ ] Add lang tags where missing for labels, titles, descriptions
 - [ ] Replace incorrect prop `owl:version` with `schema:version`
 - [ ] Confirm dct:description exists, proofread, draft if doesn't exist
 - [ ] Namespace prefixes
