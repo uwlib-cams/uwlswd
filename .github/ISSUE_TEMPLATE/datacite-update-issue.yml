@@ -28,4 +28,9 @@ body:
       label: Indicate what changes need to be made to the DOI
       placeholder: "For example:\n
       - changes made within the DataCite metadata file\n
-      - url changed\n"
+      - URL changed\n"
+  - type: input
+    id: url_change
+    attributes:
+      label: New URL
+      description: "If the URL was changed, enter the new URL"
