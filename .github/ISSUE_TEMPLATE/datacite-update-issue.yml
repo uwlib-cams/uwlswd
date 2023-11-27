@@ -25,5 +25,7 @@ body:
   - type: textarea
     id: additional_details
     attributes:
-      label: Any additional details
-      placeholder: "For example, what was changed within the DataCite metadata file"
+      label: Indicate what changes need to be made to the DOI
+      placeholder: "For example:\n
+      - changes made within the DataCite metadata file
+      - url changed"
