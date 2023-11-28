@@ -8,13 +8,13 @@
    </titles>
    <creators>
       <creator>
-         <creatorName>University of Washington Libraries</creatorName>
+         <creatorName xml:lang="en">University of Washington Libraries</creatorName>
       </creator>
    </creators>
-   <publisher>University of Washington Libraries</publisher>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
    <publicationYear>2018</publicationYear>
    <resourceType resourceTypeGeneral="Dataset">RDF Vocabulary</resourceType>
-   <language>en-US</language>
+   <language>en</language>
    <formats>
       <format>text/html</format>
    </formats>
@@ -22,6 +22,6 @@
       <rights rightsURI="https://creativecommons.org/licenses/zero/1.0/"/>
    </rightsList>
    <descriptions>
-      <description xml:lang="en" descriptionType="Other">RDF dataset describing classes used in University of Washington Libraries RDF data.</description>
+      <description xml:lang="en" descriptionType="Other">RDF dataset describing locally-defined classes used in University of Washington Libraries Semantic Web Data.</description>
    </descriptions>
 </resource>
