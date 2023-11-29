@@ -91,12 +91,12 @@ def serialize(file_path, file_name, uri_path):
     # file path w no extension
     file_path_noext = file_path.rsplit('.', 1)[0]
 
-    # generate rdflib graph
-    g = rdflib.Graph().parse(file_path)
+    # generate rdflib graph, use already existing namespaces
+    g = rdflib.Graph(bind_namespaces="none").parse(file_path)
 
     # bind namespaces
-    for ns_prefix, namespace in g.namespaces():
-        g.bind(ns_prefix, namespace)
+    # for ns_prefix, namespace in g.namespaces():
+    #     g.bind(ns_prefix, namespace, override=False)
 
     # generate each serialization
     def format_rdf(g, uri_path):

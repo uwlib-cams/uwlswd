@@ -13,11 +13,12 @@ from fancyhtml import fancify_HTML
 # input can be either an rdf/xml file or a directory containing multiple rdf/xml files
 
 # uses rdflib graph to format rdf/xml file so each rdf:Description element has a unique rdf:about attribute
+# use already existing namespaces
 def format_rdflib(abs_path):
-    g = rdflib.Graph().parse(abs_path)
+    g = rdflib.Graph(bind_namespaces="none").parse(abs_path)
 
-    for ns_prefix, namespace in g.namespaces():
-        g.bind(ns_prefix, namespace)
+    # for ns_prefix, namespace in g.namespaces():
+    #     g.bind(ns_prefix, namespace, override=False)
 
     g.serialize(destination=abs_path, format="xml")
 

@@ -8,11 +8,12 @@ import os
 
 
 # uses rdflib graph to format rdf/xml file so each rdf:Description element has a unique rdf:about attribute
+# use already existing namespaces
 def format_rdflib(abs_path):
-    g = rdflib.Graph().parse(abs_path)
+    g = rdflib.Graph(bind_namespaces="none").parse(abs_path)
 
-    for ns_prefix, namespace in g.namespaces():
-        g.bind(ns_prefix, namespace)
+    # for ns_prefix, namespace in g.namespaces():
+    #     g.bind(ns_prefix, namespace)
 
     g.serialize(destination=abs_path, format="xml")
 
