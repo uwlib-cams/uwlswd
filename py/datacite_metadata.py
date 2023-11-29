@@ -15,7 +15,7 @@ def format_rdflib(abs_path):
     # for ns_prefix, namespace in g.namespaces():
     #     g.bind(ns_prefix, namespace)
 
-    g.serialize(destination=abs_path, format="xml")
+    g.serialize(destination=abs_path, format="xml", encoding="utf8")
 
 # calls format_rdflib and then runs rdf2datacite.xsl on formatted file
 def process_file(file_path):

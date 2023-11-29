@@ -103,12 +103,14 @@ def serialize(file_path, file_name, uri_path):
         fix_hasFormat("rdf", g, uri_path)
         fix_format("rdf", g)
 
-        rdf = g.serialize(format='xml')
+        destination = file_path_noext + "." + "rdf"
 
-        path = file_path_noext + "." + "rdf"
-        file = open(path, 'w')
-        file.write(rdf)
-        file.close()
+        rdf = g.serialize(destination=destination, format='xml', encoding="utf8")
+
+        # path = file_path_noext + "." + "rdf"
+        # file = open(path, 'w')
+        # file.write(rdf)
+        # file.close()
 
         print(file_name + "." + "rdf" + " generated")
 

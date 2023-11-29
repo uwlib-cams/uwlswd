@@ -20,7 +20,7 @@ def format_rdflib(abs_path):
     # for ns_prefix, namespace in g.namespaces():
     #     g.bind(ns_prefix, namespace, override=False)
 
-    g.serialize(destination=abs_path, format="xml")
+    g.serialize(destination=abs_path, format="xml", encoding="utf8")
 
 # this function begins the process of transforming the rdf file to all other serializations 
 def process_file(file_path, fancy, schema_workflow_rdfxml):
