@@ -9,13 +9,16 @@
    </titles>
    <creators>
       <creator>
-         <creatorName>University of Washington Libraries</creatorName>
+         <creatorName xml:lang="en">University of Washington Libraries</creatorName>
       </creator>
    </creators>
-   <publisher>University of Washington Libraries</publisher>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
    <publicationYear>2018</publicationYear>
    <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme</resourceType>
-   <language>en-US</language>
+   <language>en</language>
+   <formats>
+      <format>text/html</format>
+   </formats>
    <rightsList>
       <rights rightsURI="https://creativecommons.org/licenses/by-nc/4.0"/>
    </rightsList>
