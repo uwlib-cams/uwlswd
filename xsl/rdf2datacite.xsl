@@ -17,7 +17,7 @@
                 <!-- identifier should never be missing, it's how we find the correct rdf:description -->
                 <identifier identifierType="DOI">
                     <xsl:value-of
-                        select="upper-case(substring-after($description/@rdf:about, 'https://doi.org/'))"
+                        select="lower-case(substring-after($description/@rdf:about, 'https://doi.org/'))"
                     />
                 </identifier>
                 
