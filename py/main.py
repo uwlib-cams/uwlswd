@@ -23,7 +23,7 @@ def format_rdflib(abs_path):
     g.serialize(destination=abs_path, format="xml", encoding="utf8")
 
 # this function begins the process of transforming the rdf file to all other serializations 
-def process_file(file_path, fancy, schema_workflow_rdfxml):
+def process_file(file_path, fancy):
 
     # file path parsing assumes main.py is being run in top-level uwlswd 
     # AND that the file being parsed is NOT located IN uwlswd folder
@@ -55,14 +55,14 @@ PROCESSING {file_name}
     # generate html+rdfa
     # call rdf2rdfa stylesheets
 
-    # **once rdf2htmlrdfa-plusdc.xsl is not needed**
-    # replace the following if/else statement with:
-    # rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
+    rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
 
-    if schema_workflow_rdfxml == True:
-        rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
-    else: 
-        rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
+    # **rdf2htmlrdfa-plusdc.xsl for DataCite to Schema.org**
+    # ** if this becomes necessary again, schema_workflow_rdfxml needs to be passed from input to process_file()
+    # if schema_workflow_rdfxml == True:
+    #     rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa.xsl"
+    # else: 
+    #     rdf2rdfa_stylesheet = "xsl/rdf2htmlrdfa-plusdc.xsl"
 
     print(f"""\ngenerating HTML+RDFa with Schema.org data""")
     os_command = f"""java -cp {saxon_dir}/saxon-he-{saxon_version}.jar 
@@ -82,7 +82,7 @@ PROCESSING {file_name}
 
 ### SCRIPT STARTS HERE ###
 fancy = False
-schema_workflow_rdfxml = False
+# schema_workflow_rdfxml = False
 # check set-up
 print(dedent("""Please confirm:
 1) Terminal is open in the uwlswd top-level directory
@@ -124,20 +124,19 @@ def prompt_user():
 file_path = prompt_user()
 if os.path.isfile(file_path):
     if file_path.endswith('.rdf'):
-        # **once rdf2htmlrdfa-plusdc.xsl is not needed**
-        # remove schema_workflow_input and following if statement
-        schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
-If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
-> """)
-        if schema_workflow_input.lower() == 'yes':
-            schema_workflow_rdfxml = True
+        # **rdf2htmlrdfa-plusdc.xsl**
+#         schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
+# If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
+# > """)
+#         if schema_workflow_input.lower() == 'yes':
+#             schema_workflow_rdfxml = True
 
         fancy_input = input("""\nGenerate fancier HTML page? (yes/no) 
 > """)
         if fancy_input.lower() == 'yes':
             fancy = True
 
-        process_file(file_path, fancy, schema_workflow_rdfxml)
+        process_file(file_path, fancy)
     else: 
         print("Input must be an rdf file or a directory containing rdf files")
         exit()
@@ -145,13 +144,12 @@ If no, schema.org data will be generated using the DataCite metadata file locate
 elif os.path.isdir(file_path):
     complete_files = []
 
-    # **once rdf2htmlrdfa-plusdc.xsl is not needed**
-    # remove schema_workflow_input and following if statement
-    schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
-If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
-> """)
-    if schema_workflow_input.lower() == 'yes':
-        schema_workflow_rdfxml = True
+    # **rdf2htmlrdfa-plusdc.xsl**
+#     schema_workflow_input = input("""\nGenerate schema.org data from rdf/xml? 
+# If no, schema.org data will be generated using the DataCite metadata file located in UWLSWD/DataCite (yes/no) 
+# > """)
+#     if schema_workflow_input.lower() == 'yes':
+#         schema_workflow_rdfxml = True
 
     fancy = input("""\nGenerate fancier HTML pages? (yes/no) 
 > """)
@@ -168,4 +166,4 @@ If no, schema.org data will be generated using the DataCite metadata file locate
 {'=' * 20}"""))
 
     for f in complete_files:
-        process_file(f, fancy, schema_workflow_rdfxml)
+        process_file(f, fancy)
