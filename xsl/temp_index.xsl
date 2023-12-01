@@ -44,7 +44,7 @@
             </fn:map>
             <fn:string key="datePublished">2023</fn:string>
             <fn:string key="inLanguage">en</fn:string>
-            <fn:string key="encodingFormat">html</fn:string>
+            <fn:string key="encodingFormat">text/html</fn:string>
             <fn:string key="license">http://creativecommons.org/publicdomain/zero/1.0</fn:string>
         </fn:map>
     </xsl:variable>
