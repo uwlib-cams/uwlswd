@@ -37,14 +37,14 @@
         <resource>Music: music parts</resource>
     </category>
     <category label="RDF Ontology Extension">
-        <resource>RDA Application Profile Extension</resource>
+        <resource>University of Washington Libraries RDA Application Profile Extension</resource>
     </category>
     <category label="RDF Vocabularies">
         <resource>Linked Data Platform Vocabulary</resource>
         <resource>RDF Vocabulary for Linked Data Processes</resource>
-        <resource>Classes: University of Washington Libraries rdfs:Class definitions</resource>
+        <resource>University of Washington Libraries rdfs:Class Definitions</resource>
         <resource>Linked Data Platforms</resource>
-        <resource>University of Washington Libraries rdf:Property definitions</resource>
+        <resource>University of Washington Libraries rdf:Property Definitions</resource>
     </category>
     <category label="RDF Dataset Description">
         <resource>University of Washington Libraries' Semantic Web Data</resource>
