@@ -46,9 +46,6 @@
         <resource>Linked Data Platforms</resource>
         <resource>University of Washington Libraries rdf:Property Definitions</resource>
     </category>
-    <category label="RDF Dataset Description">
-        <resource>University of Washington Libraries' Semantic Web Data</resource>
-    </category>
     <category label="Linked Open Cultural Heritage Datasets">
         <resource>Instances of the SourceResource Class</resource>
         <resource>Instances of the Aggregation Class</resource>
@@ -57,5 +54,8 @@
         <resource>Instances of the RightsStatement Class</resource>
         <resource>Instances of the Agent Class</resource>
         <resource>Instances of the ProvenanceStatement Class</resource>
+    </category>
+    <category label="RDF Dataset Description">
+        <resource>VoID Description of UWLSWD Linked Open Cultural Heritage Datasets</resource>
     </category>
 </temp_index_categories>
