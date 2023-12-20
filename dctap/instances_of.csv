@@ -1,8 +1,8 @@
 ﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType,valueConstraint,valueConstraintType,Repeatable,Notes
-:instancesOf,UWLSWD 'Instances  (…)' dataset,rdf:type,type,,void:Dataset,picklist,0,
+:instancesOf,UWLSWD 'Instances  (…)' dataset,rdf:type,type,,void:Dataset,,0,
 ,,dct:title,Title,rdf:langString,,,0,
 ,,dct:description,Description,rdf:langString,,,1,
-,,schema:disambiguatingDescription,disambiguatingDescription,,"""Linked Open Cultural Heritage Dataset""@en",picklist,0,
+,,schema:disambiguatingDescription,disambiguatingDescription,,"""Linked Open Cultural Heritage Dataset""@en",,0,
 ,,dct:creator,Creator,IRI,,,1,
 ,,dct:publisher,Publisher,,<http://viaf.org/viaf/139541794>,picklist,0,
 ,,dct:issued,Date Issued,xsd:gYear,,,0,
