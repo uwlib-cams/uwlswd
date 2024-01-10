@@ -2,10 +2,10 @@
 <resource xmlns="http://datacite.org/schema/kernel-4"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-   <identifier identifierType="DOI">10.6069/UWLIB.55.B.2</identifier>
+   <identifier identifierType="DOI">10.6069/uwlib.55.b.2</identifier>
    <titles>
-      <title>RDF Vocabulary for Linked Data Processes</title>
-      <title titleType="AlternativeTitle">Reconciliation Vocabulary</title>
+      <title xml:lang="en">RDF Vocabulary for Linked Data Processes</title>
+      <title titleType="AlternativeTitle" xml:lang="en">Reconciliation Vocabulary</title>
    </titles>
    <creators>
       <creator>
@@ -23,6 +23,6 @@
       <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0/"/>
    </rightsList>
    <descriptions>
-      <description descriptionType="Other">Vocabulary for describing processes run on linked data datasets.</description>
+      <description xml:lang="en" descriptionType="Other">Vocabulary for describing processes run on linked data datasets.</description>
    </descriptions>
 </resource>
