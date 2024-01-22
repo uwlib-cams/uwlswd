@@ -184,7 +184,7 @@
                     <p>
                         <a href="https://www.lib.washington.edu/msd">University of Washington Libraries,
                             Cataloging and Metadata Services</a><br/> Box 352900, Seattle, WA 98195-2900<br/> Telephone: 206-543-1919<br/>
-                        <a href="mailto:tgis@uw.edu">tgis@uw.edu</a></p>
+                        <a href="mailto:uwlsemanticweb@uw.edu">uwlsemanticweb@uw.edu</a></p>
                 </div>
                 <xsl:call-template name="CC0-footer">
                     <xsl:with-param name="resource_title"
