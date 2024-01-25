@@ -100,7 +100,7 @@ For example: ~/saxon, c:/Users/cpayn/saxon11, etc.
 saxon_dir = input(saxon_dir_prompt)
 
 saxon_version_prompt = dedent("""Enter your Saxon HE version number (this will be in the .jar file name)
-For example: '11.1', '11.4', etc.
+For example: 11.1, 11.4, etc.
 > """)
 saxon_version = input(saxon_version_prompt)
 
