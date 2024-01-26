@@ -1,0 +1,41 @@
+UWLSWD top-level resource description: XPath (see RDF/XML serialization),DataCite metadata: XPath (see XML conforming to the DataCite Metadata Schema),"schema.org in HTML+RDFa web document: JSONPath (see html/head/script[@type+""application/ld+json""])",Notes
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/@rdf:about,/datacite:resource/datacite:identifier,$['@id'],
+,/datacite:resource/datacite:identifier/@identifierType,,"value = ""DOI"""
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:title,/datacite:resource/datacite:titles/datacite:title,$['name'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:title/@xml:lang,/datacite:resource/datacite:titles/datacite:title/@xml:lang,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:alternative,/datacitee:resource/datacite:titles/datacite:title[@titleType = 'AlternativeTitle'],$['alternateName'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:alternative/@xml:lang,/datacite:resource/datacite:titles/datacite:title[@titleType = 'AlternativeTitle']/@xml:lang,,
+,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:creator,/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName,$['creator']['name'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:creator/@xml:lang,/datacite:resource/datacite:creators/datacite:creator/datacite:creatorName/@xml:lang,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:creator/@rdf:resource,,"$['creator']['@id']
+$['creator']['sameAs']",
+,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:publisher,/datacite:resource/datacite:publisher,$['publisher']['name'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:publisher/@xml:lang,/datacite:resource/datacite:publisher/@xml:lang,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:publisher/@rdf:resource,,"$['publisher']['@id']
+$['publisher']['sameAs']",
+,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:contributor,,$['contributor']['name'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:contributor/@xml:lang,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:contributor/@rdf:about,,"$['contributor']['@id']
+$['contributor']['sameAs']",
+,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:issued,/datacite:resource/datacite:publicationYear,$['datePublished'],YYYY
+,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/schema:disambiguatingDescription,/datacite:resource/datacite:resourceType,,
+,/datacite:resource/datacite:resourceType/@resourceTypeGeneral,$['@type'],"value = ""Dataset"""
+"/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dc:language
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:language",/datacite:resource/datacite:language,$['inLanguage'],IETF BCP 47 literal values 
+,/datacite:resource/datacite:formats/datacite:format,$['encodingFormat'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:format/@rdf:resource,,,W3 resource IRI
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:hasFormat/@rdf:resource,,$['distribution'][*][?(@['@type'] == 'DataDownload')]['url'],
+,,$['distribution'][*][?(@['@type'] == 'DataDownload')]['encodingFormat'],MIME type based on $['distribution'][*][?(@['@type'] == 'DataDownload')]['url']
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:source/@rdf:resource,"/datacite:resource/datacite:relatedIdentifiers/datacite:relatedIdentifier[@relatedIdentifierType = ""URL"" and @relationType = ""isDerivedFrom""]",$['isBasedOn'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/dct:license/@rdf:resource,/datacite:resource/datacite:rightsList/datacite:rights/@rightsURI,$['license'],
+,,,
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/(dct:description|skos:scopeNote),/datacite:resource/datacite:descriptions/datacite:description,$['description'],
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource](dct:description/@xml:lang|skos:scopeNote/@xml:lang),/datacite:resource/datacite:descriptions/datacite:description/@xml:lang,,
+,/datacite:resource/datacite:descriptions/datacite:description/@descriptionType,,"if /rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/rdf:type/@rdf:resource = ""http://www.w3.org/2004/02/skos/core#ConceptScheme"", value = ""TechnicalInfo""
+otherwise value = ""Other"""
+/rdf:RDF/rdf:Description[@rdf:about = $uwlswd-top-level-resource]/schema:version,,$['version'],

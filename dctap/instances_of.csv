@@ -1,5 +1,13 @@
-﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType
-instancesOf,UWLSWD Instances Of Dataset,dct:title,Title,xsd:string
-,,dct:issued,Date Issued,xsd:gYear
-,,dct:hasFormat,Has Format,xsd:anyURI
-,,owl:versionInfo,versionInfo,xsd:string
+﻿shapeID,shapeLabel,propertyID,propertyLabel,valueDataType,valueConstraint,valueConstraintType,Repeatable,Notes
+:instancesOf,UWLSWD 'Instances  (…)' dataset,rdf:type,type,,void:Dataset,,0,
+,,dct:title,Title,rdf:langString,,,0,
+,,dct:description,Description,rdf:langString,,,1,
+,,schema:disambiguatingDescription,disambiguatingDescription,,"""Linked Open Cultural Heritage Dataset""@en",,0,
+,,dct:creator,Creator,IRI,,,1,
+,,dct:publisher,Publisher,,<http://viaf.org/viaf/139541794>,picklist,0,
+,,dct:issued,Date Issued,xsd:gYear,,,0,
+,,dct:language,Language,,en,picklist,1,
+,,schema:version,versionInfo,,/^[0-9]-[0-9]-[0-9]$/,pattern,0,
+,,dct:format,Format,,<http://www.w3.org/ns/formats/JSON-LD> <http://www.w3.org/ns/formats/N-Triples> <http://www.w3.org/ns/formats/RDFa> <http://www.w3.org/ns/formats/RDF_XML> <http://www.w3.org/ns/formats/Turtle>,picklist,0,
+,,dct:license,License,,<https://creativecommons.org/licenses/by-nc/4.0>,,0,
+,,dct:hasFormat,Has Format,IRI,,,1,

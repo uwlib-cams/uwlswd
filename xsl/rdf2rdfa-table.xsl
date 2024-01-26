@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dct="http://purl.org/dc/terms/"
     exclude-result-prefixes="#all" version="3.0">
  
  <!-- this is the core RDF-2-RDFa transform to be included in a dataset-specific custom xslt file;
@@ -20,8 +21,9 @@
                 <!-- sort by name -->
                 <xsl:sort select="name(.)"/>
                 <xsl:choose>
-                    <!-- do not include dct:hasFormat html in table -->
+                    <!-- do not include dct:hasFormat html or dct:hasFormat rdf/xml in table -->
                     <xsl:when test="contains(name(.), 'hasFormat') and contains(./@rdf:resource, 'html')"/>
+                    <xsl:when test="contains(name(.), 'format') and contains(./@rdf:resource, 'http://www.w3.org/ns/formats/RDF_XML')"/>
                     <xsl:otherwise>
                         <tr>
                             <!-- <tr about=> -->

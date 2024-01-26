@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<temp_index_categories>
+    <category label="SKOS Concept Schemes">
+        <resource>Linked Data Vocabularies: Children's Literature Categories</resource>
+        <resource>Newspaper Genre List</resource>
+    </category>
+    <category label="SKOS Concept Schemes for MARC 00X Values">
+        <resource>Music: format of music</resource>
+        <resource>Continuing: original alphabet or script of title</resource>
+        <resource>Maps: relief</resource>
+        <resource>Music: literary text of sound recordings</resource>
+        <resource>Form of material</resource>
+        <resource>Some: government publication</resource>
+        <resource>Computer: form of item</resource>
+        <resource>Continuing: form of original item</resource>
+        <resource>All: type of date or publication status</resource>
+        <resource>Maps: projection</resource>
+        <resource>Continuing: type of continuing resource</resource>
+        <resource>Some: nature of contents</resource>
+        <resource>Music: form of composition</resource>
+        <resource>Some: target audience</resource>
+        <resource>Music: transposition and arrangement</resource>
+        <resource>Some: form of item</resource>
+        <resource>Visual: technique</resource>
+        <resource>Books: literary form</resource>
+        <resource>Continuing: frequency</resource>
+        <resource>Books: illustrations</resource>
+        <resource>Continuing: nature of entire work</resource>
+        <resource>Computer: type of computer file</resource>
+        <resource>Continuing: regularity</resource>
+        <resource>Music: accompanying matter</resource>
+        <resource>Visual: type of visual material</resource>
+        <resource>Maps: special format characteristics</resource>
+        <resource>Maps: type of cartographic material</resource>
+        <resource>Books: biography</resource>
+        <resource>Continuing: entry convention</resource>
+        <resource>Music: music parts</resource>
+    </category>
+    <category label="RDF Ontology Extension">
+        <resource>University of Washington Libraries RDA Application Profile Extension</resource>
+    </category>
+    <category label="RDF Vocabularies">
+        <resource>Linked Data Platform Vocabulary</resource>
+        <resource>RDF Vocabulary for Linked Data Processes</resource>
+        <resource>University of Washington Libraries rdfs:Class Definitions</resource>
+        <resource>Linked Data Platforms</resource>
+        <resource>University of Washington Libraries rdf:Property Definitions</resource>
+    </category>
+    <category label="Linked Open Cultural Heritage Datasets">
+        <resource>Instances of the SourceResource Class</resource>
+        <resource>Instances of the Aggregation Class</resource>
+        <resource>Instances of the WebResource Class</resource>
+        <resource>Instances of the Collection Class</resource>
+        <resource>Instances of the RightsStatement Class</resource>
+        <resource>Instances of the Agent Class</resource>
+        <resource>Instances of the ProvenanceStatement Class</resource>
+    </category>
+    <category label="RDF Dataset Description">
+        <resource>VoID Description of UWLSWD Linked Open Cultural Heritage Datasets</resource>
+    </category>
+</temp_index_categories>

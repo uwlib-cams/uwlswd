@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-  <identifier identifierType="DOI">10.6069/UWLIB.55.D.2</identifier>
-  <creators>
-    <creator>
-      <creatorName>University Of Washington Libraries</creatorName>
-    </creator>
-  </creators>
-  <titles>
-    <title>Linked Data Platforms</title>
-  </titles>
-  <publisher>University of Washington Libraries</publisher>
-  <publicationYear>2018</publicationYear>
-  <resourceType resourceTypeGeneral="Dataset">RDF Vocabulary</resourceType>
-  <dates>
-    <date dateType="Issued">2018</date>
-  </dates>
-  <language>en</language>
-  <sizes>
-    <size>17 KB</size>
-  </sizes>
-  <formats>
-    <format>text/html</format>
-  </formats>
-  <version/>
-  <rightsList>
-    <rights rightsURI="https://creativecommons.org/licenses/zero/1.0">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
-  </rightsList>
-  <descriptions>
-    <description descriptionType="Abstract">Platforms (or applications) used to process RDF datasets.</description>
-  </descriptions>
+<resource xmlns="http://datacite.org/schema/kernel-4"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+   <identifier identifierType="DOI">10.6069/uwlib.55.d.2</identifier>
+   <titles>
+      <title xml:lang="en">Linked Data Platforms</title>
+   </titles>
+   <creators>
+      <creator>
+         <creatorName xml:lang="en">University of Washington Libraries</creatorName>
+      </creator>
+   </creators>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
+   <publicationYear>2018</publicationYear>
+   <resourceType resourceTypeGeneral="Dataset">RDF Vocabulary</resourceType>
+   <language>en</language>
+   <formats>
+      <format>text/html</format>
+   </formats>
+   <rightsList>
+      <rights rightsURI="https://creativecommons.org/licenses/zero/1.0"/>
+   </rightsList>
+   <descriptions>
+      <description xml:lang="en" descriptionType="Other">Platforms (or applications) used to process RDF datasets.</description>
+   </descriptions>
 </resource>

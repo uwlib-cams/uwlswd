@@ -9,26 +9,19 @@
         </creator>
     </creators>
     <titles>
-        <title xml:lang="en-US">University of Washington Libraries' Semantic Web Data</title>
-        <title titleType="AlternativeTitle" xml:lang="en-US">VoID Description of the Dataset 'University of Washington Libraries' Semantic Web Data'</title>
+        <title xml:lang="en">VoID Description of UWLSWD Linked Open Cultural Heritage Datasets</title>
     </titles>
     <publisher>University of Washington Libraries</publisher>
     <publicationYear>2018</publicationYear>
-    <resourceType resourceTypeGeneral="Dataset">LibraryData</resourceType>
+    <resourceType resourceTypeGeneral="Dataset">RDF Dataset Description</resourceType>
     <dates>
         <date dateType="Issued">2018</date>
     </dates>
-    <sizes>
-        <size>49 KB</size>
-    </sizes>
     <formats>
-        <format>XHTML+RDFa 1.1</format>
+        <format>text/html</format>
     </formats>
     <version/>
     <rightsList>
         <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
     </rightsList>
-    <descriptions>
-        <description xml:lang="en-US" descriptionType="Abstract">Landing page for linked data describing resources associated with digital collections hosted at the University of Washington Libraries. The landing page contains a VoID description of the dataset as well as the dataset, which itself is a description of the dataset's partitions. The core data can be found in the partitions.</description>
-    </descriptions>
 </resource>

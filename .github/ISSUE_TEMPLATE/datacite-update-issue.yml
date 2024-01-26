@@ -1,0 +1,36 @@
+name: DOI update issue
+description: Template for requesting an update to a resource DOI
+title: requesting DOI update
+labels: DOI/DataCite
+assignees: 
+  - gerontakos
+  - briesenberg07
+  - cspayne
+
+body: 
+  - type: input
+    id: doi
+    attributes:
+      label: DOI
+      description: "The resource's DOI"
+    validations:
+      required: true
+  - type: input
+    id: github_commit
+    attributes:
+      label: link to GitHub commit
+      description: "Provide a link to the GitHub commit where changes to the DataCite metadata file were made."
+    validations:
+      required: true
+  - type: textarea
+    id: additional_details
+    attributes:
+      label: Indicate what changes need to be made to the DOI
+      placeholder: "For example:\n
+      - changes made within the DataCite metadata file\n
+      - URL changed\n"
+  - type: input
+    id: url_change
+    attributes:
+      label: New URL
+      description: "If the URL was changed, enter the new URL"

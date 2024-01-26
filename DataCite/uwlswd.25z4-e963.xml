@@ -12,18 +12,13 @@
          <creatorName xml:lang="en">University of Washington Libraries</creatorName>
       </creator>
    </creators>
-   <contributors>
-      <contributor>
-         <contributorName xml:lang="en">Metadata Management Associates</contributorName>
-      </contributor>
-      <contributor>
-         <contributorName xml:lang="en">Library of Congress</contributorName>
-      </contributor>
-   </contributors>
    <publisher xml:lang="en">University of Washington Libraries</publisher>
    <publicationYear>2023</publicationYear>
-   <resourceType resourceTypeGeneral="Dataset">http://www.w3.org/2004/02/skos/core#ConceptScheme</resourceType>
+   <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme for MARC 00X Values</resourceType>
    <language>en</language>
+   <formats>
+      <format>text/html</format>
+   </formats>
    <relatedIdentifiers>
       <relatedIdentifier relatedIdentifierType="URL" relationType="IsDerivedFrom">https://www.loc.gov/marc/bibliographic/bd008.html</relatedIdentifier>
       <relatedIdentifier relatedIdentifierType="URL" relationType="IsDerivedFrom">http://marc21rdf.info</relatedIdentifier>

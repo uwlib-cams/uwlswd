@@ -9,13 +9,20 @@
     exclude-result-prefixes="#all"
     version="3.0">
     
+    <!-- NOTE: This script uses datacite2schemaorg.xsl to generate the Schema.org data from DataCite metadata. 
+        Once all resources meet our current guidelines, this script will not be neccessary,
+        as Schema.org data will be able to be produced directly from the RDF/XML 
+        using rdf2htmlrdfa.xsl and rdf2schemaorg.xsl -->
+    
+    <xsl:include href="https://uwlib-cams.github.io/webviews/xsl/CC0-footer.xsl"/>
+    
     <!-- using xhtml method of output BECAUSE we want closing tags on all elements -->
     <!-- note that we are ACTUALLY outputing an HTML5+RDFa doc -->
     <xsl:output omit-xml-declaration="true" method="xhtml"/>
     
     <!-- rdfa xsl -->
     <xsl:include href="rdf2rdfa-table.xsl"/>
-    <xsl:include href="dc2schemaorg.xsl"/>
+    <xsl:include href="datacite2schemaorg.xsl"/>
     
     <!-- VARIABLES -->
     <!-- file path minus .rdf extension -->
@@ -70,8 +77,11 @@
                 </title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link href="https://uwlib-cams.github.io/webviews/css/uwlswd.css" rel="stylesheet" type="text/css"/>
+               
+                <!-- favicon -->
+                <link rel="icon" type="image/png" href="https://uwlib-cams.github.io/webviews/images/book.png"/>
+                
                 <!-- schema.org content -->
-                <!-- find out what variables are fixed vs unique -->
                 <script type="application/ld+json">
                     <xsl:call-template name="schemaorgMarkup">
                         <xsl:with-param name="metadata_file_name" select="$metadata_file_name"/>
@@ -83,13 +93,14 @@
                     href="{concat($final_path, $file_name, '.nt')}"/>
                 <link rel="alternate" type="application/rdf+xml"
                     href="{concat($final_path, $file_name,'.rdf')}"/>
-                <link rel="alternate" type="application/turtle"
+                <link rel="alternate" type="text/turtle"
                     href="{concat($final_path, $file_name,'.ttl')}"/>
                 <link rel="alternate" type="application/ld+json"
                     href="{concat($final_path, $file_name,'.jsonld')}"/>
             </head>
             <body about="{$doi}">
-                <!-- Title of dataset -->
+                <!-- return to index link -->
+                <a class="return" href="https://uwlib-cams.github.io/uwlswd/">Return to all UWLSWD datasets and vocabularies</a>
                 <!-- Title of dataset -->
                 <h1>
                     <xsl:value-of select="$description/dct:title"/>
@@ -146,12 +157,12 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Subject</th>
-                            <th>Predicate</th>
-                            <th>Object</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Predicate</th>
+                            <th scope="col">Object</th>
                         </tr>
                     </thead>
-                    <!-- add missing dct:hasFormat before passing to templates -->
+                    <!-- add missing dct:hasFormat and update dct:format before passing to templates -->
                     <tbody>
                         <xsl:variable name="file_plus">
                             <xsl:copy select=".">
@@ -162,6 +173,11 @@
                                         <xsl:copy select="./dct:hasFormat[1]">
                                             <xsl:attribute name="rdf:resource">
                                                 <xsl:value-of select="concat($final_path, $file_name,'.rdf')"/>
+                                            </xsl:attribute>
+                                        </xsl:copy>
+                                        <xsl:copy select="./dct:format[1]">
+                                            <xsl:attribute name="rdf:resource">
+                                                <xsl:value-of select="'http://www.w3.org/ns/formats/RDFa'"/>
                                             </xsl:attribute>
                                         </xsl:copy>
                                     </xsl:copy>
@@ -183,15 +199,11 @@
                         <a href="mailto:tgis@uw.edu">tgis@uw.edu</a></p>
                 </div>
                 <!-- CC0 image/link, rights statement -->
-                <div class="footer_workaround"></div>
-                <footer>
-                    <div class="footer_container">
-                        <a href="http://creativecommons.org/publicdomain/zero/1.0/">
-                            <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
-                        </a>
-                        To the extent possible under law, the University of Washington Libraries has waived all copyright and related or neighboring rights to the <xsl:value-of select="$description/dct:title"/>. This work was published in the United States.
-                    </div>
-                </footer>
+                <xsl:call-template name="CC0-footer">
+                    <xsl:with-param name="resource_title"
+                        select="$description/dct:title"/>
+                    <xsl:with-param name="org" select="'cams'"/>
+                </xsl:call-template>
             </body>
         </html>
     </xsl:template>

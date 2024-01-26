@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-  <identifier identifierType="DOI">10.6069/UWLIB.55.D.4</identifier>
-  <creators>
-    <creator>
-      <creatorName nameType="Organizational">University Of Washington Libraries</creatorName>
-    </creator>
-  </creators>
-  <titles>
-    <title xml:lang="en-US">RDA Application Profile Extension</title>
-  </titles>
-  <publisher>University of Washington Libraries</publisher>
-  <publicationYear>2019</publicationYear>
-  <resourceType resourceTypeGeneral="Dataset">LibraryData</resourceType>
-  <language>en</language>
-  <rightsList>
-    <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</rights>
-  </rightsList>
-  <descriptions>
-    <description descriptionType="Abstract">Properties required to extend local RDA (Resource Description and Access) application profile. Extension required because RDA did not provide some elements/properties needed to fully describe our resources. Profile was written as part of the LD4P2 grant project in the interest of producing data entry forms in the linked data cataloging environment called Sinopia.</description>
-  </descriptions>
+<resource xmlns="http://datacite.org/schema/kernel-4"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+   <identifier identifierType="DOI">10.6069/uwlib.55.d.4</identifier>
+   <titles>
+      <title xml:lang="en">University of Washington Libraries RDA Application Profile Extension</title>
+   </titles>
+   <creators>
+      <creator>
+         <creatorName xml:lang="en">University of Washington Libraries</creatorName>
+      </creator>
+   </creators>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
+   <publicationYear>2019</publicationYear>
+   <resourceType resourceTypeGeneral="Dataset">RDF Vocabulary</resourceType>
+   <language>en</language>
+   <formats>
+      <format>text/html</format>
+   </formats>
+   <rightsList>
+      <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0/"/>
+   </rightsList>
+   <descriptions>
+      <description xml:lang="en" descriptionType="Other">Properties required to extend local RDA (Resource Description and Access) application profile. Extension required because RDA did not provide some elements/properties needed to fully describe our resources. Profile was written as part of the LD4P2 grant project in the interest of producing data entry forms in the Sinopia Linked Data Editor.</description>
+   </descriptions>
 </resource>

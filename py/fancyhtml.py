@@ -1,3 +1,6 @@
+# This script parses an html file produced using main.py
+# and adjusts formatting to create tabs displaying each serialization of the resource
+
 import lxml.etree as ET
 
 def fancify_HTML(filepath):
@@ -46,7 +49,7 @@ def fancify_HTML(filepath):
          <button class="tablinks" onclick="openTab(event, 'table')">Table View</button>
          <button class="tablinks" onclick="openTab(event, 'rdfxml')">RDF/XML</button>
          <button class="tablinks" onclick="openTab(event, 'ttl')">Turtle</button>
-         <button class="tablinks" onclick="openTab(event, 'nt')">N-Triple</button>
+         <button class="tablinks" onclick="openTab(event, 'nt')">N-Triples</button>
          <button class="tablinks" onclick="openTab(event, 'json')">JSON</button>
       </div>'''))
             
