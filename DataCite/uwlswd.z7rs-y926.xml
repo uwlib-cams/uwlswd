@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-4"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+   <identifier identifierType="DOI">10.6069/uwlswd.z7rs-y926</identifier>
+   <titles>
+      <title xml:lang="en">Motion picture: production elements</title>
+      <title titleType="AlternativeTitle" xml:lang="en">MARC21 007/09 values for motion pictures expressed using
+         RDF</title>
+   </titles>
+   <creators>
+      <creator>
+         <creatorName xml:lang="en">University of Washington Libraries</creatorName>
+      </creator>
+   </creators>
+   <publisher xml:lang="en">University of Washington Libraries</publisher>
+   <publicationYear>2024</publicationYear>
+   <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme for MARC 00X
+         Values</resourceType>
+   <language>en</language>
+   <formats>
+      <format>text/html</format>
+   </formats>
+   <relatedIdentifiers>
+      <relatedIdentifier relatedIdentifierType="URL" relationType="IsDerivedFrom">https://www.loc.gov/marc/bibliographic/bd007.html</relatedIdentifier>
+      <relatedIdentifier relatedIdentifierType="URL" relationType="IsDerivedFrom">http://marc21rdf.info</relatedIdentifier>
+   </relatedIdentifiers>
+   <rightsList>
+      <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0"/>
+   </rightsList>
+   <descriptions>
+      <description xml:lang="en" descriptionType="TechnicalInfo">Whether the film is part of a complete production or is a
+         preliminary or post-production element.</description>
+   </descriptions>
+</resource>
