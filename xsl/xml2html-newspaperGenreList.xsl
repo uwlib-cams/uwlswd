@@ -3,6 +3,12 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs"
     xmlns:marc="http://www.loc.gov/MARC21/slim" version="2.0">
 
+    <!-- 
+    MARC/XML to HTML  stylesheet
+    This output HTML published at:
+    https://www.lib.washington.edu/gmm/collections/mcnews/ngl/ 
+    -->
+    
     <xsl:key name="letter" match="//marc:record/marc:datafield/marc:subfield"
         use="substring(., 1, 1)"/>
 
@@ -21,7 +27,7 @@
 
                     <p>The original perspective and scope of the list reflected the types of papers
                         cataloged by members of the <a
-                            href="https://urldefense.com/v3/__http://www.neh.gov/projects/usnp.html__;!!K-Hz7m0Vt54!n9LcPwmenybPYrTvz1yLoEdNGuLy77rXLG9DXq9OVxOSUpHvscLm7Iii4_RqRUKrgsIqb0ze$"
+                            href="https://www.neh.gov/us-newspaper-program"
                                 ><strong>United States Newspaper Program</strong></a>. The list may
                         be updated to be more inclusive and/or to eliminate harmful language. See
                         the UW Libraries' <a
@@ -33,7 +39,7 @@
                         available in multiple serializations (RDFa, Turtle, NTriples, RDF/XML,
                         JSON-LD); MARC-XML authority records are also available. The vocabulary IRI
                         is &#160;<a
-                            href="https://urldefense.com/v3/__https://doi.org/10.6069/uwlib.55.d.5__;!!K-Hz7m0Vt54!n9LcPwmenybPYrTvz1yLoEdNGuLy77rXLG9DXq9OVxOSUpHvscLm7Iii4_RqRUKrgoaHSNOD$"
+                            href="https://doi.org/10.6069/uwlib.55.d.5"
                             >https://doi.org/10.6069/uwlib.55.d.5</a>, which derefences to the RDFa
                         version. All other versions are available from that page.</p>
 
