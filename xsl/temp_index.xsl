@@ -42,7 +42,7 @@
                 <fn:string key="@id">http://viaf.org/viaf/139541794</fn:string>
                 <fn:string key="name">University of Washington Libraries</fn:string>
             </fn:map>
-            <fn:string key="datePublished">2023</fn:string>
+            <fn:string key="datePublished">{format-date(current-date(), '[Y0001]')}</fn:string>
             <fn:string key="inLanguage">en</fn:string>
             <fn:string key="encodingFormat">text/html</fn:string>
             <fn:string key="license">http://creativecommons.org/publicdomain/zero/1.0</fn:string>
