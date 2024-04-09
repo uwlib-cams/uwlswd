@@ -1,61 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <temp_index_categories>
-    <category label="SKOS Concept Schemes">
-        <resource>Linked Data Vocabularies: Children's Literature Categories</resource>
-        <resource>Newspaper Genre List</resource>
-    </category>
-    <category label="SKOS Concept Schemes for MARC 00X Values">
-        <resource>Music: format of music</resource>
-        <resource>Continuing: original alphabet or script of title</resource>
-        <resource>Maps: relief</resource>
-        <resource>Music: literary text of sound recordings</resource>
-        <resource>Form of material</resource>
-        <resource>Some: government publication</resource>
-        <resource>Computer: form of item</resource>
-        <resource>Continuing: form of original item</resource>
-        <resource>All: type of date or publication status</resource>
-        <resource>Maps: projection</resource>
-        <resource>Continuing: type of continuing resource</resource>
-        <resource>Some: nature of contents</resource>
-        <resource>Music: form of composition</resource>
-        <resource>Some: target audience</resource>
-        <resource>Music: transposition and arrangement</resource>
-        <resource>Some: form of item</resource>
-        <resource>Visual: technique</resource>
-        <resource>Books: literary form</resource>
-        <resource>Continuing: frequency</resource>
-        <resource>Books: illustrations</resource>
-        <resource>Continuing: nature of entire work</resource>
-        <resource>Computer: type of computer file</resource>
-        <resource>Continuing: regularity</resource>
-        <resource>Music: accompanying matter</resource>
-        <resource>Visual: type of visual material</resource>
-        <resource>Maps: special format characteristics</resource>
-        <resource>Maps: type of cartographic material</resource>
-        <resource>Books: biography</resource>
-        <resource>Continuing: entry convention</resource>
-        <resource>Music: music parts</resource>
-    </category>
-    <category label="RDF Ontology Extension">
-        <resource>University of Washington Libraries RDA Application Profile Extension</resource>
-    </category>
-    <category label="RDF Vocabularies">
-        <resource>Linked Data Platform Vocabulary</resource>
-        <resource>RDF Vocabulary for Linked Data Processes</resource>
-        <resource>University of Washington Libraries rdfs:Class Definitions</resource>
-        <resource>Linked Data Platforms</resource>
-        <resource>University of Washington Libraries rdf:Property Definitions</resource>
-    </category>
-    <category label="Linked Open Cultural Heritage Datasets">
-        <resource>Instances of the SourceResource Class</resource>
-        <resource>Instances of the Aggregation Class</resource>
-        <resource>Instances of the WebResource Class</resource>
-        <resource>Instances of the Collection Class</resource>
-        <resource>Instances of the RightsStatement Class</resource>
-        <resource>Instances of the Agent Class</resource>
-        <resource>Instances of the ProvenanceStatement Class</resource>
-    </category>
-    <category label="RDF Dataset Description">
-        <resource>VoID Description of UWLSWD Linked Open Cultural Heritage Datasets</resource>
-    </category>
+   <category label="SKOS Concept Scheme">
+      <resource>Newspaper Genre List</resource>
+      <resource>Linked Data Vocabularies: Children's Literature Categories</resource>
+   </category>
+   <category label="SKOS Concept Scheme for MARC 00X Values">
+      <resource>Motion picture: specific material designation</resource>
+      <resource>Remote-sensing image: attitude of sensor</resource>
+      <resource>Music: format of music</resource>
+      <resource>Continuing: original alphabet or script of title</resource>
+      <resource>Map: specific material designation</resource>
+      <resource>Sound recording: configuration of playback channels</resource>
+      <resource>Tactile material: class of braille writing</resource>
+      <resource>Maps: relief</resource>
+      <resource>Music: literary text of sound recordings</resource>
+      <resource>Form of material</resource>
+      <resource>Some: government publication</resource>
+      <resource>Projected graphic: dimensions</resource>
+      <resource>Computer: form of item</resource>
+      <resource>Tactile material: level of contraction</resource>
+      <resource>Globe: type of reproduction</resource>
+      <resource>Remote-sensing image: platform use category</resource>
+      <resource>Nonprojected graphic: color</resource>
+      <resource>Microform: base of film</resource>
+      <resource>Continuing: form of original item</resource>
+      <resource>All: type of date or publication status</resource>
+      <resource>Electronic resource: color</resource>
+      <resource>Motion picture: generation</resource>
+      <resource>Sound recording: tape width</resource>
+      <resource>Maps: projection</resource>
+      <resource>Map: physical medium</resource>
+      <resource>Motion picture: color</resource>
+      <resource>Sound recording: kind of disc, cylinder or tape</resource>
+      <resource>Sound recording: dimensions</resource>
+      <resource>Some: undefined</resource>
+      <resource>Continuing: type of continuing resource</resource>
+      <resource>Books: nature of contents</resource>
+      <resource>Motion picture: kind of color stock or print</resource>
+      <resource>Projected graphic: sound on medium or separate</resource>
+      <resource>Nonprojected graphic: primary support material</resource>
+      <resource>Music: form of composition</resource>
+      <resource>Electronic resource: reformatting quality</resource>
+      <resource>Sound recording: groove width/groove pitch</resource>
+      <resource>Motion picture: completeness</resource>
+      <resource>Videorecording: medium for sound</resource>
+      <resource>Tactile material: braille music format</resource>
+      <resource>Sound recording: special playback characteristics</resource>
+      <resource>Motion picture: sound on medium or separate</resource>
+      <resource>Some: target audience</resource>
+      <resource>Music: transposition and arrangement</resource>
+      <resource>Videorecording: format</resource>
+      <resource>Motion picture: positive/negative aspect</resource>
+      <resource>Microform: generation</resource>
+      <resource>Electronic resource: antecedent/source</resource>
+      <resource>Projected graphic: color</resource>
+      <resource>Motion picture: presentation format</resource>
+      <resource>Globe: color</resource>
+      <resource>Continuing: nature of contents</resource>
+      <resource>Videorecording: color</resource>
+      <resource>Map: production/reproduction details</resource>
+      <resource>Projected graphic: Base of emulsion</resource>
+      <resource>Globe: physical medium</resource>
+      <resource>Motion picture: deterioration stage</resource>
+      <resource>Some: form of item</resource>
+      <resource>Remote-sensing image: platform construction type</resource>
+      <resource>Visual: technique</resource>
+      <resource>Sound recording: specific material designation</resource>
+      <resource>Microform: dimensions</resource>
+      <resource>Text: specific material designation</resource>
+      <resource>Motion picture: configuration of playback channels</resource>
+      <resource>Microform: specific material designation</resource>
+      <resource>Books: literary form</resource>
+      <resource>Sound recording: tape configuration</resource>
+      <resource>Remote-sensing image: specfic material designation</resource>
+      <resource>Remote-sensing image: altitude of sensor</resource>
+      <resource>Motion picture: base of film</resource>
+      <resource>Remote-sensing image: data type</resource>
+      <resource>Motion picture: refined categories of color</resource>
+      <resource>Continuing: frequency</resource>
+      <resource>Microform: reduction ratio range</resource>
+      <resource>Books: illustrations</resource>
+      <resource>Nonprojected graphic: specific material designation</resource>
+      <resource>All: category of material</resource>
+      <resource>Sound recording: kind of material</resource>
+      <resource>Electronic resource: level of compression</resource>
+      <resource>Map: type of reproduction</resource>
+      <resource>Continuing: nature of entire work</resource>
+      <resource>Electronic resource: quality assurance targets</resource>
+      <resource>Tactile material: specific material designation</resource>
+      <resource>Projected graphic: specific material designation</resource>
+      <resource>Map: positive/negative aspect</resource>
+      <resource>Sound recording: speed</resource>
+      <resource>Microform: emulsion on film</resource>
+      <resource>Computer: type of computer file</resource>
+      <resource>Projected graphic: secondary support material</resource>
+      <resource>Videorecording: specific material designation</resource>
+      <resource>Continuing: regularity</resource>
+      <resource>Music: accompanying matter</resource>
+      <resource>Sound recording: kind of cutting</resource>
+      <resource>Electronic resource: specific material designation</resource>
+      <resource>Visual: type of visual material</resource>
+      <resource>Electronic resource: sound</resource>
+      <resource>Videorecording: configuration of playback channels</resource>
+      <resource>Maps: special format characteristics</resource>
+      <resource>Tactile material: special physical characteristics</resource>
+      <resource>Electronic resouce: file formats</resource>
+      <resource>Remote-sensing image: sensor type</resource>
+      <resource>Microform: positive/negative aspect</resource>
+      <resource>Electronic resource: dimensions</resource>
+      <resource>Sound recording: original capture and storage technique</resource>
+      <resource>Videorecording: dimensions</resource>
+      <resource>Videorecording: sound on medium or separate</resource>
+      <resource>Maps: type of cartographic material</resource>
+      <resource>Nonprojected graphic: secondary support material</resource>
+      <resource>Motion picture: medium for sound</resource>
+      <resource>Books: biography</resource>
+      <resource>Microform: color</resource>
+      <resource>Remote-sensing image: cloud cover</resource>
+      <resource>Motion picture: dimensions</resource>
+      <resource>Globe: specific material designation</resource>
+      <resource>Projected graphic: medium for sound</resource>
+      <resource>Continuing: entry convention</resource>
+      <resource>Music: music parts</resource>
+      <resource>Motion picture: production elements</resource>
+      <resource>Map: color</resource>
+   </category>
+   <category label="RDF Vocabulary">
+      <resource>Linked Data Platform Vocabulary</resource>
+      <resource>RDF Vocabulary for Linked Data Processes</resource>
+      <resource>University of Washington Libraries rdfs:Class Definitions</resource>
+      <resource>Linked Data Platforms</resource>
+      <resource>University of Washington Libraries rdf:Property Definitions</resource>
+      <resource>University of Washington Libraries RDA Application Profile Extension</resource>
+   </category>
+   <category label="Linked Open Cultural Heritage Dataset">
+      <resource>Instances of the SourceResource Class</resource>
+      <resource>Instances of the Aggregation Class</resource>
+      <resource>Instances of the WebResource Class</resource>
+      <resource>Instances of the Collection Class</resource>
+      <resource>Instances of the RightsStatement Class</resource>
+      <resource>Instances of the Agent Class</resource>
+      <resource>Instances of the ProvenanceStatement Class</resource>
+   </category>
+   <category label="RDF Dataset Description">
+      <resource>VoID Description of UWLSWD Linked Open Cultural Heritage Datasets</resource>
+   </category>
+   
+  
+   
+   
 </temp_index_categories>
