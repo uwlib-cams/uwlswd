@@ -2,10 +2,10 @@
 <resource xmlns="http://datacite.org/schema/kernel-4"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-   <identifier identifierType="DOI">10.6069/uwlswd.dh5m-5y16</identifier>
+   <identifier identifierType="DOI">10.6069/uwlswd.fr5p-1828</identifier>
    <titles>
-      <title xml:lang="en">Some: form of item</title>
-      <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/23 values for some materials expressed using RDF</title>
+      <title xml:lang="en">Visual: form of item</title>
+      <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/29 values for visual materials expressed using RDF</title>
    </titles>
    <creators>
       <creator>
