@@ -7,7 +7,8 @@
     xmlns:dct="http://purl.org/dc/terms/"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:void="http://rdfs.org/ns/void#">
+    xmlns:void="http://rdfs.org/ns/void#"
+    xmlns:schema="https://schema.org/">
     <!-- 
     MARC Authority fields present in NGL MARC Authority records:
         001 >> incorporated in concept IRI.
@@ -47,7 +48,7 @@
             xmlns:void="http://rdfs.org/ns/void#">
             <rdf:Description rdf:about="https://doi.org/10.6069/uwlib.55.d.5">
                 <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
-                <schema:additionalType xml:lang="en">SKOS Concept Scheme</schema:additionalType>
+                <schema:disambiguatingDescription xml:lang="en">SKOS Concept Scheme</schema:disambiguatingDescription>
                 <dc:creator xml:lang="en">University of Washington Libraries Government Publications, Maps, Microforms and Newspapers</dc:creator>
                 <dct:title xml:lang="en">Newspaper Genre List</dct:title>
                 <dc:publisher xml:lang="en">University of Washington Libraries</dc:publisher>
