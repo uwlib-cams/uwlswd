@@ -39,7 +39,7 @@
     <xsl:template match="/">
         <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
             xmlns:dct="http://purl.org/dc/terms/"
-            xmlns:schema="http://schema.org/"
+            xmlns:schema="https://schema.org/"
             xmlns:ldproc="https://doi.org/10.6069/uwlib.55.b.2#"
             xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#"
             xmlns:owl="http://www.w3.org/2002/07/owl#"
