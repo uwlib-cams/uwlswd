@@ -70,7 +70,7 @@
                     rdf:resource="https://www.lib.washington.edu/gmm/collections/mcnews/ngl/"/>
                 <dct:license rdf:resource="http://creativecommons.org/publicdomain/zero/1.0"/>
                 <dct:description xml:lang="en">Terms used to designate genres of newspapers.</dct:description>
-                <schema:version>1-1-1</schema:version>
+                <schema:version>1-1-2</schema:version>
                 <dc:contributor>Jessica Albano</dc:contributor>
                 <rdfs:seeAlso rdf:resource="http://www.wikidata.org/entity/Q106632466"/>
              </rdf:Description>
