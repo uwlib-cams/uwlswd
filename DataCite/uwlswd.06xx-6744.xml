@@ -2,7 +2,7 @@
 <resource xmlns="http://datacite.org/schema/kernel-4"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-   <identifier identifierType="DOI">10.6069/UWLSWD.06XX-6744</identifier>
+   <identifier identifierType="DOI">10.6069/uwlswd.06xx-6744</identifier>
    <titles>
       <title xml:lang="en">Music: format of music</title>
       <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/20 values for music expressed using RDF</title>

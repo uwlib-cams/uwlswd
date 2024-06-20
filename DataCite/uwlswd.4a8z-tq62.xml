@@ -2,7 +2,7 @@
 <resource xmlns="http://datacite.org/schema/kernel-4"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-   <identifier identifierType="DOI">10.6069/UWLSWD.4A8Z-TQ62</identifier>
+   <identifier identifierType="DOI">10.6069/uwlswd.4a8z-tq62</identifier>
    <titles>
       <title xml:lang="en">All: type of date or publication status</title>
       <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/06 values for all materials expressed using RDF</title>
