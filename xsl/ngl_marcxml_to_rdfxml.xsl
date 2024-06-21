@@ -59,7 +59,7 @@
                 <dct:hasFormat
                     rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.html"/>
                 <dct:hasFormat
-                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.json"/>
+                    rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.jsonld"/>
                 <dct:hasFormat
                     rdf:resource="https://uwlib-cams.github.io/uwlswd_ngl/newspaper_genre_list.nt"/>
                 <dct:hasFormat
@@ -70,7 +70,7 @@
                     rdf:resource="https://www.lib.washington.edu/gmm/collections/mcnews/ngl/"/>
                 <dct:license rdf:resource="http://creativecommons.org/publicdomain/zero/1.0"/>
                 <dct:description xml:lang="en">Terms used to designate genres of newspapers.</dct:description>
-                <schema:version>1-1-2</schema:version>
+                <schema:version>1-1-3</schema:version>
                 <dc:contributor>Jessica Albano</dc:contributor>
                 <rdfs:seeAlso rdf:resource="http://www.wikidata.org/entity/Q106632466"/>
              </rdf:Description>
@@ -88,7 +88,7 @@
                 </xsl:for-each>
             </xsl:for-each>
             <!-- 155=skos:prefLabel -->
-            <skos:prefLabel xml:lang="eng">
+            <skos:prefLabel xml:lang="en">
                 <xsl:value-of select="marc:datafield[@tag = '155']"/>
             </skos:prefLabel>
             <!-- 260=skos:note -->
