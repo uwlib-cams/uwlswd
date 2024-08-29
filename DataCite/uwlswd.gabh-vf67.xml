@@ -2,10 +2,10 @@
 <resource xmlns="http://datacite.org/schema/kernel-4"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
-   <identifier identifierType="DOI">10.6069/uwlswd.eje7-jq11</identifier>
+   <identifier identifierType="DOI">10.6069/uwlswd.gabh-vf67</identifier>
    <titles>
-      <title xml:lang="en">Visual: technique</title>
-      <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/34 values for visual materials expressed using RDF</title>
+      <title xml:lang="en">All: date entered on file</title>
+      <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/00-05 values for all materials expressed using RDF</title>
    </titles>
    <creators>
       <creator>
@@ -13,7 +13,7 @@
       </creator>
    </creators>
    <publisher xml:lang="en">University of Washington Libraries</publisher>
-   <publicationYear>2023</publicationYear>
+   <publicationYear>2024</publicationYear>
    <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme for MARC 00X Values</resourceType>
    <language>en</language>
    <formats>
@@ -27,6 +27,6 @@
       <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0"/>
    </rightsList>
    <descriptions>
-      <description xml:lang="en" descriptionType="TechnicalInfo">Indicates the technique used in creating motion in motion pictures or videorecordings.</description>
+      <description xml:lang="en" descriptionType="TechnicalInfo">Indicates the date the MARC was created. Recorded in the pattern yymmdd.</description>
    </descriptions>
 </resource>
