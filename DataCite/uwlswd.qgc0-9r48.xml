@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
    <identifier identifierType="DOI">10.6069/uwlswd.qgc0-9r48</identifier>
    <titles>
-      <title xml:lang="en">Visual: running time</title>
-      <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/18-20 values for visual materials expressed using RDF</title>
+      <title xml:lang="en">Visual: type of visual material</title>
+      <title titleType="AlternativeTitle" xml:lang="en">MARC21 008/33 values for visual materials expressed using RDF</title>
    </titles>
    <creators>
       <creator>
@@ -13,7 +13,7 @@
       </creator>
    </creators>
    <publisher xml:lang="en">University of Washington Libraries</publisher>
-   <publicationYear>2024</publicationYear>
+   <publicationYear>2023</publicationYear>
    <resourceType resourceTypeGeneral="Dataset">SKOS Concept Scheme for MARC 00X Values</resourceType>
    <language>en</language>
    <formats>
@@ -27,6 +27,6 @@
       <rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0"/>
    </rightsList>
    <descriptions>
-      <description xml:lang="en" descriptionType="TechnicalInfo">Indicates the total running time of the motion picture or videorecording.</description>
+      <description xml:lang="en" descriptionType="TechnicalInfo">Indicates the type of visual material being described.</description>
    </descriptions>
 </resource>
