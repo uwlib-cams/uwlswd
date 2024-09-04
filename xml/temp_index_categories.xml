@@ -124,6 +124,19 @@
       <resource>Music: music parts</resource>
       <resource>Motion picture: production elements</resource>
       <resource>Map: color</resource>
+      <resource>Books: conference publication</resource>
+      <resource>Books: festschrift</resource>
+      <resource>Maps: index</resource>
+      <resource>Continuing: conference publication</resource>
+      <resource>Books: index</resource>
+      <resource>All: cataloging source</resource>
+      <resource>All: place of publication production execution</resource>
+      <resource>All: modified record</resource>
+      <resource>All: language</resource>
+      <resource>All: date entered on file</resource>
+      <resource>All: date 1</resource>
+      <resource>All: date 2</resource>
+      <resource>Visual: running time</resource>
    </category>
    <category label="RDF Vocabulary">
       <resource>Linked Data Platform Vocabulary</resource>

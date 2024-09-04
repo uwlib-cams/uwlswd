@@ -86,6 +86,7 @@
                     <xsl:for-each select="$temp_index_categories/category">
                         <h3 id="{replace(@label, ' ', '')}">{@label}</h3>
                         <xsl:for-each select="resource">
+                            <xsl:sort select="."/>
                             <xsl:variable name="URL"
                                 select="concat('https://doi.org/', key('datacite', ., $doi_title_desc)/doi)"/>
                             <h4>{.}</h4>
